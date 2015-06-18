@@ -435,8 +435,8 @@
 (global-set-key "\M-\r" 'shell-resync-dirs)
 
 ;; shortcut shell
-(global-set-key (kbd "M-!") 'shell)
-(global-set-key (kbd "M-;") 'multishell)
+(global-set-key (kbd "M-/") 'shell)
+(global-set-key (kbd "M-.") 'multishell)
 (fset 'multishell
       "\C-u\C-[xshell")
 
@@ -452,12 +452,12 @@
   (switch-to-buffer-other-window "*tmp*")
   (find-file "/home/julien/todo")
   (kill-buffer "*tmp*"))
-(global-set-key (kbd "C-x `") 'todo)
+(global-set-key (kbd "C-x `") 'todo_direct)
 
 (defun todo_direct()
   (interactive)
   (find-file "/home/julien/todo"))
-;;(global-set-key (kbd "C-x ") 'todo_direct)
+(global-set-key (kbd "C-c `") 'todo)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
