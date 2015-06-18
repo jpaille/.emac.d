@@ -450,14 +450,14 @@
 (defun todo()
   (interactive)
   (switch-to-buffer-other-window "*tmp*")
-  (find-file "/home/julien/todo")
+  (find-file "~/todo")
   (kill-buffer "*tmp*"))
-(global-set-key (kbd "C-x `") 'todo_direct)
+(global-set-key (kbd "C-x [") 'todo_direct)
 
 (defun todo_direct()
   (interactive)
-  (find-file "/home/julien/todo"))
-(global-set-key (kbd "C-c `") 'todo)
+  (find-file "~/todo"))
+(global-set-key (kbd "C-c [") 'todo)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
