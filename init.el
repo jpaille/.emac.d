@@ -3,7 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(setq load-path (cons "/edx/app/edxapp/.emacs.d" load-path))
+;;(setq load-path (cons "/edx/app/edxapp/.emacs.d" load-path))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                PACKAGE.EL                               ;; 
