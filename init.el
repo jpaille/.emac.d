@@ -185,6 +185,10 @@
 (global-set-key (kbd "C-x c") 'comment-region)
 (global-set-key (kbd "C-x v") 'uncomment-region)
 
+(defun go_to_conf()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+(global-set-key (kbd "C-x <home>") 'go_to_conf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                               IDO                                       ;; 
