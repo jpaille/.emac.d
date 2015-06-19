@@ -204,18 +204,18 @@
 (setq ido-create-new-buffer 'always)
 
 ;; make ido display choices vertically
-(setq ido-separator "\n")
+;;(setq ido-separator "\n")
 
 ;; display any item that contains the chars you typed
-(setq ido-enable-flex-matching t)
+;;(setq ido-enable-flex-matching t)
 
-(defun ido-define-keys () ;; C-n/p is more intuitive in vertical layout
-  (define-key ido-completion-map (kbd "M-n") 'ido-next-match)
-  (define-key ido-completion-map (kbd "M-p") 'ido-prev-match)
-  (define-key ido-completion-map (kbd "C-p") 'ido-prev-work-directory)
-  (define-key ido-completion-map (kbd "C-n") 'ido-next-work-directory))
+;;(defun ido-define-keys () ;; C-n/p is more intuitive in vertical layout
+  ;; (define-key ido-completion-map (kbd "M-n") 'ido-next-match)
+  ;; (define-key ido-completion-map (kbd "M-p") 'ido-prev-match)
+  ;; (define-key ido-completion-map (kbd "C-p") 'ido-prev-work-directory)
+  ;; (define-key ido-completion-map (kbd "C-n") 'ido-next-work-directory))
 
-(add-hook 'ido-setup-hook 'ido-define-keys)
+;;qd-hook 'ido-setup-hook 'ido-define-keys)
 
 ;; remove useless buffer from buffer list
 (setq ido-ignore-buffers '("^ " "*Completions*" "*Shell Command Output*"
@@ -265,7 +265,7 @@
 	))
 
 (global-set-key (kbd "C-x p") 'jedi:goto-definition)
-(global-set-key (kbd "C-x $") 'jedi:goto-definition-pop-marker)
+(global-set-key (kbd "C-x ]") 'jedi:goto-definition-pop-marker)
 (global-set-key (kbd "C-x =") 'jedi:show-doc)
 
 ;; import debug python
@@ -369,6 +369,24 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+;;To prevent this message from being shown each time you start
+;;Emacs, you must add the following line to your init file:
+(setq magit-last-seen-setup-instructions "1.4.0")
+
+(defun magit-status-edx()
+  (interactive)
+  (magit-status "/edx/app/edxapp/edx-platform"))
+(global-set-key (kbd "C-<f11>") 'magit-status-edx)
+
+(defun magit-status-fun()
+  (interactive)
+  (magit-status "/edx/app/edxapp/fun-apps"))
+(global-set-key (kbd "C-<f12>") 'magit-status-fun)
+
+(defun magit-status-fun-theme()
+  (interactive)
+  (magit-status "/edx/app/edxapp/themes/fun"))
+(global-set-key (kbd "C-<f10>") 'magit-status-fun-theme)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                C                                        ;; 
@@ -407,7 +425,10 @@
 (interactive)
 (insert "git gr \"\"")
 (backward-char 1))
-(global-set-key "\C-xg" 'git_grep)
+(global-set-key "\C-cg" 'git_grep)
+
+;; grep mode
+(global-set-key "\C-xg" 'rgrep)
 
 ;; Git graph
 (fset 'gitgg
@@ -425,7 +446,7 @@
   (local-set-key (kbd "C-x C-e") 'comint-show-maximum-output)
   (define-key (kbd "M-,") 'comint-previous-input))
 
-(add-hook 'shell-mode-hook 'mp-add-shell-keys)
+;;(add-hook 'shell-mode-hook 'mp-add-shell-keys)
 
 (define-key shell-mode-map (kbd "M-p") nil)
 (define-key shell-mode-map (kbd "M-n") nil)
@@ -439,12 +460,30 @@
 (global-set-key "\M-\r" 'shell-resync-dirs)
 
 ;; shortcut shell
-(global-set-key (kbd "M-/") 'shell)
-(global-set-key (kbd "M-.") 'multishell)
-(fset 'multishell
-      "\C-u\C-[xshell")
+(defun spawn-shell (name)
+  (interactive "MName of shell buffer to create: ")
+  (pop-to-buffer (get-buffer-create (generate-new-buffer-name name)))
+  (shell (current-buffer)))
+(global-set-key (kbd "M-.") 'spawn-shell)
 
-;; remote shell
+(defun start-shells()
+  (get-buffer-create "*shell*")
+  (get-buffer-create "*oo*")
+  (shell "*shell*")
+  (shell "*oo*"))
+(start-shells)
+;; start fun development server
+(defun start-fun-server()
+  (interactive)
+  (get-buffer-create "*lms*")
+  (shell "*lms*")
+  (shell "*cms*")
+  (process-send-string "*lms*" "funlms\n")
+  (process-send-string "*cms*" "funcms\n"))
+(start-fun-server)
+
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                TODO                                     ;; 
