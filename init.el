@@ -99,6 +99,7 @@
  '(erc-prompt-face ((t (:foreground "Black" :weight bold))))
  '(font-lock-comment-face ((t (:foreground "brown"))))
  '(highlight ((t (:weight bold))))
+ '(ido-first-match ((t (:foreground "green" :weight bold))))
  '(magit-branch ((t (:foreground "LightSkyBlue4"))))
  '(magit-item-highlight ((t (:inherit nil))))
  '(magit-log-head-label-local ((t (:foreground "LightSkyBlue4" :box 1))))
@@ -181,8 +182,8 @@
 (global-set-key (kbd "M-<down>") 'shrink-window)
 (global-set-key (kbd "M-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "M-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "<home>") 'beginning-of-buffer)
-(global-set-key (kbd "<end>") 'end-of-buffer)
+(global-set-key (kbd "C-x -") 'beginning-of-buffer)
+(global-set-key (kbd "C-x =") 'end-of-buffer)
 ;;(global-set-key (kbd "M-:") 'dabbrev-expand)
 (global-set-key (kbd "C-x l") 'find-file-at-point) ;; shell need to be sync
 (global-set-key (kbd "C-x C-f") 'ido-find-file) ;; shell need to be sync
@@ -214,10 +215,10 @@
 ;;(setq ido-enable-flex-matching t)
 
 ;;(defun ido-define-keys () ;; C-n/p is more intuitive in vertical layout
-  ;; (define-key ido-completion-map (kbd "M-n") 'ido-next-match)
-  ;; (define-key ido-completion-map (kbd "M-p") 'ido-prev-match)
-  ;; (define-key ido-completion-map (kbd "C-p") 'ido-prev-work-directory)
-  ;; (define-key ido-completion-map (kbd "C-n") 'ido-next-work-directory))
+;; (define-key ido-completion-map (kbd "M-n") 'ido-next-match)
+;; (define-key ido-completion-map (kbd "M-p") 'ido-prev-match)
+;; (define-key ido-completion-map (kbd "C-p") 'ido-prev-work-directory)
+;; (define-key ido-completion-map (kbd "C-n") 'ido-next-work-directory))
 
 ;;qd-hook 'ido-setup-hook 'ido-define-keys)
 
@@ -310,6 +311,7 @@
 
 
 (global-set-key (kbd "C-x j") 'flycheck-mode)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                JS                                       ;; 
