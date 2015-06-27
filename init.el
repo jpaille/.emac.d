@@ -546,4 +546,11 @@
 ;;                                TRAMP                                    ;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq tramp-default-method "ssh")
+;; (setq tramp-default-method "ssh")
+;; (add-to-list 'tramp-default-proxies-alist
+;;          '("cargolms02" nil "/ssh:master@infraansible.cines.fr:"))
+
+;; (defun infra-shell () 
+;;   (interactive)
+;;   (let ((default-directory "/ssh:master@infraansible.cines.fr:/"))
+;;     (shell)))
