@@ -70,6 +70,7 @@
  '(flycheck-javascript-jshint-executable "/edx/app/edxapp/node_modules/jshint/bin/jshint")
  '(ido-default-file-method (quote selected-window))
  '(line-number-mode 1)
+ '(magit-diff-options nil)
  '(magit-save-some-buffers nil)
  '(mark-even-if-inactive t)
  '(mmm-submode-decoration-level 0)
@@ -140,6 +141,10 @@
 
 ;; show white spaces
 (global-set-key (kbd "C-x w") 'whitespace-mode)
+
+;; undo
+(global-set-key (kbd "C-w") 'undo)
+
 ;; make whitespace-mode use just basic coloring
 (setq whitespace-style (quote (spaces tabs newline space-mark tab-mark newline-mark)))
 
@@ -280,7 +285,7 @@
 
 
 (fset 'doctrings
-   "\"\"\" Submit 'generate_answers_distribution_report' task to celery.
+   "\"\"\"Submit 'generate_answers_distribution_report' task to celery.
     Args:
          course_id (str): The course id as string.
          problem_id (str): The problem id as string.
@@ -289,7 +294,7 @@
          Redirect to Report Manager dashboard.
      \"\"\"")
 
-(global-set-key (kbd "C-x _") 'doctrings)
+(global-set-key (kbd "C-x -") 'doctrings)
 ;; settings 
 (fset 'test_fun
    "fun lms.test test")
@@ -354,6 +359,7 @@
 (add-to-list 'auto-mode-alist '("\\.mako\\'" . web-mode)) 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (setq web-mode-engines-alist '(("mako" . "\\.html\\'") ))
+(setq web-mode-engines-alist '(("django" . "\\.html\\'") ))
 
 (defun web-mode-keys ()
   (local-set-key (kbd "C-M-n") 'web-mode-element-end)
