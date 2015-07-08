@@ -68,7 +68,14 @@
  '(display-time-mode t)
  '(flycheck-idle-change-delay 0)
  '(flycheck-javascript-jshint-executable "/edx/app/edxapp/node_modules/jshint/bin/jshint")
+ '(ido-create-new-buffer (quote always))
  '(ido-default-file-method (quote selected-window))
+ '(ido-everywhere t)
+ '(ido-ignore-buffers
+   (quote
+    ("^((?!fun-apps).)*$" "*Completions*" "*Shell Command Output*" "*Messages*")))
+ '(ido-mode (quote both) nil (ido))
+ '(ido-show-dot-for-dired nil)
  '(line-number-mode 1)
  '(magit-diff-options nil)
  '(magit-save-some-buffers nil)
@@ -464,7 +471,7 @@
 (define-key shell-mode-map (kbd "M-n") nil)
 
 (global-set-key  (kbd "M-o") 'comint-previous-input)
-(global-set-key  (kbd "M-,") 'comint-next-input)
+(global-set-key  (kbd "M-m") 'comint-next-input)
 
 
 
