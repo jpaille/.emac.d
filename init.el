@@ -112,6 +112,7 @@
  '(magit-item-highlight ((t (:inherit nil))))
  '(magit-log-head-label-local ((t (:foreground "LightSkyBlue4" :box 1))))
  '(magit-log-head-label-remote ((t (:foreground "OliveDrab4" :box 1))))
+ '(magit-log-head-label-tags ((t (:foreground "green" :box 1))))
  '(magit-tag ((t (:foreground "goldenrod4"))))
  '(match ((t (:foreground "magenta"))))
  '(minibuffer-prompt ((t (:foreground "red"))))
@@ -567,3 +568,5 @@
 ;;   (interactive)
 ;;   (let ((default-directory "/ssh:master@infraansible.cines.fr:/"))
 ;;     (shell)))
+(add-hook 'comint-exec-hook
+	        (lambda () (set-process-query-on-exit-flag (get-buffer-process (current-buffer)) nil)))
