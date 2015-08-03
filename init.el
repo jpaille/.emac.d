@@ -492,7 +492,7 @@
   (shell "*shell*")
   (shell "*oo*"))
 (start-shells)
-;; start fun development server
+
 (defun start-fun-server()
   (interactive)
   (get-buffer-create "*lms*")
@@ -500,7 +500,12 @@
   (shell "*cms*")
   (process-send-string "*lms*" "funlms\n")
   (process-send-string "*cms*" "funcms\n"))
-(start-fun-server)
+
+;; start fun development server
+(setq user (getenv "USER"))
+(if (string= user "edxapp")
+    (start-fun-server))
+
 
 
 
