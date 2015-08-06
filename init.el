@@ -79,6 +79,7 @@
  '(line-number-mode 1)
  '(magit-diff-options nil)
  '(magit-save-some-buffers nil)
+ '(magit-status-buffer-switch-function (quote switch-to-buffer))
  '(mark-even-if-inactive t)
  '(mmm-submode-decoration-level 0)
  '(show-paren-mode t))
