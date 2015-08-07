@@ -519,13 +519,13 @@
 (defun todo()
   (interactive)
   (switch-to-buffer-other-window "*tmp*")
-  (find-file "~/todo")
+  (find-file "~/todo/todo")
   (kill-buffer "*tmp*"))
 (global-set-key (kbd "C-x [") 'todo_direct)
 
 (defun todo_direct()
   (interactive)
-  (find-file "~/todo"))
+  (find-file "~/todo/todo"))
 (global-set-key (kbd "C-c [") 'todo)
 
 
