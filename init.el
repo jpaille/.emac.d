@@ -105,6 +105,7 @@
  '(ediff-even-diff-A ((t (:foreground "red3" :weight bold))))
  '(ediff-even-diff-B ((t (:foreground "blue3" :weight bold))))
  '(emms-playlist-track-face ((t (:foreground "green"))))
+ '(epa-string ((t (:foreground "red"))))
  '(erc-prompt-face ((t (:foreground "Black" :weight bold))))
  '(font-lock-comment-face ((t (:foreground "brown"))))
  '(highlight ((t (:weight bold))))
@@ -367,8 +368,8 @@
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.mako\\'" . web-mode)) 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(setq web-mode-engines-alist '(("mako" . "\\.html\\'") ))
 (setq web-mode-engines-alist '(("django" . "\\.html\\'") ))
+(setq web-mode-engines-alist '(("mako" . "\\.html\\'") ))
 
 (defun web-mode-keys ()
   (local-set-key (kbd "C-M-n") 'web-mode-element-end)
