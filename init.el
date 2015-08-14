@@ -3,7 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;;(setq load-path (cons "/edx/app/edxapp/.emacs.d" load-path))
+(setq user (getenv "USER"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                PACKAGE.EL                               ;; 
@@ -275,14 +275,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; set all edx sys-path for jedi mode
-(setq jedi:server-args
-      '("--virtual-env" "/edx/app/edxapp/venvs/edxapp"
-	"--sys-path" "/edx/app/edxapp/edx-platform"
-	"--sys-path" "/edx/app/edxapp/edx-platform/lms/djangoapps"
-	"--sys-path" "/edx/app/edxapp/edx-platform/common/djangoapps"
-	"--sys-path" "/edx/app/edxapp/edx-platform/cms/djangoapps"
-	"--sys-path" "/edx/app/edxapp/fun-config"
-	))
+(if (string= user "edxapp")
+    (setq jedi:server-args
+	  '("--virtual-env" "/edx/app/edxapp/venvs/edxapp"
+	    "--sys-path" "/edx/app/edxapp/edx-platform"
+	    "--sys-path" "/edx/app/edxapp/edx-platform/lms/djangoapps"
+	    "--sys-path" "/edx/app/edxapp/edx-platform/common/djangoapps"
+	    "--sys-path" "/edx/app/edxapp/edx-platform/cms/djangoapps"
+	    "--sys-path" "/edx/app/edxapp/fun-config"
+	    ))
+  )
 
 (global-set-key (kbd "C-x p") 'jedi:goto-definition)
 (global-set-key (kbd "C-x ]") 'jedi:goto-definition-pop-marker)
@@ -504,7 +506,6 @@
   (process-send-string "*cms*" "funcms\n"))
 
 ;; start fun development server
-(setq user (getenv "USER"))
 (if (string= user "edxapp")
     (start-fun-server))
 
