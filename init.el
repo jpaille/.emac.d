@@ -332,10 +332,12 @@
 
 ;; kill edx server
 (defun kill-edx-servers()
-    (shell-command COMMAND &optional OUTPUT-BUFFER ERROR-BUFFER)
-  )
+  (interactive)
+  (shell-command "pkill -1 -f fun"))
 
-(global-set-key (kbd "C-x j") 'pkill -1 -f fun)
+(global-set-key (kbd "C-c 8") 'kill-edx-servers)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                JS                                       ;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -552,6 +554,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (global-set-key [f5] 'magit-status)
+(global-set-key  (kbd "C-c 9") 'magit-blame-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                MP3                                      ;; 
