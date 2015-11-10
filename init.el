@@ -330,6 +330,12 @@
 (global-set-key (kbd "C-x j") 'flycheck-mode)
 
 
+;; kill edx server
+(defun kill-edx-servers()
+    (shell-command COMMAND &optional OUTPUT-BUFFER ERROR-BUFFER)
+  )
+
+(global-set-key (kbd "C-x j") 'pkill -1 -f fun)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                JS                                       ;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
