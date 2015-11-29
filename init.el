@@ -422,6 +422,10 @@
   (magit-status "/edx/app/edxapp/themes/fun"))
 (global-set-key (kbd "C-<f10>") 'magit-status-fun-theme)
 
+
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                C                                        ;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -519,8 +523,8 @@
 (if (string= user "edxapp")
     (start-fun-server))
 
-
-
+;; go to prompt
+(global-set-key (kbd "C-c e") 'comint-goto-process-mark)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
