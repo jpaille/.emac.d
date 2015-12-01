@@ -402,6 +402,12 @@
 
 (set-face-attribute 'web-mode-html-attr-name-face nil :foreground "Pink3")
 
+
+;; import debug python
+(fset 'include-css-border
+   "border: 1px solid black; /*TO REMOVE*/")
+(global-set-key (kbd "C-c i") 'include-css-border)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                MAGIT                                     ;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
