@@ -1,3 +1,4 @@
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  EMACS CONFIGURATION  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -210,6 +211,9 @@
   (find-file "~/.emacs.d/init.el"))
 (global-set-key (kbd "C-x <home>") 'go_to_conf)
 
+
+;; revert buffer
+(global-set-key (kbd "<C-f5>") 'revert-buffer)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                               IDO                                       ;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -593,3 +597,28 @@
 ;;     (shell)))
 (add-hook 'comint-exec-hook
 	        (lambda () (set-process-query-on-exit-flag (get-buffer-process (current-buffer)) nil)))
+
+(defun anr-shell (buffer)
+  "Opens a new shell buffer where the given buffer is located."
+  (interactive "sBuffer: ")
+  (pop-to-buffer (concat "*" buffer "*"))
+  (unless (eq major-mode 'shell-mode)
+    (dired buffer)
+    (shell buffer)
+    (delete-region (point-min) (point-max))
+    (comint-simple-send (get-buffer-process (current-buffer))
+			(concat "export PS1=\"\033[33m" buffer "\033[0m:\033[35m\\W\033[0m>\"")))
+  (setq inhibit-read-only 42)
+)
+
+(defun connect_cargo ()
+  (interactive)
+  (find-file "/ssh:cargo:/"))
+
+(defun connect_infraansible ()
+  (interactive)
+  (find-file "/ssh:infraansible:/"))
+
+(global-set-key (kbd "C-c 6") 'connect_infraansible)
+(global-set-key (kbd "C-c 4") 'connect_cargo)
+(global-set-key (kbd "C-c 5") 'anr-shell)
