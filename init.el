@@ -119,6 +119,12 @@
  '(magit-tag ((t (:foreground "goldenrod4"))))
  '(match ((t (:foreground "magenta"))))
  '(minibuffer-prompt ((t (:foreground "red"))))
+ '(rst-level-1 ((t nil)))
+ '(rst-level-2 ((t nil)))
+ '(rst-level-3 ((t nil)))
+ '(rst-level-4 ((t nil)))
+ '(rst-level-5 ((t nil)))
+ '(rst-level-6 ((t nil)))
  '(web-mode-html-tag-custom-face ((t (:inherit web-mode-warning-face))))
  '(web-mode-html-tag-face ((t (:foreground "red")))))
  
