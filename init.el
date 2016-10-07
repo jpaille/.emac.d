@@ -137,9 +137,12 @@
 
 ;; disable backup
 (setq backup-inhibited t)
-(setq auto-save-default nil) ; stop creating #autosave# files
+
 ;;disable auto save
 (setq auto-save-default nil)
+
+;; disable lock file system
+(setq create-lockfiles nil)
 
 ;; disable menu_bar
 (menu-bar-mode -1)
