@@ -137,7 +137,7 @@
 
 ;; disable backup
 (setq backup-inhibited t)
-
+(setq auto-save-default nil) ; stop creating #autosave# files
 ;;disable auto save
 (setq auto-save-default nil)
 
@@ -404,10 +404,10 @@
 (add-to-list 'auto-mode-alist '("\\.mako\\'" . web-mode)) 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.underscore?\\'" . web-mode))
-(setq web-mode-engines-alist '(("django" . "\\.html\\'") ))
-(setq web-mode-engines-alist '(("mako" . "\\.html\\'") ))
-(setq web-mode-engines-alist '(("underscore" . "\\.underscore\\'") ))
-
+(setq web-mode-engines-alist '("django" . "\\.html\\'"))
+;;(setq web-mode-engines-alist '(("mako" . "\\.html\\'") ))
+(setq web-mode-engines-alist '(("underscore" . "\\.underscore\\'") )
+)
 (defun web-mode-keys ()
   (local-set-key (kbd "C-M-n") 'web-mode-element-end)
   (local-set-key (kbd "C-M-p") 'web-mode-element-beginning)
