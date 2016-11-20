@@ -357,6 +357,10 @@
 
 (global-set-key (kbd "C-x j") 'flycheck-mode)
 
+;; auto pairing
+
+(require 'autopair)
+(autopair-global-mode) ;; to enable in all buffers
 
 ;; kill edx server
 (defun kill-edx-servers()
@@ -407,8 +411,8 @@
 (add-to-list 'auto-mode-alist '("\\.mako\\'" . web-mode)) 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.underscore?\\'" . web-mode))
-(setq web-mode-engines-alist '("django" . "\\.html\\'"))
-;;(setq web-mode-engines-alist '(("mako" . "\\.html\\'") ))
+;;(setq web-mode-engines-alist '("django" . "\\.html\\'"))
+(setq web-mode-engines-alist '(("django" . "\\.html\\'") ))
 (setq web-mode-engines-alist '(("underscore" . "\\.underscore\\'") )
 )
 (defun web-mode-keys ()
@@ -525,7 +529,6 @@
 
 (global-set-key  (kbd "M-o") 'comint-previous-input)
 (global-set-key  (kbd "M-m") 'comint-next-input)
-
 
 
 ;; shell-resync-dirs
@@ -652,3 +655,16 @@
 (global-set-key (kbd "C-c 6") 'connect_infraansible)
 (global-set-key (kbd "C-c 4") 'connect_cargo)
 (global-set-key (kbd "C-c 5") 'anr-shell)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                MYSQL                                    ;; 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;; capitalize keywords
+(add-hook 'sql-mode-hook 'sqlup-mode)
+(add-hook 'sql-interactive-mode-hook 'sqlup-mode)
+
+;; active autocomplete for sql-mode
+(add-to-list 'ac-modes 'sql-mode)
