@@ -7,7 +7,7 @@
 (setq user (getenv "USER"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                PACKAGE.EL                               ;; 
+;;                                PACKAGE.EL                               ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Activate installed packages with elpa
@@ -19,7 +19,7 @@
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                GENERAL                                  ;; 
+;;                                GENERAL                                  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; utf-8 used ?
@@ -69,6 +69,7 @@
  '(display-time-mode t)
  '(flycheck-idle-change-delay 0)
  '(flycheck-javascript-jshint-executable "/edx/app/edxapp/node_modules/jshint/bin/jshint")
+ '(flycheck-python-pylint-executable "/home/julien/python_envs/hive/bin/pylint")
  '(ido-create-new-buffer (quote always))
  '(ido-default-file-method (quote selected-window))
  '(ido-everywhere t)
@@ -83,7 +84,15 @@
  '(magit-status-buffer-switch-function (quote switch-to-buffer))
  '(mark-even-if-inactive t)
  '(mmm-submode-decoration-level 0)
- '(show-paren-mode t))
+ '(pony-server-host "0")
+ '(pony-settings-module "hive.tests_settings")
+ '(safe-local-variable-values
+   (quote
+    ((pony-settings
+      (make-pony-project :python "/home/julien/python_envs/hive/bin/python" :pythonpath "" :settings "tests_settings" :appsdir "/home/julien/hive/hive"))
+     (pony-settings make-pony-project :python "~/python_envs/hive/bin/python" :pythonpath "~/hive/hive" :settings "hive.test_settings"))))
+ '(show-paren-mode t)
+ '(unittest-last-executed-module "hive.salesstructures.tests.test_sales_structure"))
 ;; ? This option makes a difference in Transient Mark mode.
  ;; '(virtualenv-root "~/venvs/edxapp/")) ? not necessary with setq jedi:server-args
 
@@ -109,6 +118,7 @@
  '(epa-string ((t (:foreground "red"))))
  '(erc-prompt-face ((t (:foreground "Black" :weight bold))))
  '(font-lock-comment-face ((t (:foreground "brown"))))
+ '(hi-blue ((t (:foreground "red" :underline t))))
  '(highlight ((t (:weight bold))))
  '(ido-first-match ((t (:foreground "green" :weight bold))))
  '(magit-branch ((t (:foreground "LightSkyBlue4"))))
@@ -127,7 +137,7 @@
  '(rst-level-6 ((t nil)))
  '(web-mode-html-tag-custom-face ((t (:inherit web-mode-warning-face))))
  '(web-mode-html-tag-face ((t (:foreground "red")))))
- 
+
 
 ;; Hightlight current line.
 (global-hl-line-mode t)
@@ -176,7 +186,7 @@
 ;;(global-set-key "\C-h" 'backward-delete-char)
 
 ;; short answers
-(fset 'yes-or-no-p 'y-or-n-p)            
+(fset 'yes-or-no-p 'y-or-n-p)
 
 ;; navigation shortcuts.
 (ffap-bindings)
@@ -224,7 +234,7 @@
 ;; revert buffer
 (global-set-key (kbd "<C-f5>") 'revert-buffer)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                               IDO                                       ;; 
+;;                               IDO                                       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'ido)
@@ -255,7 +265,7 @@
 			   "*Messages*"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                               DIRED                                     ;; 
+;;                               DIRED                                     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (add-hook 'dired-load-hook
@@ -280,14 +290,14 @@
 (global-set-key (kbd "C-x <end>") 'dired-dotfiles-toggle)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                PROJECTILE                               ;; 
+;;                                PROJECTILE                               ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (global-set-key (kbd "<f9>") 'projectile-find-file-in-known-projects)
 (projectile-global-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                               BUFFER                                    ;; 
+;;                               BUFFER                                    ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; buffer listy direct
@@ -299,21 +309,26 @@
 (global-set-key (kbd "C-x n") 'buffer-menu)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                PYTHON                                   ;; 
+;;                                PYTHON                                   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; set all edx sys-path for jedi mode
-(if (string= user "edxapp")
-    (setq jedi:server-args
-	  '("--virtual-env" "/edx/app/edxapp/venvs/edxapp"
-	    "--sys-path" "/edx/app/edxapp/edx-platform"
-	    "--sys-path" "/edx/app/edxapp/edx-platform/lms/djangoapps"
-	    "--sys-path" "/edx/app/edxapp/edx-platform/common/djangoapps"
-	    "--sys-path" "/edx/app/edxapp/edx-platform/cms/djangoapps"
-	    "--sys-path" "/edx/app/edxapp/fun-config"
-	    ))
-  )
+;; (if (string= user "edxapp")
+;;     (setq jedi:server-args
+;; 	  '("--virtual-env" "/edx/app/edxapp/venvs/edxapp"
+;; 	    "--sys-path" "/edx/app/edxapp/edx-platform"
+;; 	    "--sys-path" "/edx/app/edxapp/edx-platform/lms/djangoapps"
+;; 	    "--sys-path" "/edx/app/edxapp/edx-platform/common/djangoapps"
+;; 	    "--sys-path" "/edx/app/edxapp/edx-platform/cms/djangoapps"
+;; 	    "--sys-path" "/edx/app/edxapp/fun-config"
+;; 	    ))
+;;   )
+;; set all Hive auchan sys-path for jedi mode TODO create a Hive user ?
 
+(setq jedi:server-args
+      '("--virtual-env" "/home/julien/python_envs/hive"
+	)
+      )
 (global-set-key (kbd "C-x p") 'jedi:goto-definition)
 (global-set-key (kbd "C-x ]") 'jedi:goto-definition-pop-marker)
 (global-set-key (kbd "C-x =") 'jedi:show-doc)
@@ -324,21 +339,26 @@
 (global-set-key (kbd "C-x i") 'include)
 
 
+;; sort package
+
+(global-set-key (kbd "C-c i") 'py-isort-buffer)
+
+;; Easy import package
+
+
 (fset 'doctrings
    "\"\"\"Submit 'generate_answers_distribution_report' task to celery.
-    Args:
-         course_id (str): The course id as string.
-         problem_id (str): The problem id as string.
 
-    Returns:
-         Redirect to Report Manager dashboard.
-     \"\"\"")
+        Args:
+            course_id (str): The course id as string.
+            problem_id (str): The problem id as string.
+
+	Returns:
+	    Redirect to Report Manager dashboard.
+        \"\"\"")
 
 (global-set-key (kbd "C-x -") 'doctrings)
-;; settings 
-(fset 'test_fun
-   "fun lms.test test")
-(global-set-key (kbd "C-x 7") 'test_fun)
+
 
 ;; jedi
 (add-hook 'python-mode-hook 'jedi:setup)
@@ -352,8 +372,8 @@
 
 (defun flycheck-python-setup ()
   (flycheck-mode))
-(add-hook 'python-mode-hook #'flycheck-python-setup)
 
+(add-hook 'python-mode-hook #'flycheck-python-setup)
 
 (global-set-key (kbd "C-x j") 'flycheck-mode)
 
@@ -363,15 +383,36 @@
 (autopair-global-mode) ;; to enable in all buffers
 
 ;; kill edx server
-(defun kill-edx-servers()
-  (interactive)
-  (shell-command "pkill -1 -f fun"))
 
-(global-set-key (kbd "C-c 8") 'kill-edx-servers)
-
+;; (defun kill-edx-servers()
+;;   (interactive)
+;;   (shell-command "pkill -1 -f fun"))
+;; (global-set-key (kbd "C-c 8") 'kill-edx-servers)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                JS                                       ;; 
+;;                                Django                                   ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(add-to-list 'load-path "/home/julien/.emacs.d/github/pony-mode/src")
+(require 'pony-mode)
+
+;; fast movement in pony test
+(define-key comint-mode-map (kbd "M-p") nil)
+(define-key comint-mode-map (kbd "M-n") nil)
+
+;; replay last test from everywhere.
+(global-set-key (kbd "<f6>") 'replay-last-test)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                Test                                     ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(add-to-list 'load-path "~/.emacs.d/elpa/unittest")
+(require 'unittest)
+(add-hook 'python-mode-hook 'unittest-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                JS                                       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -384,7 +425,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                HTML                                     ;; 
+;;                                HTML                                     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Never user tabs but spaces
@@ -404,11 +445,11 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                MAKO                                     ;; 
+;;                                MAKO                                     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.mako\\'" . web-mode)) 
+(add-to-list 'auto-mode-alist '("\\.mako\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.underscore?\\'" . web-mode))
 ;;(setq web-mode-engines-alist '("django" . "\\.html\\'"))
@@ -432,12 +473,12 @@
 
 
 ;; import debug python
-(fset 'include-css-border
-   "border: 1px solid black; /*TO REMOVE*/")
-(global-set-key (kbd "C-c i") 'include-css-border)
+;(fset 'include-css-border
+;   "border: 1px solid black; /*TO REMOVE*/")
+;(global-set-key (kbd "C-c i") 'include-css-border)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                MAGIT                                     ;; 
+;;                                MAGIT                                     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -465,7 +506,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                C                                        ;; 
+;;                                C                                        ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; (global-set-key (kbd "M-c") 'compile)
@@ -489,7 +530,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                SHELL                                    ;; 
+;;                                SHELL                                    ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -516,7 +557,7 @@
    "!9@T2cJv")
 (global-set-key (kbd "C-c 3") 'code)
 
-;; move fast like everywhere 
+;; move fast like everywhere
 (defun mp-add-shell-keys ()
   (setq-default show-trailing-whitespace nil)
   (local-set-key (kbd "C-x C-e") 'comint-show-maximum-output)
@@ -526,6 +567,8 @@
 
 (define-key shell-mode-map (kbd "M-p") nil)
 (define-key shell-mode-map (kbd "M-n") nil)
+
+
 
 (global-set-key  (kbd "M-o") 'comint-previous-input)
 (global-set-key  (kbd "M-m") 'comint-next-input)
@@ -565,7 +608,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                TODO                                     ;; 
+;;                                TODO                                     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -583,7 +626,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                PHP                                      ;; 
+;;                                PHP                                      ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -593,38 +636,39 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                MAGIT                                    ;; 
+;;                                MAGIT                                    ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (global-set-key [f5] 'magit-status)
 (global-set-key  (kbd "C-c 9") 'magit-blame-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                MP3                                      ;; 
+;;                                MP3                                      ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq exec-path (append exec-path '("/usr/local/bin")))
-(add-to-list 'load-path "~/.emacs.d/site-lisp/emms/lisp")
-(require 'emms-setup)
-(require 'emms-player-mplayer)
-(emms-standard)
-(emms-default-players)
-(define-emms-simple-player mplayer '(file url)
-      (regexp-opt '(".ogg" ".mp3" ".wav" ".mpg" ".mpeg" ".wmv" ".wma"
-                    ".mov" ".avi" ".divx" ".ogm" ".asf" ".mkv" "http://" "mms://"
-                    ".rm" ".rmvb" ".mp4" ".flac" ".vob" ".m4a" ".flv" ".ogv" ".pls"))
-      "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen")
-(setq emms-player-mpg321-parameters '("-o" "alsa"))
+;; (setq exec-path (append exec-path '("/usr/local/bin")))
+;; ;;(add-to-list 'load-path "~/.emacs.d/site-lisp/emms/lisp")
+
+;; (require 'emms-setup)
+;; (require 'emms-player-mplayer)
+;; (emms-standard)
+;; (emms-default-players)
+;; (define-emms-simple-player mplayer '(file url)
+;;       (regexp-opt '(".ogg" ".mp3" ".wav" ".mpg" ".mpeg" ".wmv" ".wma"
+;;                     ".mov" ".avi" ".divx" ".ogm" ".asf" ".mkv" "http://" "mms://"
+;;                     ".rm" ".rmvb" ".mp4" ".flac" ".vob" ".m4a" ".flv" ".ogv" ".pls"))
+;;       "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen")
+;; (setq emms-player-mpg321-parameters '("-o" "alsa"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                TRAMP                                    ;; 
+;;                                TRAMP                                    ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; (setq tramp-default-method "ssh")
 ;; (add-to-list 'tramp-default-proxies-alist
 ;;          '("cargolms02" nil "/ssh:master@infraansible.cines.fr:"))
 
-;; (defun infra-shell () 
+;; (defun infra-shell ()
 ;;   (interactive)
 ;;   (let ((default-directory "/ssh:master@infraansible.cines.fr:/"))
 ;;     (shell)))
@@ -658,7 +702,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                MYSQL                                    ;; 
+;;                                MYSQL                                    ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
