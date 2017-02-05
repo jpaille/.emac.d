@@ -177,6 +177,7 @@ It creates a comint interaction buffer, called `name', running
 (defvar *last-test-args* nil)
 
 (defun replay-last-test ()
+  (interactive)
   (pony-comint-pop "test" (pony-active-python) *last-test-args*)
   )
 
