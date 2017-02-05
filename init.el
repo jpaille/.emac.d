@@ -89,6 +89,12 @@
  '(safe-local-variable-values
    (quote
     ((pony-settings
+      (make-pony-project :python "/home/julien/python_env/hive/bin/python" :pythonpath "" :settings "tests_settings"))
+     (pony-settings
+      (make-pony-project :python "/home/julien/python_env/hive/bin/python" :pythonpath "" :settings "hive.tests_settings" :appsdir "/home/julien/hive"))
+     (pony-settings
+      (make-pony-project :python "/home/julien/python_env/hive/bin/python" :pythonpath "" :settings "tests_settings" :appsdir "/home/julien/hive/hive"))
+     (pony-settings
       (make-pony-project :python "/home/julien/python_envs/hive/bin/python" :pythonpath "" :settings "tests_settings" :appsdir "/home/julien/hive/hive"))
      (pony-settings make-pony-project :python "~/python_envs/hive/bin/python" :pythonpath "~/hive/hive" :settings "hive.test_settings"))))
  '(show-paren-mode t)
@@ -233,6 +239,20 @@
 
 ;; revert buffer
 (global-set-key (kbd "<C-f5>") 'revert-buffer)
+
+
+;; time
+(defun now ()
+  "Insert string for the current time formatted like '2:34 PM'."
+  (interactive)                 ; permit invocation in minibuffer
+  (insert (format-time-string "%-I:%M %p")))
+
+(defun today ()
+    "Insert string for today's date nicely formatted in American style,
+e.g. Sunday, September 17, 2000."
+    (interactive)                 ; permit invocation in minibuffer
+    (insert (format-time-string "%A, %B %e, %Y")))
+(global-set-key (kbd "C-c t") 'now)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                               IDO                                       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -326,7 +346,7 @@
 ;; set all Hive auchan sys-path for jedi mode TODO create a Hive user ?
 
 (setq jedi:server-args
-      '("--virtual-env" "/home/julien/python_envs/hive"
+      '("--virtual-env" "/home/julien/python_env/hive"
 	)
       )
 (global-set-key (kbd "C-x p") 'jedi:goto-definition)
@@ -393,23 +413,28 @@
 ;;                                Django                                   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-to-list 'load-path "/home/julien/.emacs.d/github/pony-mode/src")
 (require 'pony-mode)
+
+;;;; PONY mode
 
 ;; fast movement in pony test
 (define-key comint-mode-map (kbd "M-p") nil)
 (define-key comint-mode-map (kbd "M-n") nil)
 
-;; replay last test from everywhere.
+
+
+;; replay last test from everywhere in pony.
 (global-set-key (kbd "<f6>") 'replay-last-test)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                Test                                     ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; add autocomplete to pony test buffer.
+(add-to-list 'ac-modes 'pony-test-minor-mode)
+(add-to-list 'ac-modes 'pony-test-mode)
+(add-to-list 'ac-modes 'pony-mode)
 
-(add-to-list 'load-path "~/.emacs.d/elpa/unittest")
-(require 'unittest)
-(add-hook 'python-mode-hook 'unittest-mode)
+
+(message (if nil "ll" "oo"))
+(if (eq nil nil)  "null" "oo")
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                JS                                       ;;
@@ -568,8 +593,6 @@
 (define-key shell-mode-map (kbd "M-p") nil)
 (define-key shell-mode-map (kbd "M-n") nil)
 
-
-
 (global-set-key  (kbd "M-o") 'comint-previous-input)
 (global-set-key  (kbd "M-m") 'comint-next-input)
 
@@ -622,6 +645,7 @@
 (defun todo_direct()
   (interactive)
   (find-file "~/todo/todo"))
+
 (global-set-key (kbd "C-c [") 'todo)
 
 
@@ -712,3 +736,5 @@
 
 ;; active autocomplete for sql-mode
 (add-to-list 'ac-modes 'sql-mode)
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
