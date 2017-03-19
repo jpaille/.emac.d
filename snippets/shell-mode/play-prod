@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: play-prod
+# key: play
+# --
+./play hive.yml -i prod --extra-var hive_tags=

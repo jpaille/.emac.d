@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: play hive
+# key: pla
+# --
+
+./play hive.yml -i dev

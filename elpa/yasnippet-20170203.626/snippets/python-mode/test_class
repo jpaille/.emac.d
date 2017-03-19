@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: test_class
+# key: tcs
+# group : testing
+# --
+from django.test import TestCase
+
+class ${1:toTest}TestCase(TestCase):
+    $0

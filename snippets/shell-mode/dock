@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: dock
+# key: dock
+# --
+docker exec -it hive-storage bash

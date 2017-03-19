@@ -113,7 +113,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(button ((t (:inherit magit-branch))))
- '(comint-highlight-prompt ((t (:inherit dired-flagged))))
+ '(comint-highlight-prompt ((t (:inherit dired-flangged))))
  '(custom-link ((t (:inherit change-log-date))))
  '(custom-visibility ((t (:inherit web-mode-constant-face :height 0.8))))
  '(ediff-current-diff-A ((t (:background "white" :foreground "blue3"))))
@@ -409,6 +409,8 @@ e.g. Sunday, September 17, 2000."
 ;;   (shell-command "pkill -1 -f fun"))
 ;; (global-set-key (kbd "C-c 8") 'kill-edx-servers)
 
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                Django                                   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -434,6 +436,43 @@ e.g. Sunday, September 17, 2000."
 
 (message (if nil "ll" "oo"))
 (if (eq nil nil)  "null" "oo")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                               SNIPPET                                   ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; SNIPPET YAS
+;; activate yas-mode in python mode
+
+(require 'yasnippet)
+(yas-global-mode 1)
+(yas-reload-all)
+(add-hook 'python-mode-hook 'yas-minor-mode)
+
+(define-key yas-minor-mode-map (kbd "<tab>") nil)
+(define-key yas-minor-mode-map (kbd "TAB") nil)
+(define-key yas-minor-mode-map (kbd "C-o") 'yas-expand)
+
+(defun python-args-to-google-docstring (text &optional make-fields)
+"Return a reST docstring format for the python arguments in yas-text."
+(let* ((indent (concat "\n" (make-string (current-column) 32)))
+       (args (python-split-args text))
+       (nr 0)
+       (formatted-args
+	(mapconcat
+	 (lambda (x)
+	   (concat "   " (nth 0 x)
+		   (if make-fields (format " ${%d:arg%d}" (incf nr) nr))
+		   (if (nth 1 x) (concat " \(default " (nth 1 x) "\)"))))
+	 args
+	 indent)))
+  (unless (string= formatted-args "")
+    (concat
+     (mapconcat 'identity
+		(list "" "Args:" formatted-args)
+		indent)
+            "\n"))))
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -720,9 +759,9 @@ e.g. Sunday, September 17, 2000."
   (interactive)
   (find-file "/ssh:infraansible:/"))
 
-(global-set-key (kbd "C-c 6") 'connect_infraansible)
-(global-set-key (kbd "C-c 4") 'connect_cargo)
-(global-set-key (kbd "C-c 5") 'anr-shell)
+;; (global-set-key (kbd "C-c 6") 'connect_infraansible)
+;; (global-set-key (kbd "C-c 4") 'connect_cargo)
+;; (global-set-key (kbd "C-c 5") 'anr-shell)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -738,3 +777,70 @@ e.g. Sunday, September 17, 2000."
 (add-to-list 'ac-modes 'sql-mode)
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                MARKDOWN                                 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'markdown-mode)
+(define-key markdown-mode-map (kbd "M-p") nil)
+(define-key markdown-mode-map (kbd "M-n") nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                POMODORO                                 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(defvar *pomodoro-directory* "/home/julien/workflow_logs/")
+
+(defun get-pomodoro-filename()
+  (concat (format-time-string "%Y-%m-%e") ".txt")
+  )
+
+(defun get-pomodoro-filepath ()
+    "The pomodoro filename will be the current date."
+    (concat *pomodoro-directory* (get-pomodoro-filename)))
+
+(defun get-time ()
+  (format-time-string "%-H:%M %p"))
+
+(defun start-pomodoro ()
+  (interactive)
+  (go-to-pomodoro-file)
+  (end-of-buffer)
+  (insert (concat "\n" "p: " (get-time) "\n"))
+  (message "**START POMODORO")
+  )
+
+
+(defun end-pomodoro ()
+  (interactive)
+  (set-buffer  (get-pomodoro-filename))
+  (end-of-buffer)
+  (insert (concat "\n" "b: " (get-time) "\n"))
+  (message "STOP POMODORO")
+  )
+
+(defun interrupt-pomodoro ()
+  (interactive)
+  (set-buffer  (get-pomodoro-filename))
+  (end-of-buffer)
+  (insert (concat "\n" "i: " (get-time) "\n"))
+  (message "INTERRUPT POMODORO")
+  )
+
+(defun go-to-pomodoro-file ()
+  (interactive)
+  (if (eq (get-buffer (get-pomodoro-filename)) nil)
+      (find-file (get-pomodoro-filepath))
+    )
+  (switch-to-buffer (get-pomodoro-filename))
+  (save-buffer)
+)
+
+
+(global-set-key (kbd "C-c =") 'start-pomodoro)
+(global-set-key (kbd "C-c -") 'end-pomodoro)
+(global-set-key (kbd "C-c DEL") 'interrupt-pomodoro)
+(global-set-key (kbd "<f12>") 'interrupt-pomodoro)
+(global-set-key (kbd "C-c \\") 'go-to-pomodoro-file)
