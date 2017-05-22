@@ -7,7 +7,6 @@ from django.test import TestCase
 
 
 class ${1:Module}TestCase(TestCase):
-    """ """
 
     def setUp(self):
         $0

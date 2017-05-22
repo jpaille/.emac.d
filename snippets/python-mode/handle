@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: handle
+# key: handle
+# --
+from django.core.management.base import BaseCommand
+
+from core.utils.commands import WithSentryMixin
+
+
+class Command(WithSentryMixin, BaseCommand):
+
+    def handle(self, *args, **options):
+        pass

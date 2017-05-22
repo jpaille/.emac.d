@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: CustomerFactory
+# key: customerfactory
+# --
+from customers.tests.factories import CustomerFactory
+CustomerFactory

@@ -1,0 +1,61 @@
+;; -*- emacs-lisp -*- <18/04/06 18:42:48 /home/julien/.emacs.d/tramp>
+;; Tramp connection history.  Don't change this file.
+;; You can delete it, forcing Tramp to reapply the checks.
+
+((["docker" nil "hive-storage" nil "ssh:dev|"]
+  ("locale" "LC_ALL=C")
+  ("uname" "Linux 3.14.32-xxxx-grs-ipv6-64")
+  ("remote-path"
+   ("/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
+  ("remote-shell" "/bin/sh")
+  ("test" "test")
+  ("file-exists" "test -e"))
+ (["docker" nil "hive-storage" nil nil]
+  ("test" "test")
+  ("file-exists" "test -e")
+  ("remote-path"
+   ("/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
+  ("readlink" "\\readlink")
+  ("ls" "/bin/ls --color=never")
+  ("ls-dired" t)
+  ("stat" "\\stat")
+  ("id" "/usr/bin/id")
+  ("gid-integer" 0)
+  ("gid-string" "root")
+  ("perl-file-spec" t)
+  ("perl-cwd-realpath" t)
+  ("perl" "\\perl")
+  ("uid-integer" 0)
+  ("tmpdir" "/docker:hive-storage:/tmp")
+  ("touch-t" t)
+  ("touch" "\\touch")
+  ("git" "\\git")
+  ("locale" "LC_ALL=C")
+  ("uname" "Linux 3.16.0-4-amd64")
+  ("remote-shell" "/bin/sh"))
+ (["ssh" nil "prod" nil nil]
+  ("locale" "LC_ALL=en_US.utf8")
+  ("uname" "Linux 3.16.0-4-amd64")
+  ("test" "test")
+  ("remote-path"
+   ("/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
+  ("remote-shell" "/bin/sh")
+  ("file-exists" "test -e")
+  ("readlink" "\\readlink")
+  ("stat" "\\stat")
+  ("ls" "/bin/ls --color=never")
+  ("perl-file-spec" t)
+  ("perl-cwd-realpath" t)
+  ("perl" "\\perl")
+  ("git" "\\git")
+  ("id" "/usr/bin/id")
+  ("gid-string" "adirect")
+  ("~" "/home/adirect"))
+ (["docker" nil "hive-storage" nil "ssh:prod|"]
+  ("locale" "LC_ALL=C")
+  ("uname" "Linux 3.16.0-4-amd64")
+  ("remote-path"
+   ("/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
+  ("remote-shell" "/bin/sh")
+  ("test" "test")
+  ("file-exists" "test -e")))

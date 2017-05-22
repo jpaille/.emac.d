@@ -170,15 +170,19 @@ pick up directory-local settings."
   "This is the main entry point for sub-processes in Pony-mode.
 It creates a comint interaction buffer, called `name', running
 `command', called with `args'"
+  (setq *last-test-args* args)
+  (setq *last-python-interpreter* command)
   (ansi-color-for-comint-mode-on)
   (apply 'make-comint name command nil args)
-  (pony-pop (concat "*" name "*") :dirlocals t))
+  (pony-pop (concat "*" name "*") :dirlocals t)
+  )
 
 (defvar *last-test-args* nil)
+(defvar *last-python-interpreter* nil)
 
 (defun replay-last-test ()
   (interactive)
-  (pony-comint-pop "test" (pony-active-python) *last-test-args*)
+  (pony-comint-pop "ponytests" *last-python-interpreter*  *last-test-args*)
   )
 
 (defun pony-manage-pop (name command args)
@@ -188,12 +192,12 @@ need to construct manage.py calling sequences in command
 functions."
   ;; !!! This API is utterly stupid. call (pony-manage-cmd)
   ;; here rather than in the caller.
-  (let* ((settings "hive.tests_settings")
+  (let* ((settings "")
          (pythonpath (if (pony-project-newstructure-p)
                          (pony-get-pythonpath)
                        nil))
          (python-args
-          (cons command (append args (list (concat "--settings=" settings)
+          (cons command (append args (list (concat "--settings=" "hive.tests_settings")
                                            (concat "--pythonpath=" pythonpath)))))
 	 )
     (setq *last-test-args*  python-args)
@@ -249,7 +253,7 @@ more conservative local-var manipulation."
 ;; which should define a pony-project variable
 ;;
 
-(defstruct pony-project python settings pythonpath appsdir)
+(defstruct pony-project python settings pythonpath appsdir projectname)
 
 (defun pony-configfile-p ()
   "Establish whether this project has a .ponyrc file in the root"
@@ -463,6 +467,16 @@ This is configured in .dir-locals.el."
           nil))
     nil))
 
+(defun pony-get-projectname()
+  "Return the customized project name.
+This is configured in .dir-locals.el."
+  (if (pony-configfile-p)
+      (let* ((rc (pony-rc)))
+        (if rc
+            (pony-project-projectname rc)
+          nil))
+    nil))
+
 (defun pony-get-appsdir()
   "Return the apps directory, relative to project root.
 This is configured in .dir-locals.el."
@@ -476,7 +490,7 @@ This is configured in .dir-locals.el."
 
 (defun pony-get-settings-module()
   "Return the absolute path to the pony settings file"
-  (let* ((basename (concat "/home/julien/hive/hive/hive/"
+  (let* ((basename (concat "/home/julien/hive/hive/hive"
                            (pony-get-settings-file-basename)))
          (pyfile (concat basename ".py"))
          (exists (or (and (file-exists-p basename) basename)
@@ -1010,19 +1024,48 @@ If the project has the django_extras package installed, then use the excellent
   )
   
 
+(defun pony-test-generic ()
+  "Run the test(s) given by `command'."
+  (interactive)
+  (if (string= (pony-get-projectname) "hive")
+      (pony-test)
+    (pony-pytest)))
+
+
+(defun pony-pytest ()
+  "Run the test(s) given by `command'."
+   (let* ((python-filename (buffer-file-name))
+	  (defuns (subseq (split-string (which-function) "\\.") 0 2))
+          (class (first defuns))
+          (func (let ((f (second defuns))) (and f (string-match "^test" f) f)))
+          (module (pony-get-module))
+          (default-command
+            (concat python-filename (and class "::") class (and class func "::") func ))) ;; si module + clase mettre un point sinon retourne nil
+     (setq command (read-string "Test: " default-command)))
+  (let ((buffer (get-buffer "*ponytests*")))
+    (when buffer
+      (save-excursion
+        (pop-to-buffer buffer)
+        (erase-buffer))))
+    
+  (if (eq current-prefix-arg nil)
+      (pony-comint-pop "ponytests" "/home/julien/python_env/scv/bin/pytest" (append (list command) (list "-s")))
+    (pony-comint-pop "ponytests" "/home/julien/python_env/scv/bin/pytest" (append (list command) (list "-s")  (list "--qualif")))
+    )
+  )
 
 
 ;;;###autoload
-(defun pony-test (command)
+(defun pony-test ()
   "Run the test(s) given by `command'."
-  (interactive
    (let* ((defuns (subseq (split-string (which-function) "\\.") 0 2))
           (class (first defuns))
           (func (let ((f (second defuns))) (and f (string-match "^test" f) f)))
           (module (pony-get-module))
           (default-command
             (concat module (and module class ".") class (and class func ".") func)))
-     (list (read-string "Test: " default-command))))
+     (setq command (read-string "Test: " default-command)))
+
   (let ((buffer (get-buffer "*ponytests*")))
     (when buffer
       (save-excursion
@@ -1030,9 +1073,10 @@ If the project has the django_extras package installed, then use the excellent
         (erase-buffer))))
 
   (setq list_args (list "test" command))
+
   (if (eq current-prefix-arg nil)
-      (setq list_args  (append list_args (list "--keepdb"))))
-  (message "%s" list_args)
+      (setq list_args (append list_args (list "--keepdb"))))
+
   (pony-manage-pop "ponytests" (pony-manage-cmd)
                    list_args)
   (pony-test-mode))
@@ -1110,7 +1154,7 @@ If the project has the django_extras package installed, then use the excellent
 (pony-key "\C-c\C-pm" 'pony-manage)
 (pony-key "\C-c\C-ps" 'pony-shell)
 (pony-key "\C-c\C-p!" 'pony-shell)
-(pony-key "\C-c\C-pt" 'pony-test)
+(pony-key "\C-c\C-pt" 'pony-test-generic)
 (pony-key "\C-c\C-pm" 'pony-copy-module-to-clipboard)
 (pony-key "\C-c\C-p\C-r" 'pony-reload-mode)
 (pony-key "\C-c\C-p\c" 'pony-celeryd-start)

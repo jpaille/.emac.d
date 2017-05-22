@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: shopfactory
+# key: ShopFactory
+# --
+from shops.tests.factories import ShopFactory
+ShopFactory

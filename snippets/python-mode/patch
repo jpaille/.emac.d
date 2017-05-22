@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: patch
+# key: patch
+# --
+from unittest.mock import patch
+with patch('', return_value={'1234': 4}):

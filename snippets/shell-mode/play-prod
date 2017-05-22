@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
 # name: play-prod
-# key: play
+# key: deploy
 # --
-./play hive.yml -i prod --extra-var hive_tags=
+workon spark; cd /home/julien/spark-infra; ./scripts/deploy hive prod

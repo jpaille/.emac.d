@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: conf
+# key: conf
+# --
+from django.conf import settings

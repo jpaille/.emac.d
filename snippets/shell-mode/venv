@@ -2,4 +2,4 @@
 # name: ven
 # key: ven
 # --
-. /venv.sh; python3 /usr/src/app/hive/manage.py shell -ibpython
+. /venv.sh; python3 /usr/src/app/hive/manage.py shell -ipython

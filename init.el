@@ -3,7 +3,6 @@
 ;;  EMACS CONFIGURATION  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (setq user (getenv "USER"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -64,12 +63,13 @@
     (".pyc" "~" ".bin" ".lbin" ".so" ".a" ".ln" ".blg" ".bbl" ".elc" ".lof" ".glo" ".idx" ".lot" ".svn/" ".hg/" ".git/" ".bzr/" "CVS/" "_darcs/" "_MTN/" ".fmt" ".tfm" ".class" ".fas" ".lib" ".mem" ".x86f" ".sparcf" ".dfsl" ".pfsl" ".d64fsl" ".p64fsl" ".lx64fsl" ".lx32fsl" ".dx64fsl" ".dx32fsl" ".fx64fsl" ".fx32fsl" ".sx64fsl" ".sx32fsl" ".wx64fsl" ".wx32fsl" ".fasl" ".ufsl" ".fsl" ".dxl" ".lo" ".la" ".gmo" ".mo" ".toc" ".aux" ".cp" ".fn" ".ky" ".pg" ".tp" ".vr" ".cps" ".fns" ".kys" ".pgs" ".tps" ".vrs" ".pyc")))
  '(cua-mode t nil (cua-base))
  '(dired-garbage-files-regexp
-   "\\(?:\\.\\(?:aux\\|bak\\|dvi\\|pyc\\|log\\|orig\\|rej\\|toc\\)\\)\\'")
- '(dired-omit-files "^\\.?#\\$")
+   "\\(?:\\.\\(?:aux\\|bak\\|dvi\\|pyc\\|__pycached__\\|log\\|orig\\|rej\\|toc\\)\\)\\'")
+ '(dired-omit-files "__pycache__\\|.ssh\\|__init__.py")
  '(display-time-mode t)
+ '(flycheck-flake8-maximum-line-length 100)
  '(flycheck-idle-change-delay 0)
- '(flycheck-javascript-jshint-executable "/edx/app/edxapp/node_modules/jshint/bin/jshint")
- '(flycheck-python-pylint-executable "/home/julien/python_envs/hive/bin/pylint")
+ '(flycheck-javascript-jshint-executable "")
+ '(flycheck-python-flake8-executable "/home/julien/python_env/hive3/bin/flake8")
  '(ido-create-new-buffer (quote always))
  '(ido-default-file-method (quote selected-window))
  '(ido-everywhere t)
@@ -89,6 +89,20 @@
  '(safe-local-variable-values
    (quote
     ((pony-settings
+      (make-pony-project :python "/home/julien/python_env/scv/bin/python" :pythonpath "" :settings "" :projectname "scv"))
+     (pony-settings
+      (make-pony-project :python "/home/julien/python_env/hive3/bin/python" :pythonpath "" :settings "tests_settings" :projectname "hive"))
+     (pony-settings
+      (make-pony-project :python "/home/julien/python_env/hive3/bin/python" :pythonpath "" :settings "tests_settings"))
+     (pytest-cmd-flags . "")
+     (pytest-global-name . "/home/julien/python_env/scv/bin/pytest")
+     (pony-settings
+      (make-pony-project :python "/home/julien/python_env/scv/bin/python" :pythonpath "" :settings "tests_settings"))
+     (pony-settings
+      (make-pony-project :python "/home/julien/python_env/scv/bin/python" :pythonpath "" :settings ""))
+     (pony-settings
+      (make-pony-project :python "/home/julien/python_env/hive2/bin/python" :pythonpath "" :settings "tests_settings"))
+     (pony-settings
       (make-pony-project :python "/home/julien/python_env/hive/bin/python" :pythonpath "" :settings "tests_settings"))
      (pony-settings
       (make-pony-project :python "/home/julien/python_env/hive/bin/python" :pythonpath "" :settings "hive.tests_settings" :appsdir "/home/julien/hive"))
@@ -98,6 +112,11 @@
       (make-pony-project :python "/home/julien/python_envs/hive/bin/python" :pythonpath "" :settings "tests_settings" :appsdir "/home/julien/hive/hive"))
      (pony-settings make-pony-project :python "~/python_envs/hive/bin/python" :pythonpath "~/hive/hive" :settings "hive.test_settings"))))
  '(show-paren-mode t)
+ '(sql-postgres-login-params
+   (quote
+    ((user :default "julien")
+     password server
+     (database :default "julien"))))
  '(unittest-last-executed-module "hive.salesstructures.tests.test_sales_structure"))
 ;; ? This option makes a difference in Transient Mark mode.
  ;; '(virtualenv-root "~/venvs/edxapp/")) ? not necessary with setq jedi:server-args
@@ -123,7 +142,9 @@
  '(emms-playlist-track-face ((t (:foreground "green"))))
  '(epa-string ((t (:foreground "red"))))
  '(erc-prompt-face ((t (:foreground "Black" :weight bold))))
+ '(font-lock-builtin-face ((t (:foreground "blue" :weight bold))))
  '(font-lock-comment-face ((t (:foreground "brown"))))
+ '(font-lock-function-name-face ((t (:foreground "magenta" :weight bold))))
  '(hi-blue ((t (:foreground "red" :underline t))))
  '(highlight ((t (:weight bold))))
  '(ido-first-match ((t (:foreground "green" :weight bold))))
@@ -234,6 +255,7 @@
 (defun go_to_conf()
   (interactive)
   (find-file "~/.emacs.d/init.el"))
+
 (global-set-key (kbd "C-x <home>") 'go_to_conf)
 
 
@@ -253,6 +275,18 @@ e.g. Sunday, September 17, 2000."
     (interactive)                 ; permit invocation in minibuffer
     (insert (format-time-string "%A, %B %e, %Y")))
 (global-set-key (kbd "C-c t") 'now)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                               multiple-cursor                           ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'multiple-cursors)
+(global-set-key (kbd "M-3") 'mc/mark-next-like-this)
+(global-set-key (kbd "M-4") 'mc/skip-to-next-like-this)
+(global-set-key (kbd "M-5") 'mc/unmark-next-like-this)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                               IDO                                       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -313,7 +347,7 @@ e.g. Sunday, September 17, 2000."
 ;;                                PROJECTILE                               ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(global-set-key (kbd "<f9>") 'projectile-find-file-in-known-projects)
+;;(global-set-key (kbd "<f9>") 'projectile-find-file-in-known-projects)
 (projectile-global-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -346,7 +380,7 @@ e.g. Sunday, September 17, 2000."
 ;; set all Hive auchan sys-path for jedi mode TODO create a Hive user ?
 
 (setq jedi:server-args
-      '("--virtual-env" "/home/julien/python_env/hive"
+      '("--virtual-env" "/home/julien/python_env/hive2"
 	)
       )
 (global-set-key (kbd "C-x p") 'jedi:goto-definition)
@@ -397,23 +431,37 @@ e.g. Sunday, September 17, 2000."
 
 (global-set-key (kbd "C-x j") 'flycheck-mode)
 
+
 ;; auto pairing
 
 (require 'autopair)
 (autopair-global-mode) ;; to enable in all buffers
 
-;; kill edx server
+(require 'python)
+(define-key python-mode-map (kbd "C-c C-u") 'python-nav-backward-up-list)
 
-;; (defun kill-edx-servers()
-;;   (interactive)
-;;   (shell-command "pkill -1 -f fun"))
-;; (global-set-key (kbd "C-c 8") 'kill-edx-servers)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                Pytest                                   ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(require 'pytest)
+
+(add-to-list 'pytest-project-names "/home/julien/scv/scv/")
+;; (add-to-list 'pytest-project-root-files ".pyt")
+;; (add-hook 'python-mode-hook
+;; 	  (lambda ()
+;; 	    (local-set-key "\C-ca" 'pytest-all)
+;; 	    (local-set-key "\C-cm" 'pytest-module)
+;; 	    (local-set-key "\C-c." 'pytest-one)
+;; 	    (local-set-key "\C-cp." 'pytest-pdb-one)))
 
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                Django                                   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 (require 'pony-mode)
 
@@ -513,13 +561,12 @@ e.g. Sunday, September 17, 2000."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.mako\\'" . web-mode))
+;;(add-to-list 'auto-mode-alist '("\\.mako\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.underscore?\\'" . web-mode))
-;;(setq web-mode-engines-alist '("django" . "\\.html\\'"))
 (setq web-mode-engines-alist '(("django" . "\\.html\\'") ))
-(setq web-mode-engines-alist '(("underscore" . "\\.underscore\\'") )
-)
+;;(setq web-mode-engines-alist '(("underscore" . "\\.underscore\\'")))
+
 (defun web-mode-keys ()
   (local-set-key (kbd "C-M-n") 'web-mode-element-end)
   (local-set-key (kbd "C-M-p") 'web-mode-element-beginning)
@@ -536,10 +583,10 @@ e.g. Sunday, September 17, 2000."
 (set-face-attribute 'web-mode-html-attr-name-face nil :foreground "Pink3")
 
 
-;; import debug python
-;(fset 'include-css-border
-;   "border: 1px solid black; /*TO REMOVE*/")
-;(global-set-key (kbd "C-c i") 'include-css-border)
+;; ;; import debug python
+;; (fset 'include-css-border
+;;    "border: 1px solid black; /*TO REMOVE*/")
+;; (global-set-key (kbd "C-c i") 'include-css-border)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                MAGIT                                     ;;
@@ -631,7 +678,7 @@ e.g. Sunday, September 17, 2000."
 
 (define-key shell-mode-map (kbd "M-p") nil)
 (define-key shell-mode-map (kbd "M-n") nil)
-
+(define-key shell-mode-map (kbd "C-c RET") nil)
 (global-set-key  (kbd "M-o") 'comint-previous-input)
 (global-set-key  (kbd "M-m") 'comint-next-input)
 
@@ -785,21 +832,26 @@ e.g. Sunday, September 17, 2000."
 (require 'markdown-mode)
 (define-key markdown-mode-map (kbd "M-p") nil)
 (define-key markdown-mode-map (kbd "M-n") nil)
-
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+ 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                POMODORO                                 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defvar *pomodoro-directory* "/home/julien/workflow_logs/")
+(defvar *pomodoro-directory* "/home/julien/pomodoro_analyzer/pomodoro_files/")
 
 (defun get-pomodoro-filename()
-  (concat (format-time-string "%Y-%m-%e") ".txt")
-  )
+  (concat (format-time-string "%Y-%m-%d") ".txt"))
+
+
+(get-pomodoro-filename)
+
 
 (defun get-pomodoro-filepath ()
     "The pomodoro filename will be the current date."
     (concat *pomodoro-directory* (get-pomodoro-filename)))
+
 
 (defun get-time ()
   (format-time-string "%-H:%M %p"))
@@ -815,7 +867,7 @@ e.g. Sunday, September 17, 2000."
 
 (defun end-pomodoro ()
   (interactive)
-  (set-buffer  (get-pomodoro-filename))
+  (go-to-pomodoro-file)
   (end-of-buffer)
   (insert (concat "\n" "b: " (get-time) "\n"))
   (message "STOP POMODORO")
@@ -829,6 +881,15 @@ e.g. Sunday, September 17, 2000."
   (message "INTERRUPT POMODORO")
   )
 
+(defun small-interrupt-pomodoro ()
+  (interactive)
+  (set-buffer  (get-pomodoro-filename))
+  (end-of-buffer)
+  (insert (concat "\n" "X: "))
+  (message "SM INTERRUPT POMODORO")
+  )
+  
+
 (defun go-to-pomodoro-file ()
   (interactive)
   (if (eq (get-buffer (get-pomodoro-filename)) nil)
@@ -838,9 +899,28 @@ e.g. Sunday, September 17, 2000."
   (save-buffer)
 )
 
-
 (global-set-key (kbd "C-c =") 'start-pomodoro)
 (global-set-key (kbd "C-c -") 'end-pomodoro)
 (global-set-key (kbd "C-c DEL") 'interrupt-pomodoro)
 (global-set-key (kbd "<f12>") 'interrupt-pomodoro)
+(global-set-key (kbd "<f1>") 'small-interrupt-pomodoro)
 (global-set-key (kbd "C-c \\") 'go-to-pomodoro-file)
+
+(defun pomodoro-stats ()
+  (interactive)
+  (switch-to-buffer (get-pomodoro-filename))
+  (save-buffer)
+  (term "/bin/bash")
+  (term-line-mode)
+  (term-send-raw-string "po")
+  (term-send-input))
+
+(global-set-key (kbd "<f9>") 'pomodoro-stats)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                MAN                                 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'man)
+(define-key Man-mode-map (kbd "M-p") nil)
+(define-key Man-mode-map (kbd "M-n") nil)

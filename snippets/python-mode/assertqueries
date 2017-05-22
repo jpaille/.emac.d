@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: assertqueries
+# key: aq
+# --
+
+with self.assertNumQueries(2):

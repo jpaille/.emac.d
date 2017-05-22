@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: factory-boy
+# key: fb
+# --
+import factory
+
+
+class ${1:Module}Factory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = $1
+    customer = factory.SubFactory()

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: now
+# key: now
+# --
+from django.utils.timezone import now

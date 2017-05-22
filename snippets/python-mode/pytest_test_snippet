@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: pytest test snippet
+# key: pt
+# --
+
+class TestCardSerializer(object):
+    def test_card_serializer__all_info(self):
+        pass

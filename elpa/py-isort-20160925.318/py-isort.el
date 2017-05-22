@@ -45,7 +45,7 @@
 
 (defun py-isort--call-executable (errbuf file)
   (let ((default-directory (py-isort--find-settings-path)))
-    (zerop (apply 'call-process "isort" nil errbuf nil
+    (zerop (apply 'call-process "/home/julien/python_env/scv/bin/isort" nil errbuf nil
                   (append `(" " , file, " ",
                             (concat "--settings-path=" default-directory))
                           py-isort-options)))))
