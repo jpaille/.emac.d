@@ -30,17 +30,21 @@
 (kill-buffer "*Messages*")
 
 ;;copy file name path
+
+(setq nbr (string-match "[0-9]+" (what-line)))
+
 (defun my-put-file-name-on-clipboard ()
   "Put the current file name on the clipboard"
   (interactive)
   (let ((filename (if (equal major-mode 'dired-mode)
                       default-directory
-                    (buffer-file-name))))
+                    (concat (buffer-file-name) ":" (substring (what-line)  (string-match "[0-9]+" (what-line)))) )))
     (when filename
       (with-temp-buffer
         (insert filename)
         (clipboard-kill-region (point-min) (point-max)))
       (message filename))))
+
 (global-set-key "\C-x9" 'my-put-file-name-on-clipboard)
 
 ;; Rename a buffer
@@ -57,6 +61,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(asm-comment-char 59)
  '(column-number-mode t)
  '(completion-ignored-extensions
    (quote
@@ -78,6 +83,8 @@
     ("^((?!fun-apps).)*$" "*Completions*" "*Shell Command Output*" "*Messages*")))
  '(ido-mode (quote both) nil (ido))
  '(ido-show-dot-for-dired nil)
+ '(js-indent-level 2)
+ '(js2-basic-offset 2)
  '(line-number-mode 1)
  '(magit-diff-options nil)
  '(magit-save-some-buffers nil)
@@ -89,6 +96,8 @@
  '(safe-local-variable-values
    (quote
     ((pony-settings
+      (make-pony-project :python "/home/julien/python_env/hive3/bin/python" :pythonpath "" :settings "tests_settings" :projectname "hived"))
+     (pony-settings
       (make-pony-project :python "/home/julien/python_env/scv/bin/python" :pythonpath "" :settings "" :projectname "scv"))
      (pony-settings
       (make-pony-project :python "/home/julien/python_env/hive3/bin/python" :pythonpath "" :settings "tests_settings" :projectname "hive"))
@@ -117,6 +126,7 @@
     ((user :default "julien")
      password server
      (database :default "julien"))))
+ '(tab-width 11)
  '(unittest-last-executed-module "hive.salesstructures.tests.test_sales_structure"))
 ;; ? This option makes a difference in Transient Mark mode.
  ;; '(virtualenv-root "~/venvs/edxapp/")) ? not necessary with setq jedi:server-args
@@ -277,6 +287,74 @@ e.g. Sunday, September 17, 2000."
 (global-set-key (kbd "C-c t") 'now)
 
 
+
+;; Go to file at line
+
+
+(defun xah-open-file-at-cursor ()
+    "Open the file path under cursor.
+If there is text selection, uses the text selection for path.
+If the path starts with “http://”, open the URL in browser.
+Input path can be {relative, full path, URL}.
+Path may have a trailing “:‹n›” that indicates line number. If so, jump to that line number.
+If path does not have a file extension, automatically try with “.el” for elisp files.
+This command is similar to `find-file-at-point' but without prompting for confirmation.
+
+URL `http://ergoemacs.org/emacs/emacs_open_file_path_fast.html'
+Version 2018-02-21"
+    (interactive)
+    (let* (($inputStr (if (use-region-p)
+			  (buffer-substring-no-properties (region-beginning) (region-end))
+			(let ($p0 $p1 $p2
+				  ;; chars that are likely to be delimiters of file path or url, e.g. space, tabs, brakets. The colon is a problem. cuz it's in url, but not in file name. Don't want to use just space as delimiter because path or url are often in brackets or quotes as in markdown or html
+				  ($pathStops "^  \t\n\"`'‘’“”|()[]{}「」<>〔〕〈〉《》【】〖〗«»‹›❮❯❬❭·。\\"))
+			  (setq $p0 (point))
+			  (skip-chars-backward $pathStops)
+			  (setq $p1 (point))
+			  (goto-char $p0)
+			  (skip-chars-forward $pathStops)
+			  (setq $p2 (point))
+			  (goto-char $p0)
+			  (buffer-substring-no-properties $p1 $p2))))
+	   ($path
+	    (replace-regexp-in-string
+	     "^file:///" "/"
+	     (replace-regexp-in-string
+	      ":\\'" "" $inputStr))))
+      (if (string-match-p "\\`https?://" $path)
+	  (if (fboundp 'xahsite-url-to-filepath)
+	      (let (($x (xahsite-url-to-filepath $path)))
+		(if (string-match "^http" $x )
+		    (browse-url $x)
+		  (find-file $x)))
+	    (progn (browse-url $path)))
+	(if ; not starting “http://”
+	    (string-match "^\\`\\(.+?\\):\\([0-9]+\\)\\'" $path)
+	    (let (
+		  ($fpath (match-string 1 $path))
+		  ($line-num (string-to-number (match-string 2 $path))))
+	      (if (file-exists-p $fpath)
+		  (progn
+		    (find-file $fpath)
+		    (goto-char 1)
+		    (forward-line (1- $line-num)))
+		(when (y-or-n-p (format "file no exist: 「%s」. Create?" $fpath))
+		  (find-file $fpath))))
+	  (if (file-exists-p $path)
+	      (progn ; open f.ts instead of f.js
+		(let (($ext (file-name-extension $path))
+		      ($fnamecore (file-name-sans-extension $path)))
+		  (if (and (string-equal $ext "js")
+			   (file-exists-p (concat $fnamecore ".ts")))
+		      (find-file (concat $fnamecore ".ts"))
+		    (find-file $path))))
+	    (if (file-exists-p (concat $path ".el"))
+		(find-file (concat $path ".el"))
+	      (when (y-or-n-p (format "file no exist: 「%s」. Create?" $path))
+		              (find-file $path ))))))))
+
+
+(global-set-key (kbd "C-c 9") 'xah-open-file-at-cursor)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                               multiple-cursor                           ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -383,9 +461,16 @@ e.g. Sunday, September 17, 2000."
       '("--virtual-env" "/home/julien/python_env/hive2"
 	)
       )
-(global-set-key (kbd "C-x p") 'jedi:goto-definition)
-(global-set-key (kbd "C-x ]") 'jedi:goto-definition-pop-marker)
-(global-set-key (kbd "C-x =") 'jedi:show-doc)
+
+(defun jedi-custom-keys ()
+  (local-set-key (kbd "C-x p") 'jedi:goto-definition)
+  (local-set-key (kbd "C-x ]") 'jedi:goto-definition-pop-marker)
+)
+
+(add-hook 'jedi-mode-hook 'jedi-custom-keys)
+
+;;(global-set-key (kbd "C-x p") 'jedi:goto-definition)
+;;(global-set-key (kbd "C-x ]") 'jedi:goto-definition-pop-marker)
 
 ;; import debug python
 (fset 'include
@@ -523,18 +608,6 @@ e.g. Sunday, September 17, 2000."
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                JS                                       ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-(defun flycheck-js-setup ()
-  (flycheck-mode))
-(add-hook 'js-mode-hook #'flycheck-js-setup)
-
-
-(global-set-key (kbd "C-x j") 'flycheck-mode)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                HTML                                     ;;
@@ -568,11 +641,12 @@ e.g. Sunday, September 17, 2000."
 ;;(setq web-mode-engines-alist '(("underscore" . "\\.underscore\\'")))
 
 (defun web-mode-keys ()
-  (local-set-key (kbd "C-M-n") 'web-mode-element-end)
-  (local-set-key (kbd "C-M-p") 'web-mode-element-beginning)
+ ;; (local-set-key (kbd "C-M-n") 'web-mode-element-end)
+;;  (local-set-key (kbd "C-M-p") 'web-mode-element-beginning)
   (local-set-key (kbd "C-c o") 'web-mode-element-insert)
   (setq indent-tabs-mode nil)
 )
+
 (add-hook 'web-mode-hook 'web-mode-keys)
 
 (add-hook 'html-mode-hook 'html-mode-keys)
@@ -750,7 +824,7 @@ e.g. Sunday, September 17, 2000."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (global-set-key [f5] 'magit-status)
-(global-set-key  (kbd "C-c 9") 'magit-blame-mode)
+;;(global-set-key  (kbd "C-c 9") 'magit-blame-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                MP3                                      ;;
@@ -917,6 +991,98 @@ e.g. Sunday, September 17, 2000."
 
 (global-set-key (kbd "<f9>") 'pomodoro-stats)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                JAVASCRIPT                               ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;; flycheck
+
+(defun flycheck-js-setup ()
+  (flycheck-mode))
+
+(add-hook 'rjsx-mode-hook 'flycheck-js-setup)
+
+(global-set-key (kbd "C-x j") 'flycheck-mode)
+
+(require 'flycheck)
+
+;; Turn off js2 mode errors & warnings (we lean on eslint/standard)
+(setq js2-mode-show-parse-errors nil)
+(setq js2-mode-show-strict-warnings nil)
+
+;; disable jshint since we prefer eslint checking
+(setq-default flycheck-disabled-checkers
+	      (append flycheck-disabled-checkers
+		      '(javascript-jshint)))
+
+;; use eslint with web-mode for jsx files
+(flycheck-add-mode 'javascript-eslint 'rjsx-mode)
+
+;; customize flycheck temp file prefix
+(setq-default flycheck-temp-prefix ".flycheck")
+
+;; use local eslint from node_modules before global
+(defun my-use-eslint-from-node-modules ()
+  (let* ((root (locate-dominating-file
+		(or (buffer-file-name) default-directory)
+		"node_modules"))
+	 (eslint (and root
+		      (expand-file-name "node_modules/eslint/bin/eslint.js"
+					root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint))))
+
+(add-hook 'flycheck-mode-hook 'my-use-eslint-from-node-modules)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; rjsx  / js2
+
+(add-to-list 'auto-mode-alist '("\\.jsx$" . rjsx-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
+
+(defun rjsx-jump-definition ()
+  (interactive)
+  (js2-jump-to-definition 1)
+;;  (call-interactively 'cua-set-mark)
+;;  (call-interactively 'cua-cancel)
+
+  )
+
+(defun rjsx-custom-keys ()
+  (local-set-key (kbd "C-x p") 'rjsx-jump-definition)
+  (local-set-key (kbd "C-x ]") 'jump-back)
+)
+
+(add-hook 'rjsx-mode-hook 'rjsx-custom-keys)
+
+;; auto fix eslint 
+(defun eslint-fix-file ()
+  (interactive)
+  (message "eslint --fixing the file" (buffer-file-name))
+  (shell-command (concat flycheck-javascript-eslint-executable " --fix " (buffer-file-name))))
+
+
+(defun eslint-fix-file-and-revert ()
+  (interactive)
+  (eslint-fix-file)
+  (revert-buffer t t))
+
+(add-hook 'rjsx-mode-hook
+	  (lambda ()
+	    (add-hook 'after-save-hook 'eslint-fix-file-and-revert nil 'make-it-local)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                NODE.JS                             ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; repl interpreter
+(add-to-list
+ 'comint-preoutput-filter-functions
+ (lambda (output)
+              (replace-regexp-in-string "\\[[0-9]+[GJ]" "" output)))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                MAN                                 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -924,3 +1090,30 @@ e.g. Sunday, September 17, 2000."
 (require 'man)
 (define-key Man-mode-map (kbd "M-p") nil)
 (define-key Man-mode-map (kbd "M-n") nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                ASM                                 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; (setq make-backup-files nil)
+(autoload 'asm-mode-custom "/home/julien/.emacs.d/elpa/asm-mode-custom/asm-mode-custom.el")
+(setq auto-mode-alist
+       (append '(("\\.asm\\'" . asm-mode-custom) ("\\.inc\\'" . auto-mode-alist))
+ 	      auto-mode-alist))
+;; (setq asm86-inst-func-offset 3)
+(defun modify-tab-asm ()
+  (setq tab-width 11)
+    )
+(add-hook 'asm-mode-custome-hook 'modify-tab-asm)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                MAKEFILE                            ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun disable-c-c ()
+(local-set-key "\C-c" ctl-x-map)
+  )
+
+
+(add-hook 'makefile-gmake-mode-hook 'disable-c-c)
+
