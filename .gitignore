@@ -1,1 +1,6 @@
 elpa/archives
+*.pyc
+auto-save-list
+.python-environments
+games/
+ido.last~

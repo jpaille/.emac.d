@@ -1,5 +1,5 @@
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  EMACS CONFIGURATION  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -71,10 +71,22 @@
    "\\(?:\\.\\(?:aux\\|bak\\|dvi\\|pyc\\|__pycached__\\|log\\|orig\\|rej\\|toc\\)\\)\\'")
  '(dired-omit-files "__pycache__\\|.ssh\\|__init__.py")
  '(display-time-mode t)
- '(flycheck-flake8-maximum-line-length 100)
+ '(flycheck-flake8-error-level-alist
+   (quote
+    (("^E9.*$" . error)
+     ("^F82.*$" . error)
+     ("^F83.*$" . error)
+     ("^D.*$" . info)
+     ("^N.*$" . info)
+     ("^W503$"))))
+ '(flycheck-flake8rc ".flake8")
  '(flycheck-idle-change-delay 0)
  '(flycheck-javascript-jshint-executable "")
- '(flycheck-python-flake8-executable "/home/julien/python_env/hive3/bin/flake8")
+ '(flycheck-python-flake8-executable
+   "/home/jpaille/meilleursagents/apps/MediaAPI/.venv/bin/flake8")
+ '(grep-find-ignored-directories
+   (quote
+    ("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "vendors" "static" "node_modules" ".venv")))
  '(ido-create-new-buffer (quote always))
  '(ido-default-file-method (quote selected-window))
  '(ido-everywhere t)
@@ -91,6 +103,9 @@
  '(magit-status-buffer-switch-function (quote switch-to-buffer))
  '(mark-even-if-inactive t)
  '(mmm-submode-decoration-level 0)
+ '(package-selected-packages
+   (quote
+    (yasnippet yaml-mode web-mode virtualenv tide terraform-mode sqlup-mode sql-indent rjsx-mode relative-line-numbers python-pep8 pytest pymacs py-isort projectile pony-mode plsql pinentry php-mode nodejs-repl neotree nav multiple-cursors markdown-mode magit linum-relative keychain-environment jedi hackernews groovy-mode grizzl git-link format-sql flymake-python-pyflakes emms dockerfile-mode docker-tramp company coffee-mode bongo bash-completion autopair ace-jump-mode)))
  '(pony-server-host "0")
  '(pony-settings-module "hive.tests_settings")
  '(safe-local-variable-values
@@ -145,6 +160,10 @@
  '(comint-highlight-prompt ((t (:inherit dired-flangged))))
  '(custom-link ((t (:inherit change-log-date))))
  '(custom-visibility ((t (:inherit web-mode-constant-face :height 0.8))))
+ '(diff-added ((t (:inherit diff-changed))))
+ '(diff-changed ((t (:foreground "green"))))
+ '(diff-header ((t nil)))
+ '(diff-removed ((t (:foreground "red"))))
  '(ediff-current-diff-A ((t (:background "white" :foreground "blue3"))))
  '(ediff-current-diff-B ((t (:underline "red"))))
  '(ediff-even-diff-A ((t (:foreground "red3" :weight bold))))
@@ -160,6 +179,7 @@
  '(ido-first-match ((t (:foreground "green" :weight bold))))
  '(magit-branch ((t (:foreground "LightSkyBlue4"))))
  '(magit-item-highlight ((t (:inherit nil))))
+ '(magit-log-head-label-head ((t (:foreground "green" :box 1))))
  '(magit-log-head-label-local ((t (:foreground "LightSkyBlue4" :box 1))))
  '(magit-log-head-label-remote ((t (:foreground "OliveDrab4" :box 1))))
  '(magit-log-head-label-tags ((t (:foreground "green" :box 1))))
@@ -250,10 +270,10 @@
 ;;(global-set-key (kbd "C-x é") 'split-window-vertically)
 
 ;;(global-set-key (kbd "C-x à") 'delete-window)
-(global-set-key (kbd "M-<up>") 'enlarge-window)
-(global-set-key (kbd "M-<down>") 'shrink-window)
-(global-set-key (kbd "M-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "M-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "ESC <up>") 'enlarge-window)
+(global-set-key (kbd "ESC <down>") 'shrink-window)
+(global-set-key (kbd "ESC <right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "ESC <left>") 'shrink-window-horizontally)
 (global-set-key (kbd "C-x -") 'beginning-of-buffer)
 (global-set-key (kbd "C-x =") 'end-of-buffer)
 ;;(global-set-key (kbd "M-:") 'dabbrev-expand)
@@ -275,9 +295,9 @@
 
 ;; time
 (defun now ()
-  "Insert string for the current time formatted like '2:34 PM'."
+  "Insert string for the current time formatted like '2:34'."
   (interactive)                 ; permit invocation in minibuffer
-  (insert (format-time-string "%-I:%M %p")))
+  (insert (format-time-string "%-I:%M")))
 
 (defun today ()
     "Insert string for today's date nicely formatted in American style,
@@ -458,9 +478,13 @@ Version 2018-02-21"
 ;; set all Hive auchan sys-path for jedi mode TODO create a Hive user ?
 
 (setq jedi:server-args
-      '("--virtual-env" "/home/julien/python_env/hive2"
+      '("--virtual-env" "/home/jpaille/meilleursagents/apps/MediaAPI/.venv"
 	)
       )
+
+
+;;(setq jedi:server-command '("/home/jpaille/emacs-jedi/jediepcserver.py"))
+
 
 (defun jedi-custom-keys ()
   (local-set-key (kbd "C-x p") 'jedi:goto-definition)
@@ -499,6 +523,7 @@ Version 2018-02-21"
 (global-set-key (kbd "C-x -") 'doctrings)
 
 
+
 ;; jedi
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
@@ -508,6 +533,8 @@ Version 2018-02-21"
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
 (require 'auto-complete-config)
 (ac-config-default)
+
+
 
 (defun flycheck-python-setup ()
   (flycheck-mode))
@@ -814,7 +841,7 @@ Version 2018-02-21"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(autoload 'php-mode "php-mode" "Major mode for editing php code." t)
+;;(autoload 'php-mode "php-mode" "Major mode for editing php code." t)
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
 
@@ -913,7 +940,7 @@ Version 2018-02-21"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defvar *pomodoro-directory* "/home/julien/pomodoro_analyzer/pomodoro_files/")
+(defvar *pomodoro-directory* "/home/jpaille/pomodoro_analyzer/pomodoro_files/")
 
 (defun get-pomodoro-filename()
   (concat (format-time-string "%Y-%m-%d") ".txt"))
@@ -928,7 +955,7 @@ Version 2018-02-21"
 
 
 (defun get-time ()
-  (format-time-string "%-H:%M %p"))
+  (format-time-string "%-H:%M"))
 
 (defun start-pomodoro ()
   (interactive)
@@ -946,6 +973,13 @@ Version 2018-02-21"
   (insert (concat "\n" "b: " (get-time) "\n"))
   (message "STOP POMODORO")
   )
+
+(defun task-time ()
+  (interactive)
+  (end-of-line)
+  (insert (concat " t=" (get-time)))
+  )
+
 
 (defun interrupt-pomodoro ()
   (interactive)
@@ -989,7 +1023,99 @@ Version 2018-02-21"
   (term-send-raw-string "po")
   (term-send-input))
 
-(global-set-key (kbd "<f9>") 'pomodoro-stats)
+(global-set-key (kbd "<f9>") 'task-time)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                JAVASCRIPT                               ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;; flycheck
+
+(defun flycheck-js-setup ()
+  (flycheck-mode))
+
+(add-hook 'rjsx-mode-hook 'flycheck-js-setup)
+
+(global-set-key (kbd "C-x j") 'flycheck-mode)
+
+(require 'flycheck)
+
+;; Turn off js2 mode errors & warnings (we lean on eslint/standard)
+(setq js2-mode-show-parse-errors nil)
+(setq js2-mode-show-strict-warnings nil)
+
+;; disable jshint since we prefer eslint checking
+(setq-default flycheck-disabled-checkers
+	      (append flycheck-disabled-checkers
+		      '(javascript-jshint)))
+
+;; use eslint with web-mode for jsx files
+(flycheck-add-mode 'javascript-eslint 'rjsx-mode)
+
+;; customize flycheck temp file prefix
+(setq-default flycheck-temp-prefix ".flycheck")
+
+;; use local eslint from node_modules before global
+(defun my-use-eslint-from-node-modules ()
+  (let* ((root (locate-dominating-file
+		(or (buffer-file-name) default-directory)
+		"node_modules"))
+	 (eslint (and root
+		      (expand-file-name "node_modules/eslint/bin/eslint.js"
+					root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint))))
+
+(add-hook 'flycheck-mode-hook 'my-use-eslint-from-node-modules)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; rjsx  / js2
+
+(add-to-list 'auto-mode-alist '("\\.jsx$" . rjsx-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
+
+(defun rjsx-jump-definition ()
+  (interactive)
+  (js2-jump-to-definition 1)
+;;  (call-interactively 'cua-set-mark)
+;;  (call-interactively 'cua-cancel)
+
+  )
+
+(defun rjsx-custom-keys ()
+  (local-set-key (kbd "C-x p") 'rjsx-jump-definition)
+  (local-set-key (kbd "C-x ]") 'jump-back)
+)
+
+(add-hook 'rjsx-mode-hook 'rjsx-custom-keys)
+
+;; auto fix eslint 
+(defun eslint-fix-file ()
+  (interactive)
+  (message "eslint --fixing the file" (buffer-file-name))
+  (shell-command (concat flycheck-javascript-eslint-executable " --fix " (buffer-file-name))))
+
+
+(defun eslint-fix-file-and-revert ()
+  (interactive)
+  (eslint-fix-file)
+  (revert-buffer t t))
+
+(add-hook 'rjsx-mode-hook
+	  (lambda ()
+	    (add-hook 'after-save-hook 'eslint-fix-file-and-revert nil 'make-it-local)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                NODE.JS                             ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; repl interpreter
+(add-to-list
+ 'comint-preoutput-filter-functions
+ (lambda (output)
+              (replace-regexp-in-string "\\[[0-9]+[GJ]" "" output)))
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1113,7 +1239,6 @@ Version 2018-02-21"
 (defun disable-c-c ()
 (local-set-key "\C-c" ctl-x-map)
   )
-
 
 (add-hook 'makefile-gmake-mode-hook 'disable-c-c)
 
