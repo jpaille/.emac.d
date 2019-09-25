@@ -113,14 +113,13 @@
  '(mmm-submode-decoration-level 0)
  '(package-selected-packages
    (quote
-    (auto-complete highlight-quoted diredfl color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized tide terraform-mode rjsx-mode projectile plsql pinentry nodejs-repl magit keychain-environment jedi hackernews format-sql dockerfile-mode docker-tramp company bash-completion autopair pyasnippet web-mode  pkg-info multiple-cursors markdown-mode  flycheck epl proceed)))
+    (auto-complete highlight-quoted diredfl color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized tide terraform-mode rjsx-mode projectile plsql pinentry nodejs-repl magit keychain-environment jedi hackernews format-sql dockerfile-mode docker-tramp company bash-completion autopair pyasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
  '(safe-local-variable-values
    (quote
     ((pytest-venv-value . "test")
      (pytest-venv-key . "ENVIRONMENT")
      (pytest-args . "-s -Wignore -vv")
-     (pytest-binary . "/home/jpaille/meilleursagents/apps/www/.venv/bin/pytest")
-     )))
+     (pytest-binary . "/home/jpaille/meilleursagents/apps/www/.venv/bin/pytest"))))
  '(show-paren-mode t)
  '(tab-width 11)
  '(vc-annotate-background nil)
@@ -184,6 +183,7 @@
  '(magit-tag ((t (:foreground "goldenrod4"))))
  '(match ((t (:foreground "magenta"))))
  '(minibuffer-prompt ((t (:foreground "red"))))
+ '(mode-line-inactive ((t (:inherit mode-line :background "color-238" :foreground "#969896" :weight normal))))
  '(rst-level-1 ((t nil)))
  '(rst-level-2 ((t nil)))
  '(rst-level-3 ((t nil)))
@@ -381,11 +381,25 @@ e.g. Sunday, September 17, 2000."
 (global-set-key (kbd "C-x n") 'buffer-menu)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                PYTEST                                   ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(load-file "~/.emacs.d/my_packages/ma-pytest.el")
+(defun ma-pytest-python-setup ()
+  (ma-pytest-minor-mode)
+  )
+
+(add-hook 'python-mode-hook 'ma-pytest-python-setup)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                PYTHON                                   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 (add-hook 'python-mode-hook 'jedi:setup)
+
+
 (setq jedi:complete-on-dot t)
 
 (setq jedi:server-args
