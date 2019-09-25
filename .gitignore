@@ -4,8 +4,16 @@ auto-save-list
 .python-environments
 games/
 ido.last~
+ido.last
 ac-comphist.dat
 .mc-lists.el
 projectile-bookmarks.eld
 tramp
 games
+.session
+.smex-items
+.uptimes.el
+emms
+network-security.data
+transient
+recentf

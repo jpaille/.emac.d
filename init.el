@@ -1,4 +1,3 @@
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  EMACS CONFIGURATION  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -30,15 +29,12 @@
 (kill-buffer "*Messages*")
 
 ;;copy file name path
-
-(setq nbr (string-match "[0-9]+" (what-line)))
-
 (defun my-put-file-name-on-clipboard ()
   "Put the current file name on the clipboard"
   (interactive)
   (let ((filename (if (equal major-mode 'dired-mode)
                       default-directory
-                    (concat (buffer-file-name) ":" (substring (what-line)  (string-match "[0-9]+" (what-line)))) )))
+                    (concat (buffer-file-name)) )))
     (when filename
       (with-temp-buffer
         (insert filename)
@@ -61,16 +57,27 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
+ '(ansi-color-names-vector
+   (vector "#657b83" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#002b36"))
  '(asm-comment-char 59)
+ '(beacon-color "#d33682")
  '(column-number-mode t)
  '(completion-ignored-extensions
    (quote
     (".pyc" "~" ".bin" ".lbin" ".so" ".a" ".ln" ".blg" ".bbl" ".elc" ".lof" ".glo" ".idx" ".lot" ".svn/" ".hg/" ".git/" ".bzr/" "CVS/" "_darcs/" "_MTN/" ".fmt" ".tfm" ".class" ".fas" ".lib" ".mem" ".x86f" ".sparcf" ".dfsl" ".pfsl" ".d64fsl" ".p64fsl" ".lx64fsl" ".lx32fsl" ".dx64fsl" ".dx32fsl" ".fx64fsl" ".fx32fsl" ".sx64fsl" ".sx32fsl" ".wx64fsl" ".wx32fsl" ".fasl" ".ufsl" ".fsl" ".dxl" ".lo" ".la" ".gmo" ".mo" ".toc" ".aux" ".cp" ".fn" ".ky" ".pg" ".tp" ".vr" ".cps" ".fns" ".kys" ".pgs" ".tps" ".vrs" ".pyc")))
  '(cua-mode t nil (cua-base))
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
+ '(custom-safe-themes
+   (quote
+    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" default)))
  '(dired-garbage-files-regexp
    "\\(?:\\.\\(?:aux\\|bak\\|dvi\\|pyc\\|__pycached__\\|log\\|orig\\|rej\\|toc\\)\\)\\'")
  '(dired-omit-files "__pycache__\\|.ssh\\|__init__.py")
  '(display-time-mode t)
+ '(fci-rule-color "#eee8d5")
+ '(flycheck-color-mode-line-face-to-color (quote mode-line-buffer-id))
  '(flycheck-flake8-error-level-alist
    (quote
     (("^E9.*$" . error)
@@ -84,6 +91,7 @@
  '(flycheck-javascript-jshint-executable "")
  '(flycheck-python-flake8-executable
    "/home/jpaille/meilleursagents/apps/MediaAPI/.venv/bin/flake8")
+ '(frame-background-mode (quote light))
  '(grep-find-ignored-directories
    (quote
     ("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "vendors" "static" "node_modules" ".venv")))
@@ -105,48 +113,38 @@
  '(mmm-submode-decoration-level 0)
  '(package-selected-packages
    (quote
-    (yasnippet yaml-mode web-mode virtualenv tide terraform-mode sqlup-mode sql-indent rjsx-mode relative-line-numbers python-pep8 pytest pymacs py-isort projectile pony-mode plsql pinentry php-mode nodejs-repl neotree nav multiple-cursors markdown-mode magit linum-relative keychain-environment jedi hackernews groovy-mode grizzl git-link format-sql flymake-python-pyflakes emms dockerfile-mode docker-tramp company coffee-mode bongo bash-completion autopair ace-jump-mode)))
- '(pony-server-host "0")
- '(pony-settings-module "hive.tests_settings")
+    (auto-complete highlight-quoted diredfl color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized tide terraform-mode rjsx-mode projectile plsql pinentry nodejs-repl magit keychain-environment jedi hackernews format-sql dockerfile-mode docker-tramp company bash-completion autopair pyasnippet web-mode  pkg-info multiple-cursors markdown-mode  flycheck epl proceed)))
  '(safe-local-variable-values
    (quote
-    ((pony-settings
-      (make-pony-project :python "/home/julien/python_env/hive3/bin/python" :pythonpath "" :settings "tests_settings" :projectname "hived"))
-     (pony-settings
-      (make-pony-project :python "/home/julien/python_env/scv/bin/python" :pythonpath "" :settings "" :projectname "scv"))
-     (pony-settings
-      (make-pony-project :python "/home/julien/python_env/hive3/bin/python" :pythonpath "" :settings "tests_settings" :projectname "hive"))
-     (pony-settings
-      (make-pony-project :python "/home/julien/python_env/hive3/bin/python" :pythonpath "" :settings "tests_settings"))
-     (pytest-cmd-flags . "")
-     (pytest-global-name . "/home/julien/python_env/scv/bin/pytest")
-     (pony-settings
-      (make-pony-project :python "/home/julien/python_env/scv/bin/python" :pythonpath "" :settings "tests_settings"))
-     (pony-settings
-      (make-pony-project :python "/home/julien/python_env/scv/bin/python" :pythonpath "" :settings ""))
-     (pony-settings
-      (make-pony-project :python "/home/julien/python_env/hive2/bin/python" :pythonpath "" :settings "tests_settings"))
-     (pony-settings
-      (make-pony-project :python "/home/julien/python_env/hive/bin/python" :pythonpath "" :settings "tests_settings"))
-     (pony-settings
-      (make-pony-project :python "/home/julien/python_env/hive/bin/python" :pythonpath "" :settings "hive.tests_settings" :appsdir "/home/julien/hive"))
-     (pony-settings
-      (make-pony-project :python "/home/julien/python_env/hive/bin/python" :pythonpath "" :settings "tests_settings" :appsdir "/home/julien/hive/hive"))
-     (pony-settings
-      (make-pony-project :python "/home/julien/python_envs/hive/bin/python" :pythonpath "" :settings "tests_settings" :appsdir "/home/julien/hive/hive"))
-     (pony-settings make-pony-project :python "~/python_envs/hive/bin/python" :pythonpath "~/hive/hive" :settings "hive.test_settings"))))
+    ((pytest-venv-value . "test")
+     (pytest-venv-key . "ENVIRONMENT")
+     (pytest-args . "-s -Wignore -vv")
+     (pytest-binary . "/home/jpaille/meilleursagents/apps/www/.venv/bin/pytest")
+     )))
  '(show-paren-mode t)
- '(sql-postgres-login-params
-   (quote
-    ((user :default "julien")
-     password server
-     (database :default "julien"))))
  '(tab-width 11)
- '(unittest-last-executed-module "hive.salesstructures.tests.test_sales_structure"))
-;; ? This option makes a difference in Transient Mark mode.
- ;; '(virtualenv-root "~/venvs/edxapp/")) ? not necessary with setq jedi:server-args
-
-;;'(scroll-bar-mode (quote right)) ? scroll-bar-mode is not installed
+ '(vc-annotate-background nil)
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#dc322f")
+     (40 . "#cb4b16")
+     (60 . "#b58900")
+     (80 . "#859900")
+     (100 . "#2aa198")
+     (120 . "#268bd2")
+     (140 . "#d33682")
+     (160 . "#6c71c4")
+     (180 . "#dc322f")
+     (200 . "#cb4b16")
+     (220 . "#b58900")
+     (240 . "#859900")
+     (260 . "#2aa198")
+     (280 . "#268bd2")
+     (300 . "#d33682")
+     (320 . "#6c71c4")
+     (340 . "#dc322f")
+     (360 . "#cb4b16"))))
+ '(vc-annotate-very-old-color nil))
 
 ;; smooth scrolling
 (setq scroll-step 1)
@@ -215,7 +213,6 @@
 (menu-bar-mode -1)
 
 ;; edit in search bar
-
 (global-set-key (kbd "M-s") 'isearch-edit-string)
 
 ;;;;;;;
@@ -236,11 +233,6 @@
 (setq whitespace-style (quote (spaces tabs newline space-mark tab-mark newline-mark)))
 
 ;;;;;;;;;;;
-
-
-
-;; delete backwards
-;;(global-set-key "\C-h" 'backward-delete-char)
 
 ;; short answers
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -307,74 +299,6 @@ e.g. Sunday, September 17, 2000."
 (global-set-key (kbd "C-c t") 'now)
 
 
-
-;; Go to file at line
-
-
-(defun xah-open-file-at-cursor ()
-    "Open the file path under cursor.
-If there is text selection, uses the text selection for path.
-If the path starts with “http://”, open the URL in browser.
-Input path can be {relative, full path, URL}.
-Path may have a trailing “:‹n›” that indicates line number. If so, jump to that line number.
-If path does not have a file extension, automatically try with “.el” for elisp files.
-This command is similar to `find-file-at-point' but without prompting for confirmation.
-
-URL `http://ergoemacs.org/emacs/emacs_open_file_path_fast.html'
-Version 2018-02-21"
-    (interactive)
-    (let* (($inputStr (if (use-region-p)
-			  (buffer-substring-no-properties (region-beginning) (region-end))
-			(let ($p0 $p1 $p2
-				  ;; chars that are likely to be delimiters of file path or url, e.g. space, tabs, brakets. The colon is a problem. cuz it's in url, but not in file name. Don't want to use just space as delimiter because path or url are often in brackets or quotes as in markdown or html
-				  ($pathStops "^  \t\n\"`'‘’“”|()[]{}「」<>〔〕〈〉《》【】〖〗«»‹›❮❯❬❭·。\\"))
-			  (setq $p0 (point))
-			  (skip-chars-backward $pathStops)
-			  (setq $p1 (point))
-			  (goto-char $p0)
-			  (skip-chars-forward $pathStops)
-			  (setq $p2 (point))
-			  (goto-char $p0)
-			  (buffer-substring-no-properties $p1 $p2))))
-	   ($path
-	    (replace-regexp-in-string
-	     "^file:///" "/"
-	     (replace-regexp-in-string
-	      ":\\'" "" $inputStr))))
-      (if (string-match-p "\\`https?://" $path)
-	  (if (fboundp 'xahsite-url-to-filepath)
-	      (let (($x (xahsite-url-to-filepath $path)))
-		(if (string-match "^http" $x )
-		    (browse-url $x)
-		  (find-file $x)))
-	    (progn (browse-url $path)))
-	(if ; not starting “http://”
-	    (string-match "^\\`\\(.+?\\):\\([0-9]+\\)\\'" $path)
-	    (let (
-		  ($fpath (match-string 1 $path))
-		  ($line-num (string-to-number (match-string 2 $path))))
-	      (if (file-exists-p $fpath)
-		  (progn
-		    (find-file $fpath)
-		    (goto-char 1)
-		    (forward-line (1- $line-num)))
-		(when (y-or-n-p (format "file no exist: 「%s」. Create?" $fpath))
-		  (find-file $fpath))))
-	  (if (file-exists-p $path)
-	      (progn ; open f.ts instead of f.js
-		(let (($ext (file-name-extension $path))
-		      ($fnamecore (file-name-sans-extension $path)))
-		  (if (and (string-equal $ext "js")
-			   (file-exists-p (concat $fnamecore ".ts")))
-		      (find-file (concat $fnamecore ".ts"))
-		    (find-file $path))))
-	    (if (file-exists-p (concat $path ".el"))
-		(find-file (concat $path ".el"))
-	      (when (y-or-n-p (format "file no exist: 「%s」. Create?" $path))
-		              (find-file $path ))))))))
-
-
-(global-set-key (kbd "C-c 9") 'xah-open-file-at-cursor)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                               multiple-cursor                           ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -441,12 +365,8 @@ Version 2018-02-21"
 
 (global-set-key (kbd "C-x <end>") 'dired-dotfiles-toggle)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                PROJECTILE                               ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-hook 'dired-mode-hook 'diredfl-mode)
 
-;;(global-set-key (kbd "<f9>") 'projectile-find-file-in-known-projects)
-(projectile-global-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                               BUFFER                                    ;;
@@ -464,27 +384,14 @@ Version 2018-02-21"
 ;;                                PYTHON                                   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; set all edx sys-path for jedi mode
-;; (if (string= user "edxapp")
-;;     (setq jedi:server-args
-;; 	  '("--virtual-env" "/edx/app/edxapp/venvs/edxapp"
-;; 	    "--sys-path" "/edx/app/edxapp/edx-platform"
-;; 	    "--sys-path" "/edx/app/edxapp/edx-platform/lms/djangoapps"
-;; 	    "--sys-path" "/edx/app/edxapp/edx-platform/common/djangoapps"
-;; 	    "--sys-path" "/edx/app/edxapp/edx-platform/cms/djangoapps"
-;; 	    "--sys-path" "/edx/app/edxapp/fun-config"
-;; 	    ))
-;;   )
-;; set all Hive auchan sys-path for jedi mode TODO create a Hive user ?
+
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
 
 (setq jedi:server-args
       '("--virtual-env" "/home/jpaille/meilleursagents/apps/MediaAPI/.venv"
 	)
       )
-
-
-;;(setq jedi:server-command '("/home/jpaille/emacs-jedi/jediepcserver.py"))
-
 
 (defun jedi-custom-keys ()
   (local-set-key (kbd "C-x p") 'jedi:goto-definition)
@@ -493,8 +400,6 @@ Version 2018-02-21"
 
 (add-hook 'jedi-mode-hook 'jedi-custom-keys)
 
-;;(global-set-key (kbd "C-x p") 'jedi:goto-definition)
-;;(global-set-key (kbd "C-x ]") 'jedi:goto-definition-pop-marker)
 
 ;; import debug python
 (fset 'include
@@ -506,34 +411,11 @@ Version 2018-02-21"
 
 (global-set-key (kbd "C-c i") 'py-isort-buffer)
 
-;; Easy import package
-
-
-(fset 'doctrings
-   "\"\"\"Submit 'generate_answers_distribution_report' task to celery.
-
-        Args:
-            course_id (str): The course id as string.
-            problem_id (str): The problem id as string.
-
-	Returns:
-	    Redirect to Report Manager dashboard.
-        \"\"\"")
-
-(global-set-key (kbd "C-x -") 'doctrings)
-
-
-
-;; jedi
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)
-
 ;; auto-complete
 (load "auto-complete.el")
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
 (require 'auto-complete-config)
 (ac-config-default)
-
 
 
 (defun flycheck-python-setup ()
@@ -552,50 +434,6 @@ Version 2018-02-21"
 (require 'python)
 (define-key python-mode-map (kbd "C-c C-u") 'python-nav-backward-up-list)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                Pytest                                   ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-(require 'pytest)
-
-(add-to-list 'pytest-project-names "/home/julien/scv/scv/")
-;; (add-to-list 'pytest-project-root-files ".pyt")
-;; (add-hook 'python-mode-hook
-;; 	  (lambda ()
-;; 	    (local-set-key "\C-ca" 'pytest-all)
-;; 	    (local-set-key "\C-cm" 'pytest-module)
-;; 	    (local-set-key "\C-c." 'pytest-one)
-;; 	    (local-set-key "\C-cp." 'pytest-pdb-one)))
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                Django                                   ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-(require 'pony-mode)
-
-;;;; PONY mode
-
-;; fast movement in pony test
-(define-key comint-mode-map (kbd "M-p") nil)
-(define-key comint-mode-map (kbd "M-n") nil)
-
-
-
-;; replay last test from everywhere in pony.
-(global-set-key (kbd "<f6>") 'replay-last-test)
-
-;; add autocomplete to pony test buffer.
-(add-to-list 'ac-modes 'pony-test-minor-mode)
-(add-to-list 'ac-modes 'pony-test-mode)
-(add-to-list 'ac-modes 'pony-mode)
-
-
-(message (if nil "ll" "oo"))
-(if (eq nil nil)  "null" "oo")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                               SNIPPET                                   ;;
@@ -612,28 +450,6 @@ Version 2018-02-21"
 (define-key yas-minor-mode-map (kbd "<tab>") nil)
 (define-key yas-minor-mode-map (kbd "TAB") nil)
 (define-key yas-minor-mode-map (kbd "C-o") 'yas-expand)
-
-(defun python-args-to-google-docstring (text &optional make-fields)
-"Return a reST docstring format for the python arguments in yas-text."
-(let* ((indent (concat "\n" (make-string (current-column) 32)))
-       (args (python-split-args text))
-       (nr 0)
-       (formatted-args
-	(mapconcat
-	 (lambda (x)
-	   (concat "   " (nth 0 x)
-		   (if make-fields (format " ${%d:arg%d}" (incf nr) nr))
-		   (if (nth 1 x) (concat " \(default " (nth 1 x) "\)"))))
-	 args
-	 indent)))
-  (unless (string= formatted-args "")
-    (concat
-     (mapconcat 'identity
-		(list "" "Args:" formatted-args)
-		indent)
-            "\n"))))
-
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -693,28 +509,20 @@ Version 2018-02-21"
 ;;                                MAGIT                                     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;To prevent this message from being shown each time you start
 ;;Emacs, you must add the following line to your init file:
-(setq magit-last-seen-setup-instructions "1.4.0")
+;;(setq magit-last-seen-setup-instructions "1.4.0")
+(global-set-key [f5] 'magit-status)
 
-(defun magit-status-edx()
-  (interactive)
-  (magit-status "/edx/app/edxapp/edx-platform"))
-(global-set-key (kbd "C-<f11>") 'magit-status-edx)
+;; for grep mode deactivate C-xg
+(with-eval-after-load 'magit
+  (define-key magit-file-mode-map "\C-xg" nil))
+(global-set-key "\C-xg" 'rgrep)
 
-(defun magit-status-fun()
-  (interactive)
-  (magit-status "/edx/app/edxapp/fun-apps"))
-(global-set-key (kbd "C-<f12>") 'magit-status-fun)
-
-(defun magit-status-fun-theme()
-  (interactive)
-  (magit-status "/edx/app/edxapp/themes/fun"))
-(global-set-key (kbd "C-<f10>") 'magit-status-fun-theme)
-
-
-
+;; Git graph
+(fset 'gitgg
+   "git gg | head -35\C-m")
+(global-set-key "\C-xy" 'gitgg)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -756,13 +564,6 @@ Version 2018-02-21"
 (backward-char 1))
 (global-set-key "\C-cg" 'git_grep)
 
-;; grep mode
-(global-set-key "\C-xg" 'rgrep)
-
-;; Git graph
-(fset 'gitgg
-   "git gg | head -35\C-m")
-(global-set-key "\C-xy" 'gitgg)
 
 ;; vpn
 (fset 'code
@@ -845,31 +646,6 @@ Version 2018-02-21"
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                MAGIT                                    ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(global-set-key [f5] 'magit-status)
-;;(global-set-key  (kbd "C-c 9") 'magit-blame-mode)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                MP3                                      ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (setq exec-path (append exec-path '("/usr/local/bin")))
-;; ;;(add-to-list 'load-path "~/.emacs.d/site-lisp/emms/lisp")
-
-;; (require 'emms-setup)
-;; (require 'emms-player-mplayer)
-;; (emms-standard)
-;; (emms-default-players)
-;; (define-emms-simple-player mplayer '(file url)
-;;       (regexp-opt '(".ogg" ".mp3" ".wav" ".mpg" ".mpeg" ".wmv" ".wma"
-;;                     ".mov" ".avi" ".divx" ".ogm" ".asf" ".mkv" "http://" "mms://"
-;;                     ".rm" ".rmvb" ".mp4" ".flac" ".vob" ".m4a" ".flv" ".ogv" ".pls"))
-;;       "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen")
-;; (setq emms-player-mpg321-parameters '("-o" "alsa"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                TRAMP                                    ;;
