@@ -115,8 +115,8 @@
  '(mmm-submode-decoration-level 0)
  '(package-selected-packages
    (quote
-    (py-isort pony-mode auto-complete highlight-quoted diredfl color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized tide terraform-mode rjsx-mode projectile plsql pinentry nodejs-repl magit keychain-environment jedi hackernews format-sql dockerfile-mode docker-tramp company bash-completion autopair pyasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
- '(safe-local-variable-values
+    (py-isort auto-complete highlight-quoted diredfl color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized tide terraform-mode rjsx-mode projectile plsql pinentry nodejs-repl magit keychain-environment jedi hackernews format-sql dockerfile-mode docker-tramp company bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
+ '(safe-local-variable-valuesn
    (quote
     ((pytest-venv-value . "test")
      (pytest-venv-key . "ENVIRONMENT")
