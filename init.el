@@ -107,13 +107,14 @@
  '(js2-basic-offset 2)
  '(line-number-mode 1)
  '(magit-diff-options nil)
+ '(magit-save-repository-buffers nil)
  '(magit-save-some-buffers nil)
  '(magit-status-buffer-switch-function (quote switch-to-buffer))
  '(mark-even-if-inactive t)
  '(mmm-submode-decoration-level 0)
  '(package-selected-packages
    (quote
-    (auto-complete highlight-quoted diredfl color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized tide terraform-mode rjsx-mode projectile plsql pinentry nodejs-repl magit keychain-environment jedi hackernews format-sql dockerfile-mode docker-tramp company bash-completion autopair pyasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
+    (pony-mode auto-complete highlight-quoted diredfl color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized tide terraform-mode rjsx-mode projectile plsql pinentry nodejs-repl magit keychain-environment jedi hackernews format-sql dockerfile-mode docker-tramp company bash-completion autopair pyasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
  '(safe-local-variable-values
    (quote
     ((pytest-venv-value . "test")

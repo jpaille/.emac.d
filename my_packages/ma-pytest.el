@@ -141,6 +141,42 @@ case.  This requires pytest >= 1.2."
 
 ;;;;;;;;;;;;;;;;;;;;; Build import module.
 
+(defun pytest-localise (var func)
+  "Return buffer local varible or get & set it"
+  (if (local-variable-p var)
+      (symbol-value var)
+    (let ((the-var (funcall func)))
+      (if the-var
+          (progn
+            (make-local-variable var)
+            (set var the-var))))))
+
+(defun pytest-project-root()
+  "Return the root of the project(dir with manage.py in) or nil"
+  (pytest-localise
+   'pony-this-project-root
+   '(lambda ()
+      (let ((curdir default-directory)
+            (max 10)
+            (found nil))
+        (while (and (not found) (> max 0))
+          (progn
+            (if (or (file-exists-p (concat curdir "/bin/django")) ; Buildout?
+                    (file-exists-p (concat curdir "manage.py")))
+                (progn
+                  (setq found t))
+              (progn
+                (setq curdir (concat curdir "../"))
+                (setq max (- max 1))))))
+        (if found (expand-file-name curdir))))))
+
+(defun pytest-get-module ()
+  (let* ((root (pytest-project-root))
+         (path (file-name-sans-extension (or buffer-file-name (expand-file-name default-directory)))))
+    (when (string-match (pytest-project-root) path)
+      (let ((path-to-class (substring path (match-end 0))))
+        (mapconcat 'identity (split-string path-to-class "/") ".")))))
+
 (defun build_function_import(module class function)
   (concat "from " module "." class " import " function)
     )
@@ -154,7 +190,7 @@ case.  This requires pytest >= 1.2."
   (let* ((defuns (subseq (split-string (which-function) "\\.") 0 2))
  	(class (first defuns))
    	(function (second defuns))
-   	(module (pony-get-module))
+   	(module (pytest-get-module))
    	(import-string (if function
 			   (build_function_import module class function)
 			 (build_module_import module class))))
