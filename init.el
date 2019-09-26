@@ -95,6 +95,7 @@
  '(grep-find-ignored-directories
    (quote
     ("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "vendors" "static" "node_modules" ".venv")))
+ '(grep-save-buffers nil)
  '(ido-create-new-buffer (quote always))
  '(ido-default-file-method (quote selected-window))
  '(ido-everywhere t)
@@ -114,7 +115,7 @@
  '(mmm-submode-decoration-level 0)
  '(package-selected-packages
    (quote
-    (pony-mode auto-complete highlight-quoted diredfl color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized tide terraform-mode rjsx-mode projectile plsql pinentry nodejs-repl magit keychain-environment jedi hackernews format-sql dockerfile-mode docker-tramp company bash-completion autopair pyasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
+    (py-isort pony-mode auto-complete highlight-quoted diredfl color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized tide terraform-mode rjsx-mode projectile plsql pinentry nodejs-repl magit keychain-environment jedi hackernews format-sql dockerfile-mode docker-tramp company bash-completion autopair pyasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
  '(safe-local-variable-values
    (quote
     ((pytest-venv-value . "test")
@@ -524,10 +525,21 @@ e.g. Sunday, September 17, 2000."
 ;;                                MAGIT                                     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;To prevent this message from being shown each time you start
-;;Emacs, you must add the following line to your init file:
-;;(setq magit-last-seen-setup-instructions "1.4.0")
+;; magit status in current window
 (global-set-key [f5] 'magit-status)
+(setq magit-display-buffer-function
+      (lambda (buffer)
+        (display-buffer
+         buffer (if (and (derived-mode-p 'magit-mode)
+                         (memq (with-current-buffer buffer major-mode)
+                               '(magit-process-mode
+                                 magit-revision-mode
+                                 magit-diff-mode
+                                 magit-stash-mode
+                                 magit-status-mode)))
+                    nil
+                  '(display-buffer-same-window)))))
+
 
 ;; for grep mode deactivate C-xg
 (with-eval-after-load 'magit
@@ -538,6 +550,8 @@ e.g. Sunday, September 17, 2000."
 (fset 'gitgg
    "git gg | head -35\C-m")
 (global-set-key "\C-xy" 'gitgg)
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
