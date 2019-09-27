@@ -118,15 +118,12 @@
     (py-isort auto-complete highlight-quoted diredfl color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized tide terraform-mode rjsx-mode projectile plsql pinentry nodejs-repl magit keychain-environment jedi hackernews format-sql dockerfile-mode docker-tramp company bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
  '(safe-local-variable-values
    (quote
-    ((pytest-venv-value . "test")
+    ((jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/MediaAPI/.venv")
+     (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/www/.venv")
+     (pytest-venv-value . "test")
      (pytest-venv-key . "ENVIRONMENT")
      (pytest-args . "-s -Wignore -vv")
-     (pytest-binary . "/home/jpaille/meilleursagents/apps/www/.venv/bin/pytest"))))
- '(safe-local-variable-valuesn
-   (quote
-    ((pytest-venv-value . "test")
-     (pytest-venv-key . "ENVIRONMENT")
-     (pytest-args . "-s -Wignore -vv")
+     (pytest-binary . "/home/jpaille/meilleursagents/apps/MediaAPI/.venv/bin/pytest")
      (pytest-binary . "/home/jpaille/meilleursagents/apps/www/.venv/bin/pytest"))))
  '(show-paren-mode t)
  '(tab-width 11)
@@ -418,9 +415,15 @@ e.g. Sunday, September 17, 2000."
 (setq jedi:complete-on-dot t)
 
 (setq jedi:server-args
-      '("--virtual-env" "/home/jpaille/meilleursagents/apps/MediaAPI/.venv"
-	)
+      '("--virtual-env" "/home/jpaille/meilleursagents/apps/MediaAPI/.venv")
       )
+
+;; Restart a jedi server with local jedi:server-args (.dir-locals) arg to point to right venv.
+(defun jk ()
+  (interactive)
+  (jedi:stop-all-servers)
+  (jedi:start-server)
+)
 
 (defun jedi-custom-keys ()
   (local-set-key (kbd "C-x p") 'jedi:goto-definition)
