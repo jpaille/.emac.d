@@ -68,7 +68,7 @@ case.  This requires pytest >= 1.2."
        ((equal inner-obj outer-obj) (format "::%s" outer-obj))
        (t (format "::%s::%s" outer-obj inner-obj))))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 (defun run-pytest ()
   "Run the test(s) given by `command'."
@@ -100,7 +100,6 @@ case.  This requires pytest >= 1.2."
     ;; optional command
     )
 )
-
 
 (defun run-pytest-one ()
   "Run the test(s) given by `command'."
@@ -139,7 +138,7 @@ case.  This requires pytest >= 1.2."
   (interactive)
   (execute-test "ponytests" *last-python-interpreter*  *last-test-args*))
 
-;;;;;;;;;;;;;;;;;;;;; Build import module.
+;;;;;;;;;;;;;;;;;;;;; Copy module to clipboard
 
 (defun pytest-localise (var func)
   "Return buffer local varible or get & set it"
@@ -177,23 +176,19 @@ case.  This requires pytest >= 1.2."
       (let ((path-to-class (substring path (match-end 0))))
         (mapconcat 'identity (split-string path-to-class "/") ".")))))
 
-(defun build_function_import(module class function)
-  (concat "from " module "." class " import " function)
-    )
 
-(defun build_module_import(module class)
-  (concat "from " module " import " class)
-  )
+(defun build_module_import(module obj)
+  (concat "from " module " import " obj)
+)
 
 (defun copy-module-to-clipboard()
   (interactive)
-  (let* ((defuns (subseq (split-string (which-function) "\\.") 0 2))
- 	(class (first defuns))
-   	(function (second defuns))
+  (let* (  (obj-info (pytest-outer-testable))
+ 	(obj-type (car obj-info))
+   	(obj-name (cdr obj-info))
    	(module (pytest-get-module))
-   	(import-string (if function
-			   (build_function_import module class function)
-			 (build_module_import module class))))
+   	(import-string ((build_module_import module obj-name))))
+
     (message "%s" import-string)
     (kill-new import-string)
     )

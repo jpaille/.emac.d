@@ -116,6 +116,12 @@
  '(package-selected-packages
    (quote
     (py-isort auto-complete highlight-quoted diredfl color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized tide terraform-mode rjsx-mode projectile plsql pinentry nodejs-repl magit keychain-environment jedi hackernews format-sql dockerfile-mode docker-tramp company bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
+ '(safe-local-variable-values
+   (quote
+    ((pytest-venv-value . "test")
+     (pytest-venv-key . "ENVIRONMENT")
+     (pytest-args . "-s -Wignore -vv")
+     (pytest-binary . "/home/jpaille/meilleursagents/apps/www/.venv/bin/pytest"))))
  '(safe-local-variable-valuesn
    (quote
     ((pytest-venv-value . "test")
@@ -192,6 +198,11 @@
  '(rst-level-4 ((t nil)))
  '(rst-level-5 ((t nil)))
  '(rst-level-6 ((t nil)))
+ '(smerge-lower ((t nil)))
+ '(smerge-markers ((t (:background "red"))))
+ '(smerge-refined-added ((t (:inherit smerge-refined-change))))
+ '(smerge-refined-removed ((t nil)))
+ '(smerge-upper ((t nil)))
  '(web-mode-html-tag-custom-face ((t (:inherit web-mode-warning-face))))
  '(web-mode-html-tag-face ((t (:foreground "red")))))
 
@@ -216,6 +227,8 @@
 
 ;; edit in search bar
 (global-set-key (kbd "M-s") 'isearch-edit-string)
+
+;; describe-text-properties : get faces at point.
 
 ;;;;;;;
 ;;;;;;; whitespace general handling
