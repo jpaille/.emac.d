@@ -115,16 +115,18 @@
  '(mmm-submode-decoration-level 0)
  '(package-selected-packages
    (quote
-    (py-isort auto-complete highlight-quoted diredfl color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized tide terraform-mode rjsx-mode projectile plsql pinentry nodejs-repl magit keychain-environment jedi hackernews format-sql dockerfile-mode docker-tramp company bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
+    (groovy-mode py-isort auto-complete highlight-quoted diredfl color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized tide terraform-mode rjsx-mode projectile plsql pinentry nodejs-repl magit keychain-environment jedi hackernews format-sql dockerfile-mode docker-tramp company bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
  '(safe-local-variable-values
    (quote
-    ((jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/MediaAPI/.venv")
-     (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/www/.venv")
+    ((jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/Tools/.venv")
+     (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/MediaAPI/.venv")
+     (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/www/.venv"
+     (pytest-binary . "/home/jpaille/meilleursagents/apps/Tools/.venv/bin/pytest"))
+     (pytest-binary . "/home/jpaille/meilleursagents/apps/MediaAPI/.venv/bin/pytest")
+     (pytest-binary . "/home/jpaille/meilleursagents/apps/www/.venv/bin/pytest"))))
      (pytest-venv-value . "test")
      (pytest-venv-key . "ENVIRONMENT")
      (pytest-args . "-s -Wignore -vv")
-     (pytest-binary . "/home/jpaille/meilleursagents/apps/MediaAPI/.venv/bin/pytest")
-     (pytest-binary . "/home/jpaille/meilleursagents/apps/www/.venv/bin/pytest"))))
  '(show-paren-mode t)
  '(tab-width 11)
  '(vc-annotate-background nil)
