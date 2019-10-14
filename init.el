@@ -155,7 +155,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
+ '(magit-diff-hunk-heading-highlight ((t nil)))
  '(minibuffer-prompt ((t (:foreground "red"))))
  '(web-mode-html-tag-custom-face ((t (:inherit web-mode-warning-face))))
  '(web-mode-html-tag-face ((t (:foreground "red")))))
@@ -223,7 +223,7 @@
 ;; edit in search bar
 (global-set-key (kbd "M-s") 'isearch-edit-string)
 
-;; describe-text-properties : get faces at point.
+
 
 ;;;;;;;
 ;;;;;;; whitespace general handling
@@ -874,6 +874,8 @@ e.g. Sunday, September 17, 2000."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                THEME                               ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; describe-text-properties : GET FACES AT POIJN T
 
 ;; Global settings (defaults)
 (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
