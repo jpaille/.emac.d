@@ -1,5 +1,5 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;  EMACS CONFIGURATION  ;;
+;;  EMACS CONFIGURATION   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq user (getenv "USER"))
@@ -60,23 +60,20 @@
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
-   (vector "#657b83" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#002b36"))
+   (vector "#1d1f21" "#cc6666" "#b5bd68" "#f0c674" "#81a2be" "#b294bb" "#8abeb7" "#c5c8c6"))
  '(asm-comment-char 59)
- '(beacon-color "#d33682")
+ '(beacon-color "#cc6666")
  '(column-number-mode t)
- '(completion-ignored-extensions
-   (quote
-    (".pyc" "~" ".bin" ".lbin" ".so" ".a" ".ln" ".blg" ".bbl" ".elc" ".lof" ".glo" ".idx" ".lot" ".svn/" ".hg/" ".git/" ".bzr/" "CVS/" "_darcs/" "_MTN/" ".fmt" ".tfm" ".class" ".fas" ".lib" ".mem" ".x86f" ".sparcf" ".dfsl" ".pfsl" ".d64fsl" ".p64fsl" ".lx64fsl" ".lx32fsl" ".dx64fsl" ".dx32fsl" ".fx64fsl" ".fx32fsl" ".sx64fsl" ".sx32fsl" ".wx64fsl" ".wx32fsl" ".fasl" ".ufsl" ".fsl" ".dxl" ".lo" ".la" ".gmo" ".mo" ".toc" ".aux" ".cp" ".fn" ".ky" ".pg" ".tp" ".vr" ".cps" ".fns" ".kys" ".pgs" ".tps" ".vrs" ".pyc")))
  '(cua-mode t nil (cua-base))
- '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
+ '(custom-enabled-themes nil)
  '(custom-safe-themes
    (quote
-    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" default)))
+    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(dired-garbage-files-regexp
    "\\(?:\\.\\(?:aux\\|bak\\|dvi\\|pyc\\|__pycached__\\|log\\|orig\\|rej\\|toc\\)\\)\\'")
- '(dired-omit-files "__pycache__\\|.ssh\\|__init__.py")
+ '(dired-omit-files "__pycache__\\|__init__.py")
  '(display-time-mode t)
- '(fci-rule-color "#eee8d5")
+ '(fci-rule-color "#373b41")
  '(flycheck-color-mode-line-face-to-color (quote mode-line-buffer-id))
  '(flycheck-flake8-error-level-alist
    (quote
@@ -88,10 +85,9 @@
      ("^W503$"))))
  '(flycheck-flake8rc ".flake8")
  '(flycheck-idle-change-delay 0)
- '(flycheck-javascript-jshint-executable "")
  '(flycheck-python-flake8-executable
    "/home/jpaille/meilleursagents/apps/MediaAPI/.venv/bin/flake8")
- '(frame-background-mode (quote light))
+ '(frame-background-mode (quote dark))
  '(grep-find-ignored-directories
    (quote
     ("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "vendors" "static" "node_modules" ".venv")))
@@ -104,106 +100,106 @@
     ("^((?!fun-apps).)*$" "*Completions*" "*Shell Command Output*" "*Messages*")))
  '(ido-mode (quote both) nil (ido))
  '(ido-show-dot-for-dired nil)
- '(js-indent-level 2)
- '(js2-basic-offset 2)
+ '(js-indent-level 4)
  '(line-number-mode 1)
- '(magit-diff-options nil)
- '(magit-save-repository-buffers nil)
- '(magit-save-some-buffers nil)
- '(magit-status-buffer-switch-function (quote switch-to-buffer))
  '(mark-even-if-inactive t)
- '(mmm-submode-decoration-level 0)
  '(package-selected-packages
    (quote
-    (groovy-mode py-isort auto-complete highlight-quoted diredfl color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized tide terraform-mode rjsx-mode projectile plsql pinentry nodejs-repl magit keychain-environment jedi hackernews format-sql dockerfile-mode docker-tramp company bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
+    (doom-themes js2-mode yaml-mode git-link groovy-mode py-isort auto-complete highlight-quoted diredfl color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized tide terraform-mode rjsx-mode projectile plsql pinentry nodejs-repl magit keychain-environment jedi hackernews format-sql dockerfile-mode docker-tramp company bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
  '(safe-local-variable-values
    (quote
-    ((jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/Tools/.venv")
-     (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/MediaAPI/.venv")
-     (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/www/.venv"
-     (pytest-binary . "/home/jpaille/meilleursagents/apps/Tools/.venv/bin/pytest"))
+    ((pytest-binary . "/home/jpaille/meilleursagents/apps/MarketAPI/.venv/bin/pytest")
+     (pytest-binary . "/home/jpaille/meilleursagents/apps/Tools/.venv/bin/pytest")
      (pytest-binary . "/home/jpaille/meilleursagents/apps/MediaAPI/.venv/bin/pytest")
-     (pytest-binary . "/home/jpaille/meilleursagents/apps/www/.venv/bin/pytest"))))
-     (pytest-venv-value . "test")
-     (pytest-venv-key . "ENVIRONMENT")
+     (pytest-binary . "/home/jpaille/meilleursagents/apps/www/.venv/bin/pytest")
+     (pytest-venv-value . "True")
+     (pytest-venv-key . "TEST_ACTIVE")
      (pytest-args . "-s -Wignore -vv")
+     (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/MarketAPI/.venv")
+     (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/Tools/.venv")
+     (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/MediaAPI/.venv")
+     (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/www/.venv"))))
  '(show-paren-mode t)
  '(tab-width 11)
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
-    ((20 . "#dc322f")
-     (40 . "#cb4b16")
-     (60 . "#b58900")
-     (80 . "#859900")
-     (100 . "#2aa198")
-     (120 . "#268bd2")
-     (140 . "#d33682")
-     (160 . "#6c71c4")
-     (180 . "#dc322f")
-     (200 . "#cb4b16")
-     (220 . "#b58900")
-     (240 . "#859900")
-     (260 . "#2aa198")
-     (280 . "#268bd2")
-     (300 . "#d33682")
-     (320 . "#6c71c4")
-     (340 . "#dc322f")
-     (360 . "#cb4b16"))))
- '(vc-annotate-very-old-color nil))
+    ((20 . "#cc6666")
+     (40 . "#de935f")
+     (60 . "#f0c674")
+     (80 . "#b5bd68")
+     (100 . "#8abeb7")
+     (120 . "#81a2be")
+     (140 . "#b294bb")
+     (160 . "#cc6666")
+     (180 . "#de935f")
+     (200 . "#f0c674")
+     (220 . "#b5bd68")
+     (240 . "#8abeb7")
+     (260 . "#81a2be")
+     (280 . "#b294bb")
+     (300 . "#cc6666")
+     (320 . "#de935f")
+     (340 . "#f0c674")
+     (360 . "#b5bd68"))))
+ '(vc-annotate-very-old-color nil)
+ '(window-divider-mode nil))
 
 ;; smooth scrolling
 (setq scroll-step 1)
+
+;; '(epa-string ((t (:foreground "red"))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(button ((t (:inherit magit-branch))))
- '(comint-highlight-prompt ((t (:inherit dired-flangged))))
- '(custom-link ((t (:inherit change-log-date))))
- '(custom-visibility ((t (:inherit web-mode-constant-face :height 0.8))))
- '(diff-added ((t (:inherit diff-changed))))
- '(diff-changed ((t (:foreground "green"))))
- '(diff-header ((t nil)))
- '(diff-removed ((t (:foreground "red"))))
- '(ediff-current-diff-A ((t (:background "white" :foreground "blue3"))))
- '(ediff-current-diff-B ((t (:underline "red"))))
- '(ediff-even-diff-A ((t (:foreground "red3" :weight bold))))
- '(ediff-even-diff-B ((t (:foreground "red3" :weight bold :underline "red"))))
- '(emms-playlist-track-face ((t (:foreground "green"))))
- '(epa-string ((t (:foreground "red"))))
- '(erc-prompt-face ((t (:foreground "Black" :weight bold))))
- '(font-lock-builtin-face ((t (:foreground "blue" :weight bold))))
- '(font-lock-comment-face ((t (:foreground "brown"))))
- '(font-lock-function-name-face ((t (:foreground "magenta" :weight bold))))
- '(hi-blue ((t (:foreground "red" :underline t))))
- '(highlight ((t (:weight bold))))
- '(ido-first-match ((t (:foreground "green" :weight bold))))
- '(magit-branch ((t (:foreground "LightSkyBlue4"))))
- '(magit-item-highlight ((t (:inherit nil))))
- '(magit-log-head-label-head ((t (:foreground "green" :box 1))))
- '(magit-log-head-label-local ((t (:foreground "LightSkyBlue4" :box 1))))
- '(magit-log-head-label-remote ((t (:foreground "OliveDrab4" :box 1))))
- '(magit-log-head-label-tags ((t (:foreground "green" :box 1))))
- '(magit-tag ((t (:foreground "goldenrod4"))))
- '(match ((t (:foreground "magenta"))))
+
  '(minibuffer-prompt ((t (:foreground "red"))))
- '(mode-line-inactive ((t (:inherit mode-line :background "color-238" :foreground "#969896" :weight normal))))
- '(rst-level-1 ((t nil)))
- '(rst-level-2 ((t nil)))
- '(rst-level-3 ((t nil)))
- '(rst-level-4 ((t nil)))
- '(rst-level-5 ((t nil)))
- '(rst-level-6 ((t nil)))
- '(smerge-lower ((t nil)))
- '(smerge-markers ((t (:background "red"))))
- '(smerge-refined-added ((t (:inherit smerge-refined-change))))
- '(smerge-refined-removed ((t nil)))
- '(smerge-upper ((t nil)))
  '(web-mode-html-tag-custom-face ((t (:inherit web-mode-warning-face))))
  '(web-mode-html-tag-face ((t (:foreground "red")))))
+
+ ;; '(comint-highlight-prompt ((t (:inherit dired-flangged))))
+
+ ;; '(custom-link ((t (:inherit change-log-date))))
+ ;; '(custom-visibility ((t (:inherit web-mode-constant-face :height 0.8))))
+
+ ;; '(font-lock-builtin-face ((t (:foreground "blue" :weight bold))))
+ ;; '(font-lock-comment-face ((t (:foreground "brown"))))
+ ;; '(font-lock-function-name-face ((t (:foreground "magenta" :weight bold))))
+
+ ;; '(hi-blue ((t (:foreground "red" :underline t))))
+ ;; '(highlight ((t (:weight bold))))
+ ;; '(ido-first-match ((t (:foreground "green" :weight bold))))
+;;'(mode-line-inactive ((t (:inherit mode-line :background "color-238" :foreground "#969896" :weight normal))))
+;; '(button ((t (:inherit magit-branch))))
+;; '(match ((t (:foreground "magenta"))))
+
+ ;; '(diff-added ((t (:inherit diff-changed))))
+ ;; '(diff-changed ((t (:foreground "green"))))
+ ;; '(diff-header ((t nil)))
+ ;; '(diff-removed ((t (:foreground "red"))))
+ ;; '(ediff-current-diff-A ((t (:background "white" :foreground "blue3"))))
+ ;; '(ediff-current-diff-B ((t (:underline "red"))))
+ ;; '(ediff-even-diff-A ((t (:foreground "red3" :weight bold))))
+ ;; '(ediff-even-diff-B ((t (:foreground "red3" :weight bold :underline "red"))))
+
+ ;; '(magit-branch ((t (:foreground "LightSkyBlue4"))))
+ ;; '(magit-item-highlight ((t (:inherit nil))))
+ ;; '(magit-log-head-label-head ((t (:foreground "green" :box 1))))
+ ;; '(magit-log-head-label-local ((t (:foreground "LightSkyBlue4" :box 1))))
+ ;; '(magit-log-head-label-remote ((t (:foreground "OliveDrab4" :box 1))))
+ ;; '(magit-log-head-label-tags ((t (:foreground "green" :box 1))))
+ ;; '(magit-tag ((t (:foreground "goldenrod4"))))
+
+;; '(smerge-lower ((t nil)))
+;;  '(smerge-markers ((t (:background "red"))))
+;;  '(smerge-refined-added ((t (:inherit smerge-refined-change))))
+;;  '(smerge-refined-removed ((t nil)))
+;;  '(smerge-upper ((t nil)))
+
+
 
 
 ;; Hightlight current line.
@@ -297,6 +293,7 @@
 
 ;; revert buffer
 (global-set-key (kbd "<C-f5>") 'revert-buffer)
+
 
 
 ;; time
@@ -545,32 +542,34 @@ e.g. Sunday, September 17, 2000."
 
 ;; magit status in current window
 (global-set-key [f5] 'magit-status)
-(setq magit-display-buffer-function
-      (lambda (buffer)
-        (display-buffer
-         buffer (if (and (derived-mode-p 'magit-mode)
-                         (memq (with-current-buffer buffer major-mode)
-                               '(magit-process-mode
-                                 magit-revision-mode
-                                 magit-diff-mode
-                                 magit-stash-mode
-                                 magit-status-mode)))
-                    nil
-                  '(display-buffer-same-window)))))
+;; (setq magit-display-buffer-function
+;;       (lambda (buffer)
+;;         (display-buffer
+;;          buffer (if (and (derived-mode-p 'magit-mode)
+;;                          (memq (with-current-buffer buffer major-mode)
+;;                                '(magit-process-mode
+;;                                  magit-revision-mode
+;;                                  magit-diff-mode
+;;                                  magit-stash-mode
+;;                                  magit-status-mode)))
+;;                     nil
+;;                   '(display-buffer-same-window)))))
 
 
 ;; for grep mode deactivate C-xg
 (with-eval-after-load 'magit
   (define-key magit-file-mode-map "\C-xg" nil))
+
 (global-set-key "\C-xg" 'rgrep)
 
-;; Git graph
-(fset 'gitgg
-   "git gg | head -35\C-m")
-(global-set-key "\C-xy" 'gitgg)
+(global-set-key [f5] 'magit-status)
 
+(global-set-key [f6] 'go-to-magit-ma)
 
-
+(defun go-to-magit-ma()
+  (interactive)
+  (switch-to-buffer "magit: meilleursagents")
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                C                                        ;;
@@ -648,18 +647,6 @@ e.g. Sunday, September 17, 2000."
   (shell "*shell*")
   (shell "*oo*"))
 (start-shells)
-
-(defun start-fun-server()
-  (interactive)
-  (get-buffer-create "*lms*")
-  (shell "*lms*")
-  (shell "*cms*")
-  (process-send-string "*lms*" "funlms\n")
-  (process-send-string "*cms*" "funcms\n"))
-
-;; start fun development server
-(if (string= user "edxapp")
-    (start-fun-server))
 
 ;; go to prompt
 (global-set-key (kbd "C-c e") 'comint-goto-process-mark)
@@ -757,7 +744,7 @@ e.g. Sunday, September 17, 2000."
 (define-key markdown-mode-map (kbd "M-p") nil)
 (define-key markdown-mode-map (kbd "M-n") nil)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                POMODORO                                 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -819,7 +806,7 @@ e.g. Sunday, September 17, 2000."
   (insert (concat "\n" "X: "))
   (message "SM INTERRUPT POMODORO")
   )
-  
+
 
 (defun go-to-pomodoro-file ()
   (interactive)
@@ -847,189 +834,6 @@ e.g. Sunday, September 17, 2000."
   (term-send-input))
 
 (global-set-key (kbd "<f9>") 'task-time)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                JAVASCRIPT                               ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;;;;;;;;;;;;;;;; flycheck
-
-(defun flycheck-js-setup ()
-  (flycheck-mode))
-
-(add-hook 'rjsx-mode-hook 'flycheck-js-setup)
-
-(global-set-key (kbd "C-x j") 'flycheck-mode)
-
-(require 'flycheck)
-
-;; Turn off js2 mode errors & warnings (we lean on eslint/standard)
-(setq js2-mode-show-parse-errors nil)
-(setq js2-mode-show-strict-warnings nil)
-
-;; disable jshint since we prefer eslint checking
-(setq-default flycheck-disabled-checkers
-	      (append flycheck-disabled-checkers
-		      '(javascript-jshint)))
-
-;; use eslint with web-mode for jsx files
-(flycheck-add-mode 'javascript-eslint 'rjsx-mode)
-
-;; customize flycheck temp file prefix
-(setq-default flycheck-temp-prefix ".flycheck")
-
-;; use local eslint from node_modules before global
-(defun my-use-eslint-from-node-modules ()
-  (let* ((root (locate-dominating-file
-		(or (buffer-file-name) default-directory)
-		"node_modules"))
-	 (eslint (and root
-		      (expand-file-name "node_modules/eslint/bin/eslint.js"
-					root))))
-    (when (and eslint (file-executable-p eslint))
-      (setq-local flycheck-javascript-eslint-executable eslint))))
-
-(add-hook 'flycheck-mode-hook 'my-use-eslint-from-node-modules)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; rjsx  / js2
-
-(add-to-list 'auto-mode-alist '("\\.jsx$" . rjsx-mode))
-(add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
-
-(defun rjsx-jump-definition ()
-  (interactive)
-  (js2-jump-to-definition 1)
-;;  (call-interactively 'cua-set-mark)
-;;  (call-interactively 'cua-cancel)
-
-  )
-
-(defun rjsx-custom-keys ()
-  (local-set-key (kbd "C-x p") 'rjsx-jump-definition)
-  (local-set-key (kbd "C-x ]") 'jump-back)
-)
-
-(add-hook 'rjsx-mode-hook 'rjsx-custom-keys)
-
-;; auto fix eslint 
-(defun eslint-fix-file ()
-  (interactive)
-  (message "eslint --fixing the file" (buffer-file-name))
-  (shell-command (concat flycheck-javascript-eslint-executable " --fix " (buffer-file-name))))
-
-
-(defun eslint-fix-file-and-revert ()
-  (interactive)
-  (eslint-fix-file)
-  (revert-buffer t t))
-
-(add-hook 'rjsx-mode-hook
-	  (lambda ()
-	    (add-hook 'after-save-hook 'eslint-fix-file-and-revert nil 'make-it-local)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                NODE.JS                             ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; repl interpreter
-(add-to-list
- 'comint-preoutput-filter-functions
- (lambda (output)
-              (replace-regexp-in-string "\\[[0-9]+[GJ]" "" output)))
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                JAVASCRIPT                               ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;;;;;;;;;;;;;;;; flycheck
-
-(defun flycheck-js-setup ()
-  (flycheck-mode))
-
-(add-hook 'rjsx-mode-hook 'flycheck-js-setup)
-
-(global-set-key (kbd "C-x j") 'flycheck-mode)
-
-(require 'flycheck)
-
-;; Turn off js2 mode errors & warnings (we lean on eslint/standard)
-(setq js2-mode-show-parse-errors nil)
-(setq js2-mode-show-strict-warnings nil)
-
-;; disable jshint since we prefer eslint checking
-(setq-default flycheck-disabled-checkers
-	      (append flycheck-disabled-checkers
-		      '(javascript-jshint)))
-
-;; use eslint with web-mode for jsx files
-(flycheck-add-mode 'javascript-eslint 'rjsx-mode)
-
-;; customize flycheck temp file prefix
-(setq-default flycheck-temp-prefix ".flycheck")
-
-;; use local eslint from node_modules before global
-(defun my-use-eslint-from-node-modules ()
-  (let* ((root (locate-dominating-file
-		(or (buffer-file-name) default-directory)
-		"node_modules"))
-	 (eslint (and root
-		      (expand-file-name "node_modules/eslint/bin/eslint.js"
-					root))))
-    (when (and eslint (file-executable-p eslint))
-      (setq-local flycheck-javascript-eslint-executable eslint))))
-
-(add-hook 'flycheck-mode-hook 'my-use-eslint-from-node-modules)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; rjsx  / js2
-
-(add-to-list 'auto-mode-alist '("\\.jsx$" . rjsx-mode))
-(add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
-
-(defun rjsx-jump-definition ()
-  (interactive)
-  (js2-jump-to-definition 1)
-;;  (call-interactively 'cua-set-mark)
-;;  (call-interactively 'cua-cancel)
-
-  )
-
-(defun rjsx-custom-keys ()
-  (local-set-key (kbd "C-x p") 'rjsx-jump-definition)
-  (local-set-key (kbd "C-x ]") 'jump-back)
-)
-
-(add-hook 'rjsx-mode-hook 'rjsx-custom-keys)
-
-;; auto fix eslint 
-(defun eslint-fix-file ()
-  (interactive)
-  (message "eslint --fixing the file" (buffer-file-name))
-  (shell-command (concat flycheck-javascript-eslint-executable " --fix " (buffer-file-name))))
-
-
-(defun eslint-fix-file-and-revert ()
-  (interactive)
-  (eslint-fix-file)
-  (revert-buffer t t))
-
-(add-hook 'rjsx-mode-hook
-	  (lambda ()
-	    (add-hook 'after-save-hook 'eslint-fix-file-and-revert nil 'make-it-local)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                NODE.JS                             ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; repl interpreter
-(add-to-list
- 'comint-preoutput-filter-functions
- (lambda (output)
-              (replace-regexp-in-string "\\[[0-9]+[GJ]" "" output)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1061,7 +865,20 @@ e.g. Sunday, September 17, 2000."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun disable-c-c ()
 (local-set-key "\C-c" ctl-x-map)
-  )
+)
 
 (add-hook 'makefile-gmake-mode-hook 'disable-c-c)
 
+  (require 'doom-themes)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                THEME                               ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Global settings (defaults)
+(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+
+;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each
+;; theme may have their own settings.
+(load-theme 'doom-one t)
