@@ -521,51 +521,31 @@
 
 (require 'shell)
 
-;; Git grep
-(defun git_grep()
-  "shorcut for grep with git"
-(interactive)
-(insert "git gr \"\"")
-(backward-char 1))
-(global-set-key "\C-cg" 'git_grep)
-
-
-;; vpn
-(fset 'code
-   "!9@T2cJv")
-(global-set-key (kbd "C-c 3") 'code)
-
-;; move fast like everywhere
-(defun mp-add-shell-keys ()
-  (setq-default show-trailing-whitespace nil)
-  (local-set-key (kbd "C-x C-e") 'comint-show-maximum-output)
-  (define-key (kbd "M-,") 'comint-previous-input))
-
-;;(add-hook 'shell-mode-hook 'mp-add-shell-keys)
-
+;; Move fast like everywhere
 (define-key shell-mode-map (kbd "M-p") nil)
 (define-key shell-mode-map (kbd "M-n") nil)
-(define-key shell-mode-map (kbd "C-c RET") nil)
+
+;; Previous next input
 (global-set-key  (kbd "M-o") 'comint-previous-input)
 (global-set-key  (kbd "M-m") 'comint-next-input)
 
-
-;; shell-resync-dirs
+;; Shell hell-resync-dirs
 (global-set-key "\M-\r" 'shell-resync-dirs)
 
-;; shortcut shell
-(defun spawn-shell (name)
-  (interactive "MName of shell buffer to create: ")
-  (pop-to-buffer (get-buffer-create (generate-new-buffer-name name)))
-  (shell (current-buffer)))
-(global-set-key (kbd "M-.") 'spawn-shell)
-
+;; Start every emacs session with a main shell and a secondary shell named *oo*.
 (defun start-shells()
   (get-buffer-create "*shell*")
   (get-buffer-create "*oo*")
   (shell "*shell*")
   (shell "*oo*"))
 (start-shells)
+
+;; Spawn a new shell
+(defun spawn-shell (name)
+  (interactive "Name of shell buffer to create: ")
+  (pop-to-buffer (get-buffer-create (generate-new-buffer-name name)))
+  (shell (current-buffer)))
+(global-set-key (kbd "M-.") 'spawn-shell)
 
 ;; go to prompt
 (global-set-key (kbd "C-c e") 'comint-goto-process-mark)
