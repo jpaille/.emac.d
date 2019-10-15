@@ -52,6 +52,9 @@
 ;; disable parenthesis display delay
 (setq show-paren-delay 0)
 
+;; smooth scrolling
+(setq scroll-step 1)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -65,10 +68,10 @@
  '(beacon-color "#cc6666")
  '(column-number-mode t)
  '(cua-mode t nil (cua-base))
- '(custom-enabled-themes nil)
+ '(custom-enabled-themes (quote (doom-acario-dark)))
  '(custom-safe-themes
    (quote
-    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
+    ("f589e634c9ff738341823a5a58fc200341b440611aaa8e0189df85b44533692b" "0713580a6845e8075113a70275b3421333cfe7079e48228c52300606fa5ce73b" "2d1fe7c9007a5b76cea4395b0fc664d0c1cfd34bb4f1860300347cdad67fb2f9" "f30aded97e67a487d30f38a1ac48eddb49fdb06ac01ebeaff39439997cbdd869" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(dired-garbage-files-regexp
    "\\(?:\\.\\(?:aux\\|bak\\|dvi\\|pyc\\|__pycached__\\|log\\|orig\\|rej\\|toc\\)\\)\\'")
  '(dired-omit-files "__pycache__\\|__init__.py")
@@ -145,20 +148,38 @@
  '(vc-annotate-very-old-color nil)
  '(window-divider-mode nil))
 
-;; smooth scrolling
-(setq scroll-step 1)
-
-;; '(epa-string ((t (:foreground "red"))))
-
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(magit-diff-hunk-heading-highlight ((t nil)))
  '(minibuffer-prompt ((t (:foreground "red"))))
  '(web-mode-html-tag-custom-face ((t (:inherit web-mode-warning-face))))
  '(web-mode-html-tag-face ((t (:foreground "red")))))
+
+;; MAGIT THEME SAVED
+;;  '(diff-added ((t (:inherit diff-changed))))
+;;  '(diff-changed ((t (:foreground "green"))))
+;;  '(diff-header ((t nil)))
+;;  '(diff-removed ((t (:foreground "red"))))
+;;  '(ediff-current-diff-A ((t (:background "white" :foreground "blue3"))))
+;;  '(ediff-current-diff-B ((t (:underline "red"))))
+;;  '(ediff-even-diff-A ((t (:foreground "red3" :weight bold))))
+;;  '(ediff-even-diff-B ((t (:foreground "red3" :weight bold :underline "red"))))
+;;  '(magit-branch ((t (:foreground "LightSkyBlue4"))))
+;;  '(magit-item-highlight ((t (:inherit nil))))
+;;  '(magit-log-head-label-head ((t (:foreground "green" :box 1))))
+;;  '(magit-log-head-label-local ((t (:foreground "LightSkyBlue4" :box 1))))
+;;  '(magit-log-head-label-remote ((t (:foreground "OliveDrab4" :box 1))))
+;;  '(magit-log-head-label-tags ((t (:foreground "green" :box 1))))
+;;  '(magit-tag ((t (:foreground "goldenrod4"))))
+;; '(smerge-lower ((t nil)))
+;;  '(smerge-markers ((t (:background "red"))))
+;;  '(smerge-refined-added ((t (:inherit smerge-refined-change))))
+;;  '(smerge-refined-removed ((t nil)))
+;;  '(smerge-upper ((t nil)))
+
+
 
  ;; '(comint-highlight-prompt ((t (:inherit dired-flangged))))
 
@@ -175,30 +196,6 @@
 ;;'(mode-line-inactive ((t (:inherit mode-line :background "color-238" :foreground "#969896" :weight normal))))
 ;; '(button ((t (:inherit magit-branch))))
 ;; '(match ((t (:foreground "magenta"))))
-
- ;; '(diff-added ((t (:inherit diff-changed))))
- ;; '(diff-changed ((t (:foreground "green"))))
- ;; '(diff-header ((t nil)))
- ;; '(diff-removed ((t (:foreground "red"))))
- ;; '(ediff-current-diff-A ((t (:background "white" :foreground "blue3"))))
- ;; '(ediff-current-diff-B ((t (:underline "red"))))
- ;; '(ediff-even-diff-A ((t (:foreground "red3" :weight bold))))
- ;; '(ediff-even-diff-B ((t (:foreground "red3" :weight bold :underline "red"))))
-
- ;; '(magit-branch ((t (:foreground "LightSkyBlue4"))))
- ;; '(magit-item-highlight ((t (:inherit nil))))
- ;; '(magit-log-head-label-head ((t (:foreground "green" :box 1))))
- ;; '(magit-log-head-label-local ((t (:foreground "LightSkyBlue4" :box 1))))
- ;; '(magit-log-head-label-remote ((t (:foreground "OliveDrab4" :box 1))))
- ;; '(magit-log-head-label-tags ((t (:foreground "green" :box 1))))
- ;; '(magit-tag ((t (:foreground "goldenrod4"))))
-
-;; '(smerge-lower ((t nil)))
-;;  '(smerge-markers ((t (:background "red"))))
-;;  '(smerge-refined-added ((t (:inherit smerge-refined-change))))
-;;  '(smerge-refined-removed ((t nil)))
-;;  '(smerge-upper ((t nil)))
-
 
 
 
@@ -883,4 +880,10 @@ e.g. Sunday, September 17, 2000."
 
 ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each
 ;; theme may have their own settings.
-(load-theme 'doom-one t)
+(load-theme 'doom-acario-dark t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                SESSION                             ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(desktop-save-mode 1)
