@@ -1,8 +1,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  EMACS CONFIGURATION   ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq user (getenv "USER"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                PACKAGE.EL                               ;;
@@ -20,15 +19,93 @@
 ;;                                GENERAL                                  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; utf-8 used ?
+;; Set user venv
+(setq user (getenv "USER"))
+
+;; UTF-8
 (setq locale-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
-;;(setq-default message-log-max nil)
+;; Kill buffer message
 (kill-buffer "*Messages*")
 
-;;copy file name path
+;; Show time in the mode line.
+(setq display-time-24hr-format 1)
+
+;; Disable parenthesis display delay
+(setq show-paren-delay 0)
+
+;; Smooth scrolling
+(setq scroll-step 1)
+
+;; Hightlight current line.
+(global-hl-line-mode t)
+
+;; Disable menu_bar
+(menu-bar-mode -1)
+
+;; Short answers
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Highlight selected region.
+(transient-mark-mode 1)
+
+;; Disable backup
+(setq backup-inhibited t)
+
+;; Disable auto save
+(setq auto-save-default nil)
+
+;; Disable lock file system
+(setq create-lockfiles nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                               NAVIGATION                                ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(ffap-bindings) ;; ?
+
+;; Undo
+(global-set-key (kbd "C-w") 'undo)
+
+;; Move begin of line (more accessible better than C-a)
+(global-set-key  (kbd "C-q") 'move-beginning-of-line)
+
+;; Move fast up and down
+(defun move_fast_down()
+(interactive)
+(forward-line 4))
+(defun move_fast_up()
+(interactive)
+(forward-line -4))
+(global-set-key  (kbd "M-n") 'move_fast_down)
+(global-set-key  (kbd "M-p") 'move_fast_up)
+
+;; Move windows
+(global-set-key (kbd "ESC <up>") 'enlarge-window)
+(global-set-key (kbd "ESC <down>") 'shrink-window)
+(global-set-key (kbd "ESC <right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "ESC <left>") 'shrink-window-horizontally)
+
+;; Find file at point
+(global-set-key (kbd "C-x l") 'find-file-at-point) ;; shell need to be sync
+
+;; Comments quick
+(global-set-key (kbd "C-x c") 'comment-region)
+(global-set-key (kbd "C-x v") 'uncomment-region)
+
+
+(defun go_to_conf()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
+
+;; Revert buffer but it doesn't work...
+(global-set-key (kbd "<C-f5>") 'revert-buffer)
+
+;; Copy file name path on clipboard 
 (defun my-put-file-name-on-clipboard ()
   "Put the current file name on the clipboard"
   (interactive)
@@ -40,20 +117,15 @@
         (insert filename)
         (clipboard-kill-region (point-min) (point-max)))
       (message filename))))
-
 (global-set-key "\C-x9" 'my-put-file-name-on-clipboard)
 
 ;; Rename a buffer
 (global-set-key "\C-cw" 'rename-buffer)
 
-;; Show time in the mode line.
-(setq display-time-24hr-format 1)
 
-;; disable parenthesis display delay
-(setq show-paren-delay 0)
-
-;; smooth scrolling
-(setq scroll-step 1)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                               Custom variables                          ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -157,154 +229,22 @@
  '(web-mode-html-tag-custom-face ((t (:inherit web-mode-warning-face))))
  '(web-mode-html-tag-face ((t (:foreground "red")))))
 
-;; MAGIT THEME SAVED
-;;  '(diff-added ((t (:inherit diff-changed))))
-;;  '(diff-changed ((t (:foreground "green"))))
-;;  '(diff-header ((t nil)))
-;;  '(diff-removed ((t (:foreground "red"))))
-;;  '(ediff-current-diff-A ((t (:background "white" :foreground "blue3"))))
-;;  '(ediff-current-diff-B ((t (:underline "red"))))
-;;  '(ediff-even-diff-A ((t (:foreground "red3" :weight bold))))
-;;  '(ediff-even-diff-B ((t (:foreground "red3" :weight bold :underline "red"))))
-;;  '(magit-branch ((t (:foreground "LightSkyBlue4"))))
-;;  '(magit-item-highlight ((t (:inherit nil))))
-;;  '(magit-log-head-label-head ((t (:foreground "green" :box 1))))
-;;  '(magit-log-head-label-local ((t (:foreground "LightSkyBlue4" :box 1))))
-;;  '(magit-log-head-label-remote ((t (:foreground "OliveDrab4" :box 1))))
-;;  '(magit-log-head-label-tags ((t (:foreground "green" :box 1))))
-;;  '(magit-tag ((t (:foreground "goldenrod4"))))
-;; '(smerge-lower ((t nil)))
-;;  '(smerge-markers ((t (:background "red"))))
-;;  '(smerge-refined-added ((t (:inherit smerge-refined-change))))
-;;  '(smerge-refined-removed ((t nil)))
-;;  '(smerge-upper ((t nil)))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                               White space mode                          ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
- ;; '(comint-highlight-prompt ((t (:inherit dired-flangged))))
-
- ;; '(custom-link ((t (:inherit change-log-date))))
- ;; '(custom-visibility ((t (:inherit web-mode-constant-face :height 0.8))))
-
- ;; '(font-lock-builtin-face ((t (:foreground "blue" :weight bold))))
- ;; '(font-lock-comment-face ((t (:foreground "brown"))))
- ;; '(font-lock-function-name-face ((t (:foreground "magenta" :weight bold))))
-
- ;; '(hi-blue ((t (:foreground "red" :underline t))))
- ;; '(highlight ((t (:weight bold))))
- ;; '(ido-first-match ((t (:foreground "green" :weight bold))))
-;;'(mode-line-inactive ((t (:inherit mode-line :background "color-238" :foreground "#969896" :weight normal))))
-;; '(button ((t (:inherit magit-branch))))
-;; '(match ((t (:foreground "magenta"))))
-
-
-
-;; Hightlight current line.
-(global-hl-line-mode t)
-
-;; Highlight region.
-(transient-mark-mode 1) ;; ?When enabled, the region is highlighted whenever the mark is active.
-
-;; disable backup
-(setq backup-inhibited t)
-
-;;disable auto save
-(setq auto-save-default nil)
-
-;; disable lock file system
-(setq create-lockfiles nil)
-
-;; disable menu_bar
-(menu-bar-mode -1)
-
-;; edit in search bar
-(global-set-key (kbd "M-s") 'isearch-edit-string)
-
-
-
-;;;;;;;
-;;;;;;; whitespace general handling
-;;;;;;;
 
 ;; Show/delete trailing spaces disable for shell-mode
 (setq-default show-trailing-whitespace nil)
-(global-set-key [f6] 'delete-trailing-whitespace)
 
-;; show white spaces
+;; Show white spaces
 (global-set-key (kbd "C-x w") 'whitespace-mode)
 
-;; undo
-(global-set-key (kbd "C-w") 'undo)
-
-;; make whitespace-mode use just basic coloring
+;; Make whitespace-mode use just basic coloring
 (setq whitespace-style (quote (spaces tabs newline space-mark tab-mark newline-mark)))
 
-;;;;;;;;;;;
-
-;; short answers
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;; navigation shortcuts.
-(ffap-bindings)
-(global-set-key  (kbd "C-x C-d") 'ffap-other-window)
-
-
-(defun move_fast_down()
-(interactive)
-(forward-line 4))
-
-(defun move_fast_up()
-(interactive)
-(forward-line -4))
-
-(global-set-key  (kbd "M-n") 'move_fast_down)
-(global-set-key  (kbd "M-p") 'move_fast_up)
-(global-set-key  (kbd "C-q") 'move-beginning-of-line)
-
-(define-key ctl-x-map "\'" 'ctl-x-4-prefix)
-(global-set-key (kbd "C-x \' b") 'switch-to-buffer-other-window)
-(global-set-key (kbd "C-x \' f") 'find-file-other-window)
-
-;;global-set-key (kbd "C-x \"") 'split-window-horizontally)
-;;(global-set-key (kbd "C-x é") 'split-window-vertically)
-
-;;(global-set-key (kbd "C-x à") 'delete-window)
-(global-set-key (kbd "ESC <up>") 'enlarge-window)
-(global-set-key (kbd "ESC <down>") 'shrink-window)
-(global-set-key (kbd "ESC <right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "ESC <left>") 'shrink-window-horizontally)
-(global-set-key (kbd "C-x -") 'beginning-of-buffer)
-(global-set-key (kbd "C-x =") 'end-of-buffer)
-;;(global-set-key (kbd "M-:") 'dabbrev-expand)
-(global-set-key (kbd "C-x l") 'find-file-at-point) ;; shell need to be sync
-(global-set-key (kbd "C-x C-f") 'ido-find-file) ;; shell need to be sync
-(global-set-key (kbd "C-x c") 'comment-region)
-(global-set-key (kbd "C-x v") 'uncomment-region)
-
-(defun go_to_conf()
-  (interactive)
-  (find-file "~/.emacs.d/init.el"))
-
-(global-set-key (kbd "C-x <home>") 'go_to_conf)
-
-
-;; revert buffer
-(global-set-key (kbd "<C-f5>") 'revert-buffer)
-
-
-
-;; time
-(defun now ()
-  "Insert string for the current time formatted like '2:34'."
-  (interactive)                 ; permit invocation in minibuffer
-  (insert (format-time-string "%-I:%M")))
-
-(defun today ()
-    "Insert string for today's date nicely formatted in American style,
-e.g. Sunday, September 17, 2000."
-    (interactive)                 ; permit invocation in minibuffer
-    (insert (format-time-string "%A, %B %e, %Y")))
-(global-set-key (kbd "C-c t") 'now)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -325,24 +265,10 @@ e.g. Sunday, September 17, 2000."
 (ido-mode t)
 (ido-everywhere t)
 
-;;(setq ido-use-filename-at-point 'guess)
+(global-set-key (kbd "C-x C-f") 'ido-find-file) ;; shell need to be sync
 
 ;; create buffer
 (setq ido-create-new-buffer 'always)
-
-;; make ido display choices vertically
-;;(setq ido-separator "\n")
-
-;; display any item that contains the chars you typed
-;;(setq ido-enable-flex-matching t)
-
-;;(defun ido-define-keys () ;; C-n/p is more intuitive in vertical layout
-;; (define-key ido-completion-map (kbd "M-n") 'ido-next-match)
-;; (define-key ido-completion-map (kbd "M-p") 'ido-prev-match)
-;; (define-key ido-completion-map (kbd "C-p") 'ido-prev-work-directory)
-;; (define-key ido-completion-map (kbd "C-n") 'ido-next-work-directory))
-
-;;qd-hook 'ido-setup-hook 'ido-define-keys)
 
 ;; remove useless buffer from buffer list
 (setq ido-ignore-buffers '("^ " "*Completions*" "*Shell Command Output*"
@@ -384,8 +310,6 @@ e.g. Sunday, September 17, 2000."
 (global-set-key (kbd "C-x b") 'switch-to-buffer)
 
 ;; Only display files
-;;(fset 'bufferlistfiles
-;;      "\C-xbT")
 (global-set-key (kbd "C-x n") 'buffer-menu)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -454,13 +378,16 @@ e.g. Sunday, September 17, 2000."
 (global-set-key (kbd "C-x j") 'flycheck-mode)
 
 
-;; auto pairing
+(require 'python)
+(define-key python-mode-map (kbd "C-c C-u") 'python-nav-backward-up-list)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                               AUTO PAIRING                              ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'autopair)
 (autopair-global-mode) ;; to enable in all buffers
-
-(require 'python)
-(define-key python-mode-map (kbd "C-c C-u") 'python-nav-backward-up-list)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -527,11 +454,6 @@ e.g. Sunday, September 17, 2000."
 
 (set-face-attribute 'web-mode-html-attr-name-face nil :foreground "Pink3")
 
-
-;; ;; import debug python
-;; (fset 'include-css-border
-;;    "border: 1px solid black; /*TO REMOVE*/")
-;; (global-set-key (kbd "C-c i") 'include-css-border)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                MAGIT                                     ;;
@@ -682,14 +604,7 @@ e.g. Sunday, September 17, 2000."
 ;;                                TRAMP                                    ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (setq tramp-default-method "ssh")
-;; (add-to-list 'tramp-default-proxies-alist
-;;          '("cargolms02" nil "/ssh:master@infraansible.cines.fr:"))
 
-;; (defun infra-shell ()
-;;   (interactive)
-;;   (let ((default-directory "/ssh:master@infraansible.cines.fr:/"))
-;;     (shell)))
 (add-hook 'comint-exec-hook
 	        (lambda () (set-process-query-on-exit-flag (get-buffer-process (current-buffer)) nil)))
 
@@ -720,20 +635,6 @@ e.g. Sunday, September 17, 2000."
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                MYSQL                                    ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;; capitalize keywords
-(add-hook 'sql-mode-hook 'sqlup-mode)
-(add-hook 'sql-interactive-mode-hook 'sqlup-mode)
-
-;; active autocomplete for sql-mode
-(add-to-list 'ac-modes 'sql-mode)
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                MARKDOWN                                 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -746,6 +647,16 @@ e.g. Sunday, September 17, 2000."
 ;;                                POMODORO                                 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun now ()
+  "Insert string for the current time formatted like '2:34'."
+  (interactive)                 ; permit invocation in minibuffer
+  (insert (format-time-string "%-I:%M")))
+
+(defun today ()
+    "Insert string for today's date nicely formatted in American style,
+e.g. Sunday, September 17, 2000."
+    (interactive)                 ; permit invocation in minibuffer
+    (insert (format-time-string "%A, %B %e, %Y")))
 
 (defvar *pomodoro-directory* "/home/jpaille/pomodoro_analyzer/pomodoro_files/")
 
@@ -866,13 +777,49 @@ e.g. Sunday, September 17, 2000."
 
 (add-hook 'makefile-gmake-mode-hook 'disable-c-c)
 
-  (require 'doom-themes)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                THEME                               ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; describe-text-properties : GET FACES AT POIJN T
+
+;;   MAGIT THEME COLOR SAVED
+;;  '(diff-added ((t (:inherit diff-changed))))
+;;  '(diff-changed ((t (:foreground "green"))))
+;;  '(diff-header ((t nil)))
+;;  '(diff-removed ((t (:foreground "red"))))
+;;  '(ediff-current-diff-A ((t (:background "white" :foreground "blue3"))))
+;;  '(ediff-current-diff-B ((t (:underline "red"))))
+;;  '(ediff-even-diff-A ((t (:foreground "red3" :weight bold))))
+;;  '(ediff-even-diff-B ((t (:foreground "red3" :weight bold :underline "red"))))
+;;  '(magit-branch ((t (:foreground "LightSkyBlue4"))))
+;;  '(magit-item-highlight ((t (:inherit nil))))
+;;  '(magit-log-head-label-head ((t (:foreground "green" :box 1))))
+;;  '(magit-log-head-label-local ((t (:foreground "LightSkyBlue4" :box 1))))
+;;  '(magit-log-head-label-remote ((t (:foreground "OliveDrab4" :box 1))))
+;;  '(magit-log-head-label-tags ((t (:foreground "green" :box 1))))
+;;  '(magit-tag ((t (:foreground "goldenrod4"))))
+;; '(smerge-lower ((t nil)))
+;;  '(smerge-markers ((t (:background "red"))))
+;;  '(smerge-refined-added ((t (:inherit smerge-refined-change))))
+;;  '(smerge-refined-removed ((t nil)))
+;;  '(smerge-upper ((t nil)))
+ ;; '(comint-highlight-prompt ((t (:inherit dired-flangged))))
+ ;; '(custom-link ((t (:inherit change-log-date))))
+ ;; '(custom-visibility ((t (:inherit web-mode-constant-face :height 0.8))))
+ ;; '(font-lock-builtin-face ((t (:foreground "blue" :weight bold))))
+ ;; '(font-lock-comment-face ((t (:foreground "brown"))))
+ ;; '(font-lock-function-name-face ((t (:foreground "magenta" :weight bold))))
+ ;; '(hi-blue ((t (:foreground "red" :underline t))))
+ ;; '(highlight ((t (:weight bold))))
+ ;; '(ido-first-match ((t (:foreground "green" :weight bold))))
+ ;;'(mode-line-inactive ((t (:inherit mode-line :background "color-238" :foreground "#969896" :weight normal))))
+ ;; '(button ((t (:inherit magit-branch))))
+ ;; '(match ((t (:foreground "magenta"))))
+
+(require 'doom-themes)
 
 ;; Global settings (defaults)
 (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
