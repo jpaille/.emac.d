@@ -187,7 +187,7 @@ case.  This requires pytest >= 1.2."
  	(obj-type (car obj-info))
    	(obj-name (cdr obj-info))
    	(module (pytest-get-module))
-   	(import-string ((build_module_import module obj-name))))
+   	(import-string (build_module_import module obj-name)))
 
     (message "%s" import-string)
     (kill-new import-string)

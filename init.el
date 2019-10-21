@@ -40,7 +40,7 @@
 (setq scroll-step 1)
 
 ;; Hightlight current line.
-(global-hl-line-mode t)
+;; (global-hl-line-mode t)
 
 ;; Disable menu_bar
 (menu-bar-mode -1)
@@ -143,7 +143,7 @@
  '(custom-enabled-themes (quote (doom-acario-dark)))
  '(custom-safe-themes
    (quote
-    ("f589e634c9ff738341823a5a58fc200341b440611aaa8e0189df85b44533692b" "0713580a6845e8075113a70275b3421333cfe7079e48228c52300606fa5ce73b" "2d1fe7c9007a5b76cea4395b0fc664d0c1cfd34bb4f1860300347cdad67fb2f9" "f30aded97e67a487d30f38a1ac48eddb49fdb06ac01ebeaff39439997cbdd869" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
+    ("bd607e3b1b64102e2b1918665631db4d4b866e3b765609c9556f52ecfd4ecad1" "50e8bc3372f7e171def01ba91f908799ed457a9dc0e68ff318c2b1a1e04f280f" "b1d4f9f1ce4b07750e40610f450b0a01bd5297fcc59541ca968831c62d6f69b2" "f589e634c9ff738341823a5a58fc200341b440611aaa8e0189df85b44533692b" "0713580a6845e8075113a70275b3421333cfe7079e48228c52300606fa5ce73b" "2d1fe7c9007a5b76cea4395b0fc664d0c1cfd34bb4f1860300347cdad67fb2f9" "f30aded97e67a487d30f38a1ac48eddb49fdb06ac01ebeaff39439997cbdd869" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(dired-garbage-files-regexp
    "\\(?:\\.\\(?:aux\\|bak\\|dvi\\|pyc\\|__pycached__\\|log\\|orig\\|rej\\|toc\\)\\)\\'")
  '(dired-omit-files "__pycache__\\|__init__.py")
@@ -177,6 +177,7 @@
  '(ido-show-dot-for-dired nil)
  '(js-indent-level 4)
  '(line-number-mode 1)
+ '(magit-save-repository-buffers nil)
  '(mark-even-if-inactive t)
  '(package-selected-packages
    (quote
@@ -219,17 +220,6 @@
      (360 . "#b5bd68"))))
  '(vc-annotate-very-old-color nil)
  '(window-divider-mode nil))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(minibuffer-prompt ((t (:foreground "red"))))
- '(web-mode-html-tag-custom-face ((t (:inherit web-mode-warning-face))))
- '(web-mode-html-tag-face ((t (:foreground "red")))))
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                               White space mode                          ;;
@@ -330,10 +320,10 @@
 
 
 (add-hook 'python-mode-hook 'jedi:setup)
+;; (setq jedi:complete-on-dot t) ?? what is for 
 
 
-(setq jedi:complete-on-dot t)
-
+;; Default jedi server
 (setq jedi:server-args
       '("--virtual-env" "/home/jpaille/meilleursagents/apps/MediaAPI/.venv")
       )
@@ -345,29 +335,31 @@
   (jedi:start-server)
 )
 
+;; Jedi go to definition
 (defun jedi-custom-keys ()
   (local-set-key (kbd "C-x p") 'jedi:goto-definition)
   (local-set-key (kbd "C-x ]") 'jedi:goto-definition-pop-marker)
 )
-
 (add-hook 'jedi-mode-hook 'jedi-custom-keys)
 
 
-;; import debug python
+;; Import snippet
 (fset 'include
    "import ipdb; ipdb.set_trace()")
 (global-set-key (kbd "C-x i") 'include)
 
+;; Move up to python context.
+(require 'python)
+(define-key python-mode-map (kbd "C-c C-u") 'python-nav-backward-up-list)
 
-;; sort package
-
+;; Isort buffer.
 (global-set-key (kbd "C-c i") 'py-isort-buffer)
 
-;; auto-complete
-(load "auto-complete.el")
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
-(require 'auto-complete-config)
-(ac-config-default)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                               FLYCHECK                                  ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 (defun flycheck-python-setup ()
@@ -376,10 +368,6 @@
 (add-hook 'python-mode-hook #'flycheck-python-setup)
 
 (global-set-key (kbd "C-x j") 'flycheck-mode)
-
-
-(require 'python)
-(define-key python-mode-map (kbd "C-c C-u") 'python-nav-backward-up-list)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -809,8 +797,9 @@ e.g. Sunday, September 17, 2000."
 ;; theme may have their own settings.
 (load-theme 'doom-acario-dark t)
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                SESSION                             ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(desktop-save-mode 1)
+;; (desktop-save-mode 1)
