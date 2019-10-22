@@ -509,9 +509,9 @@
 
 (require 'shell)
 
-;; Move fast like everywhere
-(define-key shell-mode-map (kbd "M-p") nil)
-(define-key shell-mode-map (kbd "M-n") nil)
+;; Move fast like everywhere in comint buffers
+(define-key comint-mode-map (kbd "M-p") 'move_fast_up)
+(define-key comint-mode-map (kbd "M-n") 'move_fast_down)
 
 ;; Previous next input
 (global-set-key  (kbd "M-o") 'comint-previous-input)
