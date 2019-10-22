@@ -466,6 +466,8 @@
 (define-key magit-unstaged-section-map (kbd "C-c") 'cua-copy-region)
 (define-key magit-staged-section-map (kbd "C-c") 'cua-copy-region)
 
+;; Jump directly to file in log
+(define-key magit-hunk-section-map (kbd "RET") 'magit-diff-visit-worktree-file)
 
 ;; shorcut to go meilleursagents repo magit, f5 is slow.
 (global-set-key [f6] 'go-to-magit-ma)
@@ -473,6 +475,7 @@
   (interactive)
   (switch-to-buffer "magit: meilleursagents")
 )
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                GREP                                     ;;
