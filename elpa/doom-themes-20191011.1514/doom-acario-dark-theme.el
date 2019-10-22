@@ -95,8 +95,8 @@ determine the exact padding."
     (when doom-acario-dark-padded-modeline
       (if (integerp doom-acario-dark-padded-modeline) doom-acario-dark-padded-modeline 4)))
 
-   (modeline-fg     nil)
-   (modeline-fg-alt base7)
+   (modeline-fg     base0)
+   (modeline-fg-alt base0)
 
    (modeline-bg
     (if -modeline-bright
@@ -106,7 +106,7 @@ determine the exact padding."
     (if -modeline-bright
         modeline-bg
       `(,(car base3) ,@(cdr base1))))
-   (modeline-bg-inactive   (doom-darken bg 0.20))
+   (modeline-bg-inactive   (doom-darken base5 0.2))
    (modeline-bg-inactive-l `(,(doom-darken (car bg-alt) 0.2) ,@(cdr base0))))
 
 
@@ -204,7 +204,7 @@ determine the exact padding."
    (magithub-notification-reason :foreground fg)
 
    (mode-line
-    :background modeline-bg :foreground modeline-fg
+    :background red :foreground modeline-fg
     :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg)))
    (mode-line-inactive
     :background modeline-bg-inactive :foreground modeline-fg-alt
