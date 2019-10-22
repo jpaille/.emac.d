@@ -183,6 +183,7 @@ case.  This requires pytest >= 1.2."
 
 (defun copy-module-to-clipboard()
   (interactive)
+  (next-line 1)
   (let* (  (obj-info (pytest-outer-testable))
  	(obj-type (car obj-info))
    	(obj-name (cdr obj-info))

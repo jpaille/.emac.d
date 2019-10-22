@@ -302,6 +302,14 @@
 ;; Only display files
 (global-set-key (kbd "C-x n") 'buffer-menu)
 
+;; Force Kill a buffer
+(defun volatile-kill-buffer ()
+   "Kill current buffer unconditionally."
+   (interactive)
+   (let ((buffer-modified-p nil))
+     (kill-buffer (current-buffer))))
+(global-set-key (kbd "C-x k") 'volatile-kill-buffer)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                PYTEST                                   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -449,34 +457,31 @@
 
 ;; magit status in current window
 (global-set-key [f5] 'magit-status)
-;; (setq magit-display-buffer-function
-;;       (lambda (buffer)
-;;         (display-buffer
-;;          buffer (if (and (derived-mode-p 'magit-mode)
-;;                          (memq (with-current-buffer buffer major-mode)
-;;                                '(magit-process-mode
-;;                                  magit-revision-mode
-;;                                  magit-diff-mode
-;;                                  magit-stash-mode
-;;                                  magit-status-mode)))
-;;                     nil
-;;                   '(display-buffer-same-window)))))
+
+;; enable cua-mode for magit
+(require 'magit)
+(define-key magit-diff-mode-map (kbd "C-c") 'cua-copy-region)
+(define-key magit-file-section-map (kbd "C-c") 'cua-copy-region)
+(define-key magit-hunk-section-map (kbd "C-c") 'cua-copy-region)
+(define-key magit-unstaged-section-map (kbd "C-c") 'cua-copy-region)
+(define-key magit-staged-section-map (kbd "C-c") 'cua-copy-region)
 
 
-;; for grep mode deactivate C-xg
-(with-eval-after-load 'magit
-  (define-key magit-file-mode-map "\C-xg" nil))
-
-(global-set-key "\C-xg" 'rgrep)
-
-(global-set-key [f5] 'magit-status)
-
+;; shorcut to go meilleursagents repo magit, f5 is slow.
 (global-set-key [f6] 'go-to-magit-ma)
-
 (defun go-to-magit-ma()
   (interactive)
   (switch-to-buffer "magit: meilleursagents")
 )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                GREP                                     ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; for grep mode deactivate C-xg
+(with-eval-after-load 'magit
+  (define-key magit-file-mode-map "\C-xg" nil))
+(global-set-key "\C-xg" 'rgrep)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                C                                        ;;
