@@ -446,8 +446,8 @@
     (diredfl-compressed-file-name   :foreground yellow)
     (diredfl-compressed-file-suffix :foreground (doom-blend orange bg 0.6))
     (diredfl-date-time              :foreground cyan :weight 'light)
-    (diredfl-deletion               :foreground red :background (doom-blend red bg 0.2) :weight 'bold)
-    (diredfl-deletion-file-name     :foreground red :background (doom-blend red bg 0.2))
+    (diredfl-deletion               :foreground red  :weight 'bold)
+    (diredfl-deletion-file-name     :foreground red )
     (diredfl-dir-heading            :foreground blue :weight 'bold)
     (diredfl-dir-name               :foreground blue)
     (diredfl-dir-priv               :foreground blue)
@@ -455,8 +455,7 @@
     (diredfl-executable-tag         :foreground green)
     (diredfl-file-name              :foreground fg)
     (diredfl-file-suffix            :foreground (doom-blend fg bg 0.6))
-    (diredfl-flag-mark              :foreground yellow :background (doom-blend yellow bg 0.2) :weight 'bold)
-    (diredfl-flag-mark-line         :background (doom-blend yellow bg 0.1))
+    (diredfl-flag-mark              :foreground yellow  :weight 'bold)
     (diredfl-ignored-file-name      :foreground comments)
     (diredfl-link-priv              :foreground violet)
     (diredfl-no-priv                :foreground fg)
@@ -518,8 +517,8 @@
     (evil-goggles-default-face :inherit 'region)
 
     ;; flycheck
-    (flycheck-error     :underline `(:style wave :color ,red))
-    (flycheck-warning   :underline `(:style wave :color ,yellow))
+    (flycheck-error     :foreground red :underline `(:style wave :color ,red))
+    (flycheck-warning   :foreground red :underline `(:style wave :color ,yellow))
     (flycheck-info      :underline `(:style wave :color ,green))
 
     ;; flycheck-posframe

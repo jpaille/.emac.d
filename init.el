@@ -143,7 +143,7 @@
  '(custom-enabled-themes (quote (doom-acario-dark)))
  '(custom-safe-themes
    (quote
-    ("bd607e3b1b64102e2b1918665631db4d4b866e3b765609c9556f52ecfd4ecad1" "50e8bc3372f7e171def01ba91f908799ed457a9dc0e68ff318c2b1a1e04f280f" "b1d4f9f1ce4b07750e40610f450b0a01bd5297fcc59541ca968831c62d6f69b2" "f589e634c9ff738341823a5a58fc200341b440611aaa8e0189df85b44533692b" "0713580a6845e8075113a70275b3421333cfe7079e48228c52300606fa5ce73b" "2d1fe7c9007a5b76cea4395b0fc664d0c1cfd34bb4f1860300347cdad67fb2f9" "f30aded97e67a487d30f38a1ac48eddb49fdb06ac01ebeaff39439997cbdd869" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
+    ("99ca2f7f413db6e5e97d4e4dee1738f9262cecd00218e04aad4affd48ab33b6c" "a79f89e2d547ba796f37582bd21f091cc1af81c3897140591224dc121a716791" "d8492c09fb5b3e40614b0df2c90b641d3a4a4be46b3f80457f75c580a6c18cd0" "b07553317b586539057a06c1b8179218d8baada061c95d17ef63710b6586263a" "30e82c88c9e44e3d6c27549e5b6d46a92e0159e03ee330730a8e0642aa241041" "6d64ea8cdcf31ca98219ea096f9a31d88160f313782b031ee06f745e141a94ca" "f951343d4bbe5a90dba0f058de8317ca58a6822faa65d8463b0e751a07ec887c" "a2286409934b11f2f3b7d89b1eaebb965fd63bc1e0be1c159c02e396afb893c8" "332e009a832c4d18d92b3a9440671873187ca5b73c2a42fbd4fc67ecf0379b8c" "28dde8e3bed35eace3b7c9c2e688040f3973c0afd0de40890ac705e5f970837f" "b1bfa5c40ae6fc4b4b99e3e8e4ebe5295343cc5cdac1011888f4e5dcb9f1a44c" "0d5615c64e5f29ac771a2b4f560ca807292085ef3ecdabe593f4f5d8d0cbfdb0" "59d1a1db38dc5527d78e64f6e244bdb7d528b974d23e914268556e3929f9f035" "2c300250a9ad134dd80ec6e0ef56eb3455ec1a42cf6b5c33b1ed95d69dc8cbdc" "bd607e3b1b64102e2b1918665631db4d4b866e3b765609c9556f52ecfd4ecad1" "50e8bc3372f7e171def01ba91f908799ed457a9dc0e68ff318c2b1a1e04f280f" "b1d4f9f1ce4b07750e40610f450b0a01bd5297fcc59541ca968831c62d6f69b2" "f589e634c9ff738341823a5a58fc200341b440611aaa8e0189df85b44533692b" "0713580a6845e8075113a70275b3421333cfe7079e48228c52300606fa5ce73b" "2d1fe7c9007a5b76cea4395b0fc664d0c1cfd34bb4f1860300347cdad67fb2f9" "f30aded97e67a487d30f38a1ac48eddb49fdb06ac01ebeaff39439997cbdd869" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(dired-garbage-files-regexp
    "\\(?:\\.\\(?:aux\\|bak\\|dvi\\|pyc\\|__pycached__\\|log\\|orig\\|rej\\|toc\\)\\)\\'")
  '(dired-omit-files "__pycache__\\|__init__.py")
@@ -220,6 +220,16 @@
      (360 . "#b5bd68"))))
  '(vc-annotate-very-old-color nil)
  '(window-divider-mode nil))
+
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(diredfl-flag-mark-line ((t (:foreground "yellow"))))
+)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                               White space mode                          ;;
@@ -485,6 +495,8 @@
 (with-eval-after-load 'magit
   (define-key magit-file-mode-map "\C-xg" nil))
 (global-set-key "\C-xg" 'rgrep)
+
+;; find-name-dired TODO bind a shortcut
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                C                                        ;;
@@ -759,41 +771,7 @@ e.g. Sunday, September 17, 2000."
 ;;                                THEME                               ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; describe-text-properties : GET FACES AT POIJN T
-
-;;   MAGIT THEME COLOR SAVED
-;;  '(diff-added ((t (:inherit diff-changed))))
-;;  '(diff-changed ((t (:foreground "green"))))
-;;  '(diff-header ((t nil)))
-;;  '(diff-removed ((t (:foreground "red"))))
-;;  '(ediff-current-diff-A ((t (:background "white" :foreground "blue3"))))
-;;  '(ediff-current-diff-B ((t (:underline "red"))))
-;;  '(ediff-even-diff-A ((t (:foreground "red3" :weight bold))))
-;;  '(ediff-even-diff-B ((t (:foreground "red3" :weight bold :underline "red"))))
-;;  '(magit-branch ((t (:foreground "LightSkyBlue4"))))
-;;  '(magit-item-highlight ((t (:inherit nil))))
-;;  '(magit-log-head-label-head ((t (:foreground "green" :box 1))))
-;;  '(magit-log-head-label-local ((t (:foreground "LightSkyBlue4" :box 1))))
-;;  '(magit-log-head-label-remote ((t (:foreground "OliveDrab4" :box 1))))
-;;  '(magit-log-head-label-tags ((t (:foreground "green" :box 1))))
-;;  '(magit-tag ((t (:foreground "goldenrod4"))))
-;; '(smerge-lower ((t nil)))
-;;  '(smerge-markers ((t (:background "red"))))
-;;  '(smerge-refined-added ((t (:inherit smerge-refined-change))))
-;;  '(smerge-refined-removed ((t nil)))
-;;  '(smerge-upper ((t nil)))
- ;; '(comint-highlight-prompt ((t (:inherit dired-flangged))))
- ;; '(custom-link ((t (:inherit change-log-date))))
- ;; '(custom-visibility ((t (:inherit web-mode-constant-face :height 0.8))))
- ;; '(font-lock-builtin-face ((t (:foreground "blue" :weight bold))))
- ;; '(font-lock-comment-face ((t (:foreground "brown"))))
- ;; '(font-lock-function-name-face ((t (:foreground "magenta" :weight bold))))
- ;; '(hi-blue ((t (:foreground "red" :underline t))))
- ;; '(highlight ((t (:weight bold))))
- ;; '(ido-first-match ((t (:foreground "green" :weight bold))))
- ;;'(mode-line-inactive ((t (:inherit mode-line :background "color-238" :foreground "#969896" :weight normal))))
- ;; '(button ((t (:inherit magit-branch))))
- ;; '(match ((t (:foreground "magenta"))))
+;; describe-text-properties : GET FACES AT POINT (USEFULL !)
 
 (require 'doom-themes)
 
@@ -804,10 +782,3 @@ e.g. Sunday, September 17, 2000."
 ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each
 ;; theme may have their own settings.
 (load-theme 'doom-acario-dark t)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                SESSION                             ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (desktop-save-mode 1)

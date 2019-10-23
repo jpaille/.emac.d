@@ -52,6 +52,7 @@ determine the exact padding."
    (green      '("#79D836" "color-113" "green"        ))
    (yellow     '("#D8B941" "color-179" "yellow"       ))
    (blue       '("#3679D8" "color-68"  "blue"         ))
+   (bright-blue '("#51afef" "#51afef" "brightblue"     ))
    (magenta    '("#8041D8" "color-98"  "magenta"      ))
    (cyan       '("#36D8BD" "color-79"  "cyan"         ))
 
@@ -72,8 +73,8 @@ determine the exact padding."
    (comments       (if doom-acario-dark-brighter-comments bg-cyan grey))
    (doc-comments   (doom-lighten (if doom-acario-dark-brighter-comments bg-cyan green) 0.25))
    (constants      magenta)
-   (functions      yellow)
-   (keywords       red)
+   (functions      bright-blue)
+   (keywords       yellow)
    (methods        cyan)
    (operators      blue)
    (type           blue)
