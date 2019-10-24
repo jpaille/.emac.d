@@ -101,10 +101,6 @@
   (interactive)
   (find-file "~/.emacs.d/init.el"))
 
-
-;; Revert buffer but it doesn't work...
-(global-set-key (kbd "<C-f5>") 'revert-buffer)
-
 ;; Copy file name path on clipboard 
 (defun my-put-file-name-on-clipboard ()
   "Put the current file name on the clipboard"
@@ -318,6 +314,16 @@
    (let ((buffer-modified-p nil))
      (kill-buffer (current-buffer))))
 (global-set-key (kbd "C-x k") 'volatile-kill-buffer)
+
+;; don't ask confirmation when I want to revert a buffer
+(setq revert-without-query '(".*"))
+(global-set-key [f9] 'revert-buffer) 
+
+;; hard-revert
+(defun revert-buffer-no-confirm ()
+  "Revert buffer without confirmation."
+  (interactive) (revert-buffer t t))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                PYTEST                                   ;;
@@ -736,7 +742,6 @@ e.g. Sunday, September 17, 2000."
   (term-send-raw-string "po")
   (term-send-input))
 
-(global-set-key (kbd "<f9>") 'task-time)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -778,7 +783,7 @@ e.g. Sunday, September 17, 2000."
 ;;                                THEME                               ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; describe-text-properties : GET FACES AT POINT (USEFULL !)
+
 
 (require 'doom-themes)
 
@@ -789,3 +794,11 @@ e.g. Sunday, September 17, 2000."
 ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each
 ;; theme may have their own settings.
 (load-theme 'doom-acario-dark t)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                USEFULL COMMANDS/BINDINGS           ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; describe-text-properties : GET FACES AT POINT
+;; Close all other windows C-x 1
