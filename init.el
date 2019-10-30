@@ -344,7 +344,7 @@
 
 ;; Black region
 (require 'python)
-(define-key python-mode-map (kbd "C-c b") 'python-black-region)
+(define-key python-mode-map (kbd "C-c C-b") 'python-black-region)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                PYTHON                                   ;;
