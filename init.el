@@ -317,7 +317,7 @@
 
 ;; don't ask confirmation when I want to revert a buffer
 (setq revert-without-query '(".*"))
-(global-set-key [f9] 'revert-buffer) 
+(global-set-key [f6] 'revert-buffer)
 
 ;; hard-revert
 (defun revert-buffer-no-confirm ()
@@ -492,12 +492,6 @@
 ;; Jump directly to file in log
 (define-key magit-hunk-section-map (kbd "RET") 'magit-diff-visit-worktree-file)
 
-;; shorcut to go meilleursagents repo magit, f5 is slow.
-(global-set-key [f6] 'go-to-magit-ma)
-(defun go-to-magit-ma()
-  (interactive)
-  (switch-to-buffer "magit: meilleursagents")
-)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -527,7 +521,7 @@
      ""
   (let* ((noext (substring buffer-file-name 0 (match-beginning 0)))
         (nopath (file-name-nondirectory noext))
-     (ident (concat (upcase nopath) "_H")))
+     (ident (concat (upcase nopath "_H")))
     (concat "#ifndef	" ident "\n"
       "#define	" ident  "\n\n\n"
        "\n\n#endif // " ident "\n"))
@@ -553,17 +547,9 @@
 ;; Shell hell-resync-dirs
 (global-set-key "\M-\r" 'shell-resync-dirs)
 
-;; Start every emacs session with a main shell and a secondary shell named *oo*.
-(defun start-shells()
-  (get-buffer-create "*shell*")
-  (get-buffer-create "*oo*")
-  (shell "*shell*")
-  (shell "*oo*"))
-(start-shells)
-
 ;; Spawn a new shell
 (defun spawn-shell (name)
-  (interactive "Name of shell buffer to create: ")
+  (interactive "MName of shell buffer to create: ")
   (pop-to-buffer (get-buffer-create (generate-new-buffer-name name)))
   (shell (current-buffer)))
 (global-set-key (kbd "M-.") 'spawn-shell)
@@ -571,6 +557,18 @@
 ;; go to prompt
 (global-set-key (kbd "C-c e") 'comint-goto-process-mark)
 
+;; Do not shadow prompt native color
+(add-hook 'shell-mode-hook
+      (lambda ()
+        (face-remap-set-base 'comint-highlight-prompt :inherit nil)))
+
+;; Start every emacs session with a main shell and a secondary shell named *oo*.
+(defun start-shells()
+  (get-buffer-create "*shell*")
+  (get-buffer-create "*oo*")
+  (shell "*shell*")
+  (shell "*oo*"))
+(start-shells)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                TODO                                     ;;

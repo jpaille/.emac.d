@@ -30,7 +30,9 @@ It creates a comint interaction buffer, called `name', running
   (setq *last-python-interpreter* command)
   (ansi-color-for-comint-mode-on)
   (apply 'make-comint name command nil args)
+  (switch-to-buffer-other-window "*pytest*")
   )
+
 
 ;;;;;;;;;;;; BUILD TEST STRING
 
@@ -69,34 +71,29 @@ case.  This requires pytest >= 1.2."
        (t (format "::%s::%s" outer-obj inner-obj))))))
 
 
+(defun kill-pytest-buffer()
+  (let ((buffer (get-buffer "*pytest*")))
+    (when buffer
+      (kill-buffer "*pytest*"))))
 
 (defun run-pytest ()
   "Run the test(s) given by `command'."
   (setq command (pytest-py-testable))
-  (refresh-buffer)
+  (kill-pytest-buffer)
   (setenv pytest-venv-key pytest-venv-value)
   (if (eq current-prefix-arg nil)
-      (execute-test "ponytests" pytest-binary (append (list command) (split-string pytest-args)))
+      (execute-test "pytest" pytest-binary (append (list command) (split-string pytest-args)))
     ;; optional command
     )
-  )
-
-(defun refresh-buffer()
-  (let ((buffer (get-buffer "*ponytests*")))
-    (when buffer
-      (save-excursion
-        (pop-to-buffer buffer)
-        (erase-buffer))))
   )
 
 (defun run-pytest-file ()
   "Run the test(s) given by `command'."
   (setq command (buffer-file-name))
-  (message command)
-  (refresh-buffer)
+  (kill-pytest-buffer)
   (setenv pytest-venv-key pytest-venv-value)
   (if (eq current-prefix-arg nil)
-      (execute-test "ponytests" pytest-binary (append (list command) (split-string pytest-args)))
+      (execute-test "pytest" pytest-binary (append (list command) (split-string pytest-args)))
     ;; optional command
     )
 )
@@ -109,24 +106,7 @@ case.  This requires pytest >= 1.2."
 (defun run-pytest-on-file ()
   (interactive)
   (run-pytest-file)
-  )
-
-
-;; Create keymaps
-(defvar ma-pytest-mode-map
-  (let ((map (make-keymap)))
-    map))
-
-(define-key ma-pytest-mode-map "\C-cm"  'run-pytest-on-file)
-(define-key ma-pytest-mode-map "\C-co"  'run-pytest-one)
-(define-key ma-pytest-mode-map "\C-c\C-pm"  'copy-module-to-clipboard)
-
-;; Create minor mode with keymaps
-(define-minor-mode ma-pytest-minor-mode
-  "Meilleurs Agents pytest mode"
-  :initial nil
-  :lighter "ma-pytest"
-  :keymap ma-pytest-mode-map)
+)
 
 
 ;;;;;;;;;;;;;; Replay tests
@@ -136,7 +116,29 @@ case.  This requires pytest >= 1.2."
 
 (defun replay-last-test ()
   (interactive)
-  (execute-test "ponytests" *last-python-interpreter*  *last-test-args*))
+  (kill-pytest-buffer)
+  (execute-test "pytest" *last-python-interpreter*  *last-test-args*))
+
+
+;; Create keymaps
+
+(defvar ma-pytest-mode-map
+  (let ((map (make-keymap)))
+    map))
+
+(define-key ma-pytest-mode-map "\C-cm"  'run-pytest-on-file)
+(define-key ma-pytest-mode-map "\C-co"  'run-pytest-one)
+(define-key ma-pytest-mode-map "\C-c\C-pm"  'copy-module-to-clipboard)
+(global-set-key [f9] 'replay-last-test)
+
+;; Create minor mode with keymaps
+(define-minor-mode ma-pytest-minor-mode
+  "Meilleurs Agents pytest mode"
+  :initial nil
+  :lighter "ma-pytest"
+  :keymap ma-pytest-mode-map)
+
+
 
 ;;;;;;;;;;;;;;;;;;;;; Copy module to clipboard
 
