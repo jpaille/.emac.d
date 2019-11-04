@@ -570,6 +570,11 @@
   (shell "*oo*"))
 (start-shells)
 
+;; Start dotfiles in sh mode
+(add-to-list 'auto-mode-alist '("\\.bashrc$" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\.localrc$" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\.env$" . sh-mode))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                TODO                                     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
