@@ -521,7 +521,7 @@
      ""
   (let* ((noext (substring buffer-file-name 0 (match-beginning 0)))
         (nopath (file-name-nondirectory noext))
-     (ident (concat (upcase nopath "_H")))
+     (ident (concat (upcase nopath) "_H")))
     (concat "#ifndef	" ident "\n"
       "#define	" ident  "\n\n\n"
        "\n\n#endif // " ident "\n"))
