@@ -805,3 +805,4 @@ e.g. Sunday, September 17, 2000."
 
 ;; describe-text-properties : GET FACES AT POINT
 ;; Close all other windows C-x 1
+;; C-x k kill-buffer
