@@ -156,8 +156,7 @@
      ("^W503$"))))
  '(flycheck-flake8rc ".flake8")
  '(flycheck-idle-change-delay 0)
- '(flycheck-python-flake8-executable
-   "/home/jpaille/meilleursagents/apps/www/.venv/bin/flake8")
+ '(flycheck-python-flake8-executable "/home/jpaille/meilleursagents/apps/www/.venv/bin/flake8")
  '(frame-background-mode (quote dark))
  '(grep-find-ignored-directories
    (quote
@@ -181,10 +180,17 @@
  '(objed-cursor-color "#D83441")
  '(package-selected-packages
    (quote
-    (python-black doom-themes js2-mode yaml-mode git-link groovy-mode py-isort auto-complete highlight-quoted diredfl magit jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
+    (go-mode python-black doom-themes js2-mode yaml-mode git-link groovy-mode auto-complete highlight-quoted diredfl magit jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
  '(safe-local-variable-values
    (quote
-    (
+    ((jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/Barometre/.venv")
+     (isort-binary . "/home/jpaille/meilleursagents/apps/Barometre/.venv/bin/isort")
+     (pytest-binary . "/home/jpaille/meilleursagents/apps/Barometre/.venv/bin/pytest")
+     (isort-binary . "/home/jpaille/meilleursagents/apps/MediaAPI/.venv/bin/isort")
+     (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/MyPro/.venv")
+     (isort-binary . "/home/jpaille/meilleursagents/apps/MyPro/.venv/bin/isort")
+     (pytest-binary . "/home/jpaille/meilleursagents/apps/MyPro/.venv/bin/pytest")
+     (isort-binary . "/home/jpaille/meilleursagents/apps/www/.venv/bin/isort")
      (pytest-binary . "/home/jpaille/meilleursagents/apps/MarketAPI/.venv/bin/pytest")
      (pytest-binary . "/home/jpaille/meilleursagents/apps/Tools/.venv/bin/pytest")
      (pytest-binary . "/home/jpaille/meilleursagents/apps/MediaAPI/.venv/bin/pytest")
@@ -342,6 +348,14 @@
   )
 
 (add-hook 'python-mode-hook 'ma-pytest-python-setup)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                ISORT                                    ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(load-file "~/.emacs.d/my_packages/my_isort.el")
+;; Isort buffer.
+(global-set-key (kbd "C-c i") 'py-isort-buffer)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
