@@ -180,7 +180,7 @@
  '(objed-cursor-color "#D83441")
  '(package-selected-packages
    (quote
-    (go-mode python-black doom-themes js2-mode yaml-mode git-link groovy-mode auto-complete highlight-quoted diredfl magit jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
+    (auto-complete-exuberant-ctags go-mode python-black doom-themes js2-mode yaml-mode git-link groovy-mode auto-complete highlight-quoted diredfl magit jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
  '(safe-local-variable-values
    (quote
     ((jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/Barometre/.venv")
@@ -204,6 +204,7 @@
      (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/www/.venv"))))
  '(show-paren-mode t)
  '(tab-width 11)
+ '(tags-table-list (quote ("/home/julien/minix2/minix-2.0/fs/usr/TAGS")))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
@@ -818,6 +819,18 @@ e.g. Sunday, September 17, 2000."
 ;; theme may have their own settings.
 (load-theme 'doom-acario-dark t)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                C KERNEL MINIX                      ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; generate ctags : find . -type f -iname "*.[chS]" | xargs etags -a
+
+;; C go to definition
+(defun cc-custom-keys ()
+  (local-set-key (kbd "C-x p") 'xref-find-definitions)
+  (local-set-key (kbd "C-x ]") 'xref-pop-marker-stack)
+)
+(add-hook 'c-mode-hook 'cc-custom-keys)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                USEFULL COMMANDS/BINDINGS           ;;
