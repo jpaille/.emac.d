@@ -204,6 +204,7 @@
      (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/www/.venv"))))
  '(show-paren-mode t)
  '(tab-width 11)
+ '(tags-case-fold-search nil)
  '(tags-table-list (quote ("/home/julien/minix2/minix-2.0/fs/usr/TAGS")))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
