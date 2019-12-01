@@ -17,6 +17,10 @@ under profile
   -keys key-mapping ^- ignore (for text smaller)
 under general profile
  keys -> remap modifiers left command = right option
+ keys -> key bindings Previous tab ^<OPTION>left
+                      Next tab ^<OPTION>right
+ Appearance -> general dark(high contrast)
+            -> tab bar location bottom
 
 conf mac keyboard
 Mission controle
@@ -32,6 +36,11 @@ Make Text Smaller ^-
 Make Text Bigger ^=
 Toggle Full Screen F11
 New Tab with Current Profile ^(Shift)T
+
+TAB
+---
+App
+
 
 add ssh-agent
 Generate / pub & private keys to host, copy pubic keys to host (ssh-copy-id host)
