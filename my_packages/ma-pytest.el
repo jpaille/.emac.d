@@ -81,6 +81,7 @@ case.  This requires pytest >= 1.2."
   (setq command (pytest-py-testable))
   (kill-pytest-buffer)
   (setenv pytest-venv-key pytest-venv-value)
+  (setenv "LOG_LEVEL" "ERROR")
   (if (eq current-prefix-arg nil)
       (execute-test "pytest" pytest-binary (append (list command) (split-string pytest-args)))
     ;; optional command
@@ -92,6 +93,7 @@ case.  This requires pytest >= 1.2."
   (setq command (buffer-file-name))
   (kill-pytest-buffer)
   (setenv pytest-venv-key pytest-venv-value)
+  (setenv "LOG_LEVEL" "ERROR")
   (if (eq current-prefix-arg nil)
       (execute-test "pytest" pytest-binary (append (list command) (split-string pytest-args)))
     ;; optional command
