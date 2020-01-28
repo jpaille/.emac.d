@@ -139,7 +139,7 @@
  '(custom-enabled-themes (quote (doom-acario-dark)))
  '(custom-safe-themes
    (quote
-    ("bc8935a8030cf10e634201399fa3dea50a4c1ef03eb4977c7f482b747548350c" "99ca2f7f413db6e5e97d4e4dee1738f9262cecd00218e04aad4affd48ab33b6c" "a79f89e2d547ba796f37582bd21f091cc1af81c3897140591224dc121a716791" "d8492c09fb5b3e40614b0df2c90b641d3a4a4be46b3f80457f75c580a6c18cd0" "b07553317b586539057a06c1b8179218d8baada061c95d17ef63710b6586263a" "30e82c88c9e44e3d6c27549e5b6d46a92e0159e03ee330730a8e0642aa241041" "6d64ea8cdcf31ca98219ea096f9a31d88160f313782b031ee06f745e141a94ca" "f951343d4bbe5a90dba0f058de8317ca58a6822faa65d8463b0e751a07ec887c" "a2286409934b11f2f3b7d89b1eaebb965fd63bc1e0be1c159c02e396afb893c8" "332e009a832c4d18d92b3a9440671873187ca5b73c2a42fbd4fc67ecf0379b8c" "28dde8e3bed35eace3b7c9c2e688040f3973c0afd0de40890ac705e5f970837f" "b1bfa5c40ae6fc4b4b99e3e8e4ebe5295343cc5cdac1011888f4e5dcb9f1a44c" "0d5615c64e5f29ac771a2b4f560ca807292085ef3ecdabe593f4f5d8d0cbfdb0" "59d1a1db38dc5527d78e64f6e244bdb7d528b974d23e914268556e3929f9f035" "2c300250a9ad134dd80ec6e0ef56eb3455ec1a42cf6b5c33b1ed95d69dc8cbdc" "bd607e3b1b64102e2b1918665631db4d4b866e3b765609c9556f52ecfd4ecad1" "50e8bc3372f7e171def01ba91f908799ed457a9dc0e68ff318c2b1a1e04f280f" "b1d4f9f1ce4b07750e40610f450b0a01bd5297fcc59541ca968831c62d6f69b2" "f589e634c9ff738341823a5a58fc200341b440611aaa8e0189df85b44533692b" "0713580a6845e8075113a70275b3421333cfe7079e48228c52300606fa5ce73b" "2d1fe7c9007a5b76cea4395b0fc664d0c1cfd34bb4f1860300347cdad67fb2f9" "f30aded97e67a487d30f38a1ac48eddb49fdb06ac01ebeaff39439997cbdd869" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
+    ("c2b24b9c9ac598bdf14e61ea1b7d1bfe1b67e173c705ab26b22f3c0763b11db4" "bc8935a8030cf10e634201399fa3dea50a4c1ef03eb4977c7f482b747548350c" "99ca2f7f413db6e5e97d4e4dee1738f9262cecd00218e04aad4affd48ab33b6c" "a79f89e2d547ba796f37582bd21f091cc1af81c3897140591224dc121a716791" "d8492c09fb5b3e40614b0df2c90b641d3a4a4be46b3f80457f75c580a6c18cd0" "b07553317b586539057a06c1b8179218d8baada061c95d17ef63710b6586263a" "30e82c88c9e44e3d6c27549e5b6d46a92e0159e03ee330730a8e0642aa241041" "6d64ea8cdcf31ca98219ea096f9a31d88160f313782b031ee06f745e141a94ca" "f951343d4bbe5a90dba0f058de8317ca58a6822faa65d8463b0e751a07ec887c" "a2286409934b11f2f3b7d89b1eaebb965fd63bc1e0be1c159c02e396afb893c8" "332e009a832c4d18d92b3a9440671873187ca5b73c2a42fbd4fc67ecf0379b8c" "28dde8e3bed35eace3b7c9c2e688040f3973c0afd0de40890ac705e5f970837f" "b1bfa5c40ae6fc4b4b99e3e8e4ebe5295343cc5cdac1011888f4e5dcb9f1a44c" "0d5615c64e5f29ac771a2b4f560ca807292085ef3ecdabe593f4f5d8d0cbfdb0" "59d1a1db38dc5527d78e64f6e244bdb7d528b974d23e914268556e3929f9f035" "2c300250a9ad134dd80ec6e0ef56eb3455ec1a42cf6b5c33b1ed95d69dc8cbdc" "bd607e3b1b64102e2b1918665631db4d4b866e3b765609c9556f52ecfd4ecad1" "50e8bc3372f7e171def01ba91f908799ed457a9dc0e68ff318c2b1a1e04f280f" "b1d4f9f1ce4b07750e40610f450b0a01bd5297fcc59541ca968831c62d6f69b2" "f589e634c9ff738341823a5a58fc200341b440611aaa8e0189df85b44533692b" "0713580a6845e8075113a70275b3421333cfe7079e48228c52300606fa5ce73b" "2d1fe7c9007a5b76cea4395b0fc664d0c1cfd34bb4f1860300347cdad67fb2f9" "f30aded97e67a487d30f38a1ac48eddb49fdb06ac01ebeaff39439997cbdd869" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(dired-garbage-files-regexp
    "\\(?:\\.\\(?:aux\\|bak\\|dvi\\|pyc\\|__pycached__\\|log\\|orig\\|rej\\|toc\\)\\)\\'")
  '(dired-omit-files "__pycache__\\|__init__.py")
@@ -180,10 +180,14 @@
  '(objed-cursor-color "#D83441")
  '(package-selected-packages
    (quote
-    (auto-complete-exuberant-ctags go-mode python-black doom-themes js2-mode yaml-mode git-link groovy-mode auto-complete highlight-quoted diredfl magit jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
+    (move-text auto-complete-exuberant-ctags go-mode python-black doom-themes js2-mode yaml-mode git-link groovy-mode auto-complete highlight-quoted diredfl magit jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
  '(safe-local-variable-values
    (quote
-    ((jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/Barometre/.venv")
+    ((jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/MyProAPI/.venv")
+     (isort-binary . "/home/jpaille/meilleursagents/apps/MyProAPI/.venv/bin/isort")
+     (pytest-binary . "/home/jpaille/meilleursagents/apps/MyProAPI/.venv/bin/pytest")
+     (pytest-binary . "python -Wignore /home/jpaille/meilleursagents/apps/www/.venv/bin/pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/Barometre/.venv")
      (isort-binary . "/home/jpaille/meilleursagents/apps/Barometre/.venv/bin/isort")
      (pytest-binary . "/home/jpaille/meilleursagents/apps/Barometre/.venv/bin/pytest")
      (isort-binary . "/home/jpaille/meilleursagents/apps/MediaAPI/.venv/bin/isort")
@@ -204,7 +208,6 @@
      (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/www/.venv"))))
  '(show-paren-mode t)
  '(tab-width 11)
- '(tags-case-fold-search nil)
  '(tags-table-list (quote ("/home/julien/minix2/minix-2.0/fs/usr/TAGS")))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
@@ -566,7 +569,7 @@
 (global-set-key  (kbd "M-o") 'comint-previous-input)
 (global-set-key  (kbd "M-m") 'comint-next-input)
 
-;; Shell hell-resync-dirs
+;; Shell shell-resync-dirs
 (global-set-key "\M-\r" 'shell-resync-dirs)
 
 ;; Spawn a new shell
@@ -832,6 +835,23 @@ e.g. Sunday, September 17, 2000."
   (local-set-key (kbd "C-x ]") 'xref-pop-marker-stack)
 )
 (add-hook 'c-mode-hook 'cc-custom-keys)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                Move text                           ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; TODO interfere with shell move up / down
+
+;; (defun move-text-default-bindings ()
+;;   "Use default bindings for move-text-up and move-text-down (M-up / M-down)."
+;;   (interactive)
+;;   "Bind `move-text-up' and `move-text-down' to M-up & M-down."
+;;   )
+
+;(require 'move-text)
+;(global-set-key  (kbd "M-o") 'move-text-up)
+;(global-set-key  (kbd "M-m") 'move-text-down)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                USEFULL COMMANDS/BINDINGS           ;;

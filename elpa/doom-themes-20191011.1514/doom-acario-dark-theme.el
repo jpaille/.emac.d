@@ -122,14 +122,15 @@ determine the exact padding."
    ((line-number &override) :foreground base4)
    ((line-number-current-line &override) :foreground orange :bold bold)
 
-   (font-lock-comment-face
-    :inherit 'fixed-pitch-serif-face
-    :slant 'italic
-    :foreground comments
-    :background (if doom-acario-dark-comment-bg (doom-lighten bg 0.05)))
-   (font-lock-doc-face
-    :inherit 'font-lock-comment-face
-    :foreground doc-comments)
+   ;; Not supported with TMUX
+   ;; (font-lock-comment-face
+   ;;  :inherit 'fixed-pitch-serif-face
+   ;;  :slant 'italic
+   ;;  :foreground comments
+   ;;  :background (if doom-acario-dark-comment-bg (doom-lighten bg 0.05)))
+   ;; (font-lock-doc-face
+   ;;  :inherit 'font-lock-comment-face
+   ;;  :foreground doc-comments)
 
    ;; Flycheck
    (flycheck-popup-tip-face :background bg-blue :foreground fg-alt)
