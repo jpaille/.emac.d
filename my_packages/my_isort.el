@@ -44,10 +44,11 @@
 
 
 (defun py-isort--call-executable (errbuf file)
-  (let ((default-directory (py-isort--find-settings-path)))
-    (zerop (apply 'call-process "/home/jpaille/meilleursagents/apps/www/.venv/bin/isort" nil errbuf nil
+  (let ((default-directory-path (py-isort--find-settings-path))
+        (default-directory "/home/jpaille/meilleursagents/apps/MediaAPI/"))
+    (zerop (apply 'call-process "/home/jpaille/meilleursagents/apps/MediaAPI/.venv/bin/isort" nil errbuf nil
                   (append `(" " , file, " ",
-                            (concat "--settings-path=" default-directory))
+                            (concat "--settings-path=" default-directory-path))
                           py-isort-options)))))
 
 

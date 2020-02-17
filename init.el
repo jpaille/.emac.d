@@ -180,7 +180,7 @@
  '(objed-cursor-color "#D83441")
  '(package-selected-packages
    (quote
-    (move-text auto-complete-exuberant-ctags go-mode python-black doom-themes js2-mode yaml-mode git-link groovy-mode auto-complete highlight-quoted diredfl magit jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
+    (php-mode move-text auto-complete-exuberant-ctags go-mode python-black doom-themes js2-mode yaml-mode git-link groovy-mode auto-complete highlight-quoted diredfl magit jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
  '(safe-local-variable-values
    (quote
     ((jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/MyProAPI/.venv")
@@ -780,21 +780,6 @@ e.g. Sunday, September 17, 2000."
 (define-key Man-mode-map (kbd "M-p") nil)
 (define-key Man-mode-map (kbd "M-n") nil)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                ASM                                 ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (setq make-backup-files nil)
-(autoload 'asm-mode-custom "/home/julien/.emacs.d/elpa/asm-mode-custom/asm-mode-custom.el")
-(setq auto-mode-alist
-       (append '(("\\.asm\\'" . asm-mode-custom) ("\\.inc\\'" . auto-mode-alist))
- 	      auto-mode-alist))
-;; (setq asm86-inst-func-offset 3)
-(defun modify-tab-asm ()
-  (setq tab-width 11)
-    )
-(add-hook 'asm-mode-custome-hook 'modify-tab-asm)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                MAKEFILE                            ;;
@@ -863,3 +848,4 @@ e.g. Sunday, September 17, 2000."
 ;; find-name-dired
 ;; revert-buffer f6
 ;; replay last test f9
+;; go inside a container fs  /docker:user@container:/path/to/file
