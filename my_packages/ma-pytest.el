@@ -21,6 +21,7 @@
 ;; Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 ;;; Code:
+(setq pytest-docker-args "")
 
 (defun execute-test(name command args)
   "This is the main entry point for sub-processes.
@@ -31,8 +32,11 @@ It creates a comint interaction buffer, called `name', running
   (ansi-color-for-comint-mode-on)
   (apply 'make-comint name command nil args)
   (switch-to-buffer-other-window "*pytest*")
-  )
+)
 
+(setenv "IMAGE_TAG" "1.0.0-master")
+(setenv "APP_NAME" "leadapi")
+(make-comint "teso" "docker-compose" nil "-p" "leadapi-dev" "-f" "/home/jpaille/LeadAPI/docker-compose-dev.yml" "run" "--rm" "app" "pytest")
 
 ;;;;;;;;;;;; BUILD TEST STRING
 
@@ -53,7 +57,21 @@ It creates a comint interaction buffer, called `name', running
       (cons
        (buffer-substring-no-properties (match-beginning 1) (match-end 1))
        result))))
+;;    
 
+(defun get-pytest-filename()
+  ;; this is so ugly
+  (setq split-path (s-split "/" (buffer-file-name)))
+  (setq cut-split-path (nthcdr 4 split-path))
+  (setq docker-pytest-filename "")
+  (dolist (item cut-split-path) (setq docker-pytest-filename (concat docker-pytest-filename "/" item)))
+  (setq docker-pytest-filename (substring docker-pytest-filename 1))
+  (if (string= pytest-binary "docker-compose")
+      (substring docker-pytest-filename 0)
+    (buffer-file-name)
+  ))
+
+;;  
 (defun pytest-py-testable ()
   "Create a path to a test.
 This uses the `::` delimiter between the
@@ -65,7 +83,8 @@ case.  This requires pytest >= 1.2."
          (outer-def (car outer))
          (outer-obj (cdr outer)))
     (concat
-     (buffer-file-name)
+     (get-pytest-filename)
+     
      (cond ((equal outer-def "def") (format "::%s" outer-obj))
        ((equal inner-obj outer-obj) (format "::%s" outer-obj))
        (t (format "::%s::%s" outer-obj inner-obj))))))
@@ -83,10 +102,12 @@ case.  This requires pytest >= 1.2."
   (setenv pytest-venv-key pytest-venv-value)
   (setenv "LOG_LEVEL" "ERROR")
   (if (eq current-prefix-arg nil)
-      (execute-test "pytest" pytest-binary (append (list command) (split-string pytest-args)))
+      (execute-test "pytest" pytest-binary  (append (split-string pytest-docker-args) (list command) (split-string pytest-args)))
     ;; optional command
     )
   )
+
+
 
 (defun run-pytest-file ()
   "Run the test(s) given by `command'."
@@ -95,7 +116,7 @@ case.  This requires pytest >= 1.2."
   (setenv pytest-venv-key pytest-venv-value)
   (setenv "LOG_LEVEL" "ERROR")
   (if (eq current-prefix-arg nil)
-      (execute-test "pytest" pytest-binary (append (list command) (split-string pytest-args)))
+      (execute-test "pytest" pytest-binary (append (split-string pytest-docker-args) (split-string pytest-args)))
     ;; optional command
     )
 )
@@ -165,7 +186,7 @@ case.  This requires pytest >= 1.2."
         (while (and (not found) (> max 0))
           (progn
             (if (or (file-exists-p (concat curdir "/bin/django")) ; Buildout?
-                    (file-exists-p (concat curdir "manage.py")))
+                    (file-exists-p (concat curdir "runserver.py")))
                 (progn
                   (setq found t))
               (progn

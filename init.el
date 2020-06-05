@@ -183,7 +183,9 @@
     (terraform-mode sudo-edit php-mode move-text auto-complete-exuberant-ctags go-mode python-black doom-themes js2-mode yaml-mode git-link groovy-mode auto-complete highlight-quoted diredfl magit jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
  '(safe-local-variable-values
    (quote
-    ((jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/tools/passerelles/.venv")
+    ((pytest-docker-args . "-p leadapi-dev -f /home/jpaille/LeadAPI/docker-compose-dev.yml run --rm app pytest")
+     (pytest-binary . "docker-compose")
+     (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/tools/passerelles/.venv")
      (isort-binary . "/home/jpaille/meilleursagents/tools/passerelles/.venv/bin/isort")
      (pytest-binary . "/home/jpaille/meilleursagents/tools/passerelles/.venv/bin/pytest")
      (jedi:server-args "--virtual-env" "/home/jpaille/LeadAPI/.venv")
