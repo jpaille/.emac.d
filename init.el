@@ -156,11 +156,11 @@
      ("^W503$"))))
  '(flycheck-flake8rc ".flake8")
  '(flycheck-idle-change-delay 0)
- '(flycheck-python-flake8-executable "/home/jpaille/meilleursagents/apps/www/.venv/bin/flake8")
+ '(flycheck-python-flake8-executable "/home/jpaille/LeadAPI/.venv/bin/flake8")
  '(frame-background-mode (quote dark))
  '(grep-find-ignored-directories
    (quote
-    ("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "vendors" "static" "node_modules" ".venv")))
+    ("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "vendors" "static" "node_modules" ".venv" "js")))
  '(grep-save-buffers nil)
  '(ido-create-new-buffer (quote always))
  '(ido-default-file-method (quote selected-window))
@@ -180,10 +180,16 @@
  '(objed-cursor-color "#D83441")
  '(package-selected-packages
    (quote
-    (php-mode move-text auto-complete-exuberant-ctags go-mode python-black doom-themes js2-mode yaml-mode git-link groovy-mode auto-complete highlight-quoted diredfl magit jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
+    (terraform-mode sudo-edit php-mode move-text auto-complete-exuberant-ctags go-mode python-black doom-themes js2-mode yaml-mode git-link groovy-mode auto-complete highlight-quoted diredfl magit jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
  '(safe-local-variable-values
    (quote
-    ((jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/MyProAPI/.venv")
+    ((jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/tools/passerelles/.venv")
+     (isort-binary . "/home/jpaille/meilleursagents/tools/passerelles/.venv/bin/isort")
+     (pytest-binary . "/home/jpaille/meilleursagents/tools/passerelles/.venv/bin/pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/LeadAPI/.venv")
+     (isort-binary . "/home/jpaille/LeadAPI/.venv/bin/isort")
+     (pytest-binary . "/home/jpaille/LeadAPI/.venv/bin/pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/MyProAPI/.venv")
      (isort-binary . "/home/jpaille/meilleursagents/apps/MyProAPI/.venv/bin/isort")
      (pytest-binary . "/home/jpaille/meilleursagents/apps/MyProAPI/.venv/bin/pytest")
      (pytest-binary . "python -Wignore /home/jpaille/meilleursagents/apps/www/.venv/bin/pytest")
@@ -630,6 +636,16 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                GROOVY                                   ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(defun my-c-mode-hook ()
+  (setq indent-tabs-mode nil
+        c-basic-offset 4))
+(add-hook 'c-mode-common-hook 'my-c-mode-hook)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                TRAMP                                    ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -849,3 +865,4 @@ e.g. Sunday, September 17, 2000."
 ;; revert-buffer f6
 ;; replay last test f9
 ;; go inside a container fs  /docker:user@container:/path/to/file
+(put 'upcase-region 'disabled nil)
