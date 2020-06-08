@@ -180,7 +180,7 @@
  '(objed-cursor-color "#D83441")
  '(package-selected-packages
    (quote
-    (terraform-mode sudo-edit php-mode move-text auto-complete-exuberant-ctags go-mode python-black doom-themes js2-mode yaml-mode git-link groovy-mode auto-complete highlight-quoted diredfl magit jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
+    (magit terraform-mode sudo-edit php-mode move-text auto-complete-exuberant-ctags go-mode python-black doom-themes js2-mode yaml-mode git-link groovy-mode auto-complete highlight-quoted diredfl jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
  '(safe-local-variable-values
    (quote
     ((pytest-docker-args . "-p leadapi-dev -f /home/jpaille/LeadAPI/docker-compose-dev.yml run --rm app pytest")
@@ -867,4 +867,5 @@ e.g. Sunday, September 17, 2000."
 ;; revert-buffer f6
 ;; replay last test f9
 ;; go inside a container fs  /docker:user@container:/path/to/file
+;; debug elisp : M-x edebug-defun
 (put 'upcase-region 'disabled nil)

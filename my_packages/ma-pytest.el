@@ -61,7 +61,7 @@ It creates a comint interaction buffer, called `name', running
 
 (defun get-pytest-filename()
   ;; this is so ugly
-  (setq split-path (s-split "/" (buffer-file-name)))
+  (setq split-path (split-string (buffer-file-name) "/" ))
   (setq cut-split-path (nthcdr 4 split-path))
   (setq docker-pytest-filename "")
   (dolist (item cut-split-path) (setq docker-pytest-filename (concat docker-pytest-filename "/" item)))
