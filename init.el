@@ -7,13 +7,13 @@
 ;;                                PACKAGE.EL                               ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Activate installed packages with elpa
-(package-initialize)
 
 ;; Add other source of packages
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "https://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.org/packages/")))
+;; Activate installed packages with elpa
+(package-initialize)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                GENERAL                                  ;;
@@ -156,7 +156,7 @@
      ("^W503$"))))
  '(flycheck-flake8rc ".flake8")
  '(flycheck-idle-change-delay 0)
- '(flycheck-python-flake8-executable "/home/jpaille/LeadAPI/.venv/bin/flake8")
+ '(flycheck-python-flake8-executable "~/MeilleursAgents/apps/MediaAPI/.venv/bin/flake8")
  '(frame-background-mode (quote dark))
  '(grep-find-ignored-directories
    (quote
@@ -180,10 +180,44 @@
  '(objed-cursor-color "#D83441")
  '(package-selected-packages
    (quote
-    (magit terraform-mode sudo-edit php-mode move-text auto-complete-exuberant-ctags go-mode python-black doom-themes js2-mode yaml-mode git-link groovy-mode auto-complete highlight-quoted diredfl jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
+    (crystal-mode company-native-complete native-complete vterm magit terraform-mode sudo-edit php-mode move-text auto-complete-exuberant-ctags go-mode python-black doom-themes js2-mode yaml-mode git-link groovy-mode auto-complete highlight-quoted diredfl jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
+ '(python-black-command "~/MeilleursAgents/apps/MediaAPI/.venv/bin/black")
+ '(python-black-macchiato-command "~/.local/bin/black-macchiato")
  '(safe-local-variable-values
    (quote
-    ((pytest-docker-args . "-p leadapi-dev -f /home/jpaille/LeadAPI/docker-compose-dev.yml run --rm app pytest")
+    ((jedi:server-args "--virtual-env" "/home/julien/meilleursagents/apps/MarketAPI/.venv")
+     (isort-binary . "~/meilleursagents/apps/MarketAPI/.venv/bin/isort")
+     (pytest-binary . "~/meilleursagents/apps/MarketAPI/.venv/bin/pytest")
+     (jedi:server-args "--virtual-env" "~/meilleursagents/apps/Thumbor/.venv")
+     (pytest-binary . "~/meilleursagents/apps/Thumbor/.venv/bin/pytest")
+     (jedi:server-args "--virtual-env" "/home/julien/meilleursagents/apps/www/.venv")
+     (isort-binary . "/home/julien/meilleursagents/apps/www/.venv/bin/isort")
+     (pytest-binary . "/home/julien/meilleursagents/apps/www/.venv/bin/pytest")
+     (pytest-docker-args . "-p topofthelistapi-dev -f /home/julien/Webanalytics/docker-compose-dev.yml run --rm app pytest")
+     (pytest-docker-args . "-p topofthelistapi-dev -f /~/Webanalytics/docker-compose-dev.yml run --rm app pytest")
+     (pytest-docker-args . "-p topofthelistapi-dev -f ~/Webanalytics/docker-compose-dev.yml run --rm app pytest")
+     (pytest-binary . "~/python_env/Webanalytics-p9q6zuAU/bin/pytest")
+     (jedi:server-args "--virtual-env" "~/python_env/Webanalytics-p9q6zuAU")
+     (jedi:server-args "--virtual-env" "~/MeilleursAgents/apps/Tools/.venv")
+     (pytest-binary . "~/MeilleursAgents/apps/Tools/.venv/bin/pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/TopOfTheListAPI/.venv")
+     (isort-binary . "/home/jpaille/TopOfTheListAPI/.venv/bin/isort")
+     (pytest-docker-args . "-p topofthelistapi-dev -f /home/jpaille/TopOfTheListAPI/docker-compose-dev.yml run --rm app pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/Thumbor/.venv")
+     (pytest-binary . "/home/jpaille/meilleursagents/apps/Thumbor/.venv/bin/pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/PdfAPI/.venv")
+     (isort-binary . "/home/jpaille/meilleursagents/apps/PdfAPI/.venv/bin/isort")
+     (pytest-binary . "/home/jpaille/meilleursagents/apps/PdfAPI/.venv/bin/pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/apps/SalesforceAPI/.venv")
+     (isort-binary . "/home/jpaille/meilleursagents/apps/SalesforceAPI/.venv/bin/isort")
+     (pytest-binary . "/home/jpaille/meilleursagents/apps/SalesforceAPI/.venv/bin/pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/MA-Flask-Common/.tox/onetest")
+     (pytest-binary . "/home/jpaille/MA-Flask-Common/.tox/onetest/bin/pytest")
+     (pytest-args . "-e onetest")
+     (pytest-binary . "/home/jpaille/.virtualenvs/tox/bin/tox")
+     (pytest-binary . "/home/jpaille/.virtualenvs/tox/bin/tox -e onetest")
+     (pytest-binary . "tox -e onetest")
+     (pytest-docker-args . "-p leadapi-dev -f /home/jpaille/LeadAPI/docker-compose-dev.yml run --rm app pytest")
      (pytest-binary . "docker-compose")
      (jedi:server-args "--virtual-env" "/home/jpaille/meilleursagents/tools/passerelles/.venv")
      (isort-binary . "/home/jpaille/meilleursagents/tools/passerelles/.venv/bin/isort")
@@ -248,7 +282,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(diredfl-flag-mark-line ((t (:foreground "yellow"))))
- '(smerge-refined-removed ((t (:inverse-video t)))))
+ '(smerge-lower ((t nil)))
+ '(smerge-refined-added ((t nil)))
+ '(smerge-refined-removed ((t (:inverse-video t))))
+ '(smerge-upper ((t nil))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -390,7 +427,7 @@
 
 ;; Default jedi server
 (setq jedi:server-args
-      '("--virtual-env" "/home/jpaille/meilleursagents/apps/MediaAPI/.venv")
+      '("--virtual-env" "~/MeilleursAgents/apps/MediaAPI/.venv")
       )
 
 ;; Restart a jedi server with local jedi:server-args (.dir-locals) arg to point to right venv.
@@ -705,7 +742,7 @@ e.g. Sunday, September 17, 2000."
     (interactive)                 ; permit invocation in minibuffer
     (insert (format-time-string "%A, %B %e, %Y")))
 
-(defvar *pomodoro-directory* "/home/jpaille/pomodoro_analyzer/pomodoro_files/")
+(defvar *pomodoro-directory* "~/pomodoro_analyzer/pomodoro_files/")
 
 (defun get-pomodoro-filename()
   (concat (format-time-string "%Y-%m-%d") ".txt"))
@@ -839,6 +876,16 @@ e.g. Sunday, September 17, 2000."
 )
 (add-hook 'c-mode-hook 'cc-custom-keys)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                JS MODE                             ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Bind typescript files to js-mode
+(add-to-list 'auto-mode-alist '("\\.ts$" . js-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx$" . js-mode))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                Move text                           ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -869,3 +916,4 @@ e.g. Sunday, September 17, 2000."
 ;; go inside a container fs  /docker:user@container:/path/to/file
 ;; debug elisp : M-x edebug-defun
 (put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)

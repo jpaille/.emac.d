@@ -30,13 +30,14 @@ It creates a comint interaction buffer, called `name', running
   (setq *last-test-args* args)
   (setq *last-python-interpreter* command)
   (ansi-color-for-comint-mode-on)
+;;  (message args)
   (apply 'make-comint name command nil args)
   (switch-to-buffer-other-window "*pytest*")
 )
 
-(setenv "IMAGE_TAG" "1.0.0-master")
-(setenv "APP_NAME" "leadapi")
-(make-comint "teso" "docker-compose" nil "-p" "leadapi-dev" "-f" "/home/jpaille/LeadAPI/docker-compose-dev.yml" "run" "--rm" "app" "pytest")
+(setenv "IMAGE_TAG" "1.0.0-b2b2-351_share_of_voice")
+(setenv "APP_NAME" "topofthelistapi")
+;;(make-comint "teso" "docker-compose" nil "-p" "leadapi-dev" "-f" "/home/jpaille/LeadAPI/docker-compose-dev.yml" "run" "--rm" "app" "pytest")
 
 ;;;;;;;;;;;; BUILD TEST STRING
 
