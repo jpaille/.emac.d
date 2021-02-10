@@ -182,10 +182,19 @@
    (quote
     (crystal-mode company-native-complete native-complete vterm magit terraform-mode sudo-edit php-mode move-text auto-complete-exuberant-ctags go-mode python-black doom-themes js2-mode yaml-mode git-link groovy-mode auto-complete highlight-quoted diredfl jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
  '(python-black-command "~/MeilleursAgents/apps/MediaAPI/.venv/bin/black")
- '(python-black-macchiato-command "~/.local/bin/black-macchiato")
+ '(python-black-macchiato-command "~/opt/pyenv/shims/black-macchiato")
  '(safe-local-variable-values
    (quote
-    ((jedi:server-args "--virtual-env" "/home/julien/meilleursagents/apps/MarketAPI/.venv")
+    ((jedi:server-args "--virtual-env" "/home/jpaille/Webanalytics/.venv")
+     (isort-binary . "/home/jpaille/Webanalytics/.venv/bin/isort")
+     (pytest-docker-args . "-p wa-dev -f /home/jpaille/Webanalytics/docker-compose-dev.yml run --rm app pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/WebAnalytics/.venv")
+     (isort-binary . "/home/jpaille/WebAnalytics/.venv/bin/isort")
+     (pytest-docker-args . "-p wa-dev -f /home/jpaille/WebAnalytics/docker-compose-dev.yml run --rm app pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/AgencyAPI/.venv")
+     (isort-binary . "/home/jpaille/AgencyAPI/.venv/bin/isort")
+     (pytest-docker-args . "-p agencyapi-dev -f /home/jpaille/AgencyAPI/docker-compose-dev.yml run --rm app pytest")
+     (jedi:server-args "--virtual-env" "/home/julien/meilleursagents/apps/MarketAPI/.venv")
      (isort-binary . "~/meilleursagents/apps/MarketAPI/.venv/bin/isort")
      (pytest-binary . "~/meilleursagents/apps/MarketAPI/.venv/bin/pytest")
      (jedi:server-args "--virtual-env" "~/meilleursagents/apps/Thumbor/.venv")
@@ -637,13 +646,48 @@
   (get-buffer-create "*shell*")
   (get-buffer-create "*oo*")
   (shell "*shell*")
-  (shell "*oo*"))
+  (shell "*oo*")
+  (shell "*rebond*")
+)
 (start-shells)
 
 ;; Start dotfiles in sh mode
 (add-to-list 'auto-mode-alist '("\\.bashrc$" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.localrc$" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.env$" . sh-mode))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                SSH-AGENT                                ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; restart ssh-agent
+(defun rs ()
+  (interactive)
+  (setq ssh-auth-sock  (shell-command-to-string "source /home/jpaille/reboot_ssh.sh ; reboot_ssh | grep ssh"))
+  (message ssh-auth-sock)
+  (setenv "SSH_AUTH_SOCK" ssh-auth-sock)
+  (my-term-send-string "*shell*" "exec bash")
+  (my-term-send-string "*oo*" "exec bash")
+  (my-term-send-string "*rebond*" "exec bash")
+  )
+
+;; helper for restart ssh
+(defun my-term-send-string (&optional buffer string)
+  "Send STRING to a shell process associated with BUFFER.
+By default, BUFFER is \"*terminal*\" and STRING is empty."
+  (let ((process (get-buffer-process (or buffer "*terminal*"))))
+    (when (process-live-p process)
+      (with-current-buffer (process-buffer process)
+        (let ((input (or string "")))
+          (cond ((derived-mode-p 'comint-mode)
+                 (insert input)
+                 (comint-send-input))
+                ((derived-mode-p 'term-mode)
+                 (term-send-string process input)
+                 (term-send-input))))))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                TODO                                     ;;
@@ -915,5 +959,6 @@ e.g. Sunday, September 17, 2000."
 ;; replay last test f9
 ;; go inside a container fs  /docker:user@container:/path/to/file
 ;; debug elisp : M-x edebug-defun
+;; term C-c C-j/C-c C-k
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
