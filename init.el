@@ -185,7 +185,9 @@
  '(python-black-macchiato-command "~/opt/pyenv/shims/black-macchiato")
  '(safe-local-variable-values
    (quote
-    ((jedi:server-args "--virtual-env" "/home/jpaille/Webanalytics/.venv")
+    ((app_name . "agencyapi")
+     (app_name . "wa")
+     (jedi:server-args "--virtual-env" "/home/jpaille/Webanalytics/.venv")
      (isort-binary . "/home/jpaille/Webanalytics/.venv/bin/isort")
      (pytest-docker-args . "-p wa-dev -f /home/jpaille/Webanalytics/docker-compose-dev.yml run --rm app pytest")
      (jedi:server-args "--virtual-env" "/home/jpaille/WebAnalytics/.venv")
@@ -666,7 +668,6 @@
 (defun rs ()
   (interactive)
   (setq ssh-auth-sock  (shell-command-to-string "source /home/jpaille/reboot_ssh.sh ; reboot_ssh | grep ssh"))
-  (message ssh-auth-sock)
   (setenv "SSH_AUTH_SOCK" ssh-auth-sock)
   (my-term-send-string "*shell*" "exec bash")
   (my-term-send-string "*oo*" "exec bash")
