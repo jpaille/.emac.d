@@ -180,12 +180,51 @@
  '(objed-cursor-color "#D83441")
  '(package-selected-packages
    (quote
-    (crystal-mode company-native-complete native-complete vterm magit terraform-mode sudo-edit php-mode move-text auto-complete-exuberant-ctags go-mode python-black doom-themes js2-mode yaml-mode git-link groovy-mode auto-complete highlight-quoted diredfl jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
+    (lua-mode indent-tools indent-guide origami highlight-indent-guides k8s-mode docker crystal-mode company-native-complete native-complete vterm magit terraform-mode sudo-edit php-mode move-text auto-complete-exuberant-ctags go-mode python-black doom-themes js2-mode yaml-mode git-link groovy-mode auto-complete highlight-quoted diredfl jedi dockerfile-mode docker-tramp bash-completion autopair yasnippet web-mode pkg-info multiple-cursors markdown-mode flycheck epl proceed)))
  '(python-black-command "~/MeilleursAgents/apps/MediaAPI/.venv/bin/black")
  '(python-black-macchiato-command "~/opt/pyenv/shims/black-macchiato")
  '(safe-local-variable-values
    (quote
-    ((app_name . "agencyapi")
+    ((app_name . "mailapi")
+     (pytest-docker-args . "-p mailapi-dev -f /home/jpaille/MailAPI/docker-compose-dev.yml run --rm app pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/MailAPI/.venv")
+     (isort-binary . "/home/jpaille/MailAPI/.venv/bin/isort")
+     (pytest-docker-args . "-p estimaapi-dev -f /home/jpaille/MailAPI/docker-compose-dev.yml run --rm app pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/MyProAPI/.venv")
+     (isort-binary . "/home/jpaille/MyProAPI/.venv/bin/isort")
+     (pytest-docker-args . "-p wa-dev -f /home/jpaille/MyProAPI/docker-compose-dev.yml run --rm app pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/<MyProAPI/.venv")
+     (isort-binary . "/home/jpaille/<MyProAPI/.venv/bin/isort")
+     (pytest-docker-args . "-p wa-dev -f /home/jpaille/<MyProAPI/docker-compose-dev.yml run --rm app pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/ProspectionMapAPI/.venv")
+     (isort-binary . "/home/jpaille/ProspectionMapAPI/.venv/bin/isort")
+     (pytest-docker-args . "-p prospectionmapapi-dev -f /home/jpaille/ProspectionMapAPI/docker-compose-dev.yml run --rm app pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/BarometreAPI/.venv")
+     (isort-binary . "/home/jpaille/BarometreAPI/.venv/bin/isort")
+     (pytest-docker-args . "-p estimaapi-dev -f /home/jpaille/BarometreAPI/docker-compose-dev.yml run --rm app pytest")
+     (pytest-docker-args . "-p estimaapi-dev -f /home/jpaille/LeadAPI/docker-compose-dev.yml run --rm app pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/EstimaAPI/.venv")
+     (isort-binary . "/home/jpaille/EstimaAPI/.venv/bin/isort")
+     (pytest-docker-args . "-p estimaapi-dev -f /home/jpaille/EstimaAPI/docker-compose-dev.yml run --rm app pytest")
+     (isort-binary . "/home/jpaille/meilleursagents/apps/Tools/.venv/bin/isort")
+     (jedi:server-args "--virtual-env" "/home/jpaille/UserAPI/.venv")
+     (isort-binary . "/home/jpaille/UserAPI/.venv/bin/isort")
+     (pytest-docker-args . "-p wa-dev -f /home/jpaille/UserAPI/docker-compose-dev.yml run --rm app pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/MarketAPI/.venv")
+     (isort-binary . "/home/jpaille/MarketAPI/.venv/bin/isort")
+     (pytest-binary . "/home/jpaille/MarketAPI/.venv/bin/pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/MyAccountAPI/.venv")
+     (isort-binary . "/home/jpaille/MyAccountAPI/.venv/bin/isort")
+     (pytest-docker-args . "-p wa-dev -f /home/jpaille/MyAccountAPI/docker-compose-dev.yml run --rm app pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/FeedbackAPI/.venv")
+     (app_name . "feedbackapi")
+     (isort-binary . "/home/jpaille/FeedbackAPI/.venv/bin/isort")
+     (pytest-docker-args . "-p feedbackapi-dev -f /home/jpaille/FeedbackAPI/docker-compose-dev.yml run --rm app pytest")
+     (jedi:server-args "--virtual-env" "/home/jpaille/SoldPropertyAPI/.venv")
+     (app_name . "soldpropertyapi")
+     (isort-binary . "/home/jpaille/SoldPropertyAPI/.venv/bin/isort")
+     (pytest-docker-args . "-p soldpropertyapi-dev -f /home/jpaille/SoldPropertyAPI/docker-compose-dev.yml run --rm app pytest")
+     (app_name . "agencyapi")
      (app_name . "wa")
      (jedi:server-args "--virtual-env" "/home/jpaille/Webanalytics/.venv")
      (isort-binary . "/home/jpaille/Webanalytics/.venv/bin/isort")
@@ -293,6 +332,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(diredfl-flag-mark-line ((t (:foreground "yellow"))))
+ '(highlight-indent-guides-even-face ((t (:background "color-18"))))
  '(smerge-lower ((t nil)))
  '(smerge-refined-added ((t nil)))
  '(smerge-refined-removed ((t (:inverse-video t))))
@@ -458,7 +498,7 @@
 
 ;; Import snippet
 (fset 'include
-   "import ipdb; ipdb.set_trace()")
+   "import pdb; pdb.set_trace()")
 (global-set-key (kbd "C-x i") 'include)
 
 ;; Move up to python context.
@@ -574,6 +614,22 @@
 (define-key magit-hunk-section-map (kbd "RET") 'magit-diff-visit-worktree-file)
 
 
+;; original
+
+(defun pr ()
+  "Visit the current branch's PR on Github."
+  (interactive)
+  (setq git-url
+   (format "https://github.com/%s/pull/new/%s"
+           (replace-regexp-in-string
+            "\\`.+github\\.com:\\(.+\\)\\.git\\'" "\\1"
+            (magit-get "remote"
+                       (magit-get-push-remote)
+                       "url"))
+           (magit-get-current-branch)))
+  (message git-url)
+  )
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                GREP                                     ;;
@@ -609,6 +665,25 @@
 ))
 (global-set-key [f12] 'auto-insert)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                TERM                                     ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; (define-key term-mode-map (kbd "M-p") 'move_fast_up)
+;; (define-key term-mode-map (kbd "M-n") 'move_fast_down)
+
+;; (defun jnm/term-toggle-mode ()
+;;   "Toggles term between line mode and char mode"
+;;   (interactive)
+;;   (if (term-in-line-mode)
+;;       (term-char-mode)
+;;     (term-line-mode)))
+
+;; (define-key term-mode-map (kbd "C-c C-j") 'jnm/term-toggle-mode)
+;; (define-key term-mode-map (kbd "C-c C-k") 'jnm/term-toggle-mode)
+
+;; (define-key term-raw-map (kbd "C-c C-j") 'jnm/term-toggle-mode)
+;; (define-key term-raw-map (kbd "C-c C-k") 'jnm/term-toggle-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                SHELL                                    ;;
@@ -947,6 +1022,39 @@ e.g. Sunday, September 17, 2000."
 ;(global-set-key  (kbd "M-o") 'move-text-up)
 ;(global-set-key  (kbd "M-m") 'move-text-down)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                GO tpl                              ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(load-file "/home/jpaille/.emacs.d/my_packages/go-template-mode.el")
+(require 'go-template-mode)
+(add-to-list 'auto-mode-alist '("\\.tpl\\'" . go-template-mode))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                GO                                  ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq gofmt-command "goimports")
+(add-hook 'before-save-hook 'gofmt-before-save)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                YAML                                ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+(require 'indent-guide)
+(add-to-list 'auto-mode-alist '("\\.yaml\\'" . indent-guide-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                GOLANG                              ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(defun godef-custom-keys ()
+  (local-set-key (kbd "C-x p") 'godef-jump)
+  (local-set-key (kbd "C-x ]") 'jedi:goto-definition-pop-marker)
+)
+(add-hook 'go-mode-hook 'godef-custom-keys)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                USEFULL COMMANDS/BINDINGS           ;;
@@ -960,6 +1068,16 @@ e.g. Sunday, September 17, 2000."
 ;; replay last test f9
 ;; go inside a container fs  /docker:user@container:/path/to/file
 ;; debug elisp : M-x edebug-defun
+;; json-reformat-region
 ;; term C-c C-j/C-c C-k
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+
+(setq highlight-indent-guides-method 'character)
+
+(add-hook 'yaml-mode-hook 'setup-guides-method)
+
+(defun setup-guides-method ()
+(indent-guide-mode))
+
+
